@@ -3,7 +3,6 @@ import css from "./Sidebar.module.scss"
 
 import React, { useState } from "react";
 
-
 import {
   ProSidebar,
   Menu,
@@ -12,7 +11,6 @@ import {
   SidebarFooter,
   SidebarContent,
 } from "react-pro-sidebar";
-
 
 import { FaList, FaRegHeart } from "react-icons/fa";
 import { FiHome, FiLogOut, FiArrowLeftCircle, FiArrowRightCircle } from "react-icons/fi";
