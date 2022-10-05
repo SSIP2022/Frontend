@@ -53,9 +53,9 @@ const Sidebar = (props) => {
           <div className="logotext">
             <p>
                 {menuCollapse ? <div className={css.container}>
-                  <img className={css.img} src="/logo.png" alt="AMC LOGO"/></div>:
+                  <img className={css.img} src="/logo.jpg" alt="AMC LOGO"/></div>:
                   <div className={css.container}>
-                <img className={css.img} src="/logo.png" alt="AMC LOGO"/>
+                <img className={css.img} src="/logo.jpg" alt="AMC LOGO"/>
                 <span className={css.name}>Ahmedabad Municipal Corporation</span>
                 </div>}
             </p>
