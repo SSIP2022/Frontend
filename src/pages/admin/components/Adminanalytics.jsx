@@ -1,34 +1,33 @@
 import React from "react";
-import complaints from "../../../styles/Complaints.module.scss"
+import Analyticscss from "../../../styles/Analytics.module.scss"
 import LineChart from "./Linechart";
 
-const Complaints = ()=>{
+const Analytics = ()=>{
     return(
-        <><h1>Comming Soon</h1>
-        {/* <h1>dnsjandkjsnakjdnkjsnakjndsjksadsdsads</h1>
-        <div className={complaints.navbarContainer}>
-            <h2 className={complaints.navbar}>Dashboard</h2>
-            <div className={complaints.chartwrapper}>
-                <div className={complaints.chartbox}>
+        <>
+        <div className={Analyticscss.navbarContainer}>
+            <h2 className={Analyticscss.navbar}>Dashboard</h2>
+            <div className={Analyticscss.chartwrapper}>
+                <div className={Analyticscss.chartbox}>
                     <LineChart/>
                 </div>
-                <div className={complaints.chartbox2}>
+                <div className={Analyticscss.chartbox2}>
                     Statistics
-                    <div className={complaints.innerbox}>
-                        Total Complaints Solved
+                    <div className={Analyticscss.innerbox}>
+                        Total Analyticscss Solved
                         <br/>
-                        <span className={complaints.solved}>32</span>
+                        <span className={Analyticscss.solved}>32</span>
                     </div>
-                    <div className={complaints.innerbox}>
-                        Total Complaints
+                    <div className={Analyticscss.innerbox}>
+                        Total Analyticscss
                         <br/><br/>
-                        <span className={complaints.unsolved}>128</span>
+                        <span className={Analyticscss.unsolved}>128</span>
                     </div>
                 </div>
             </div>
-        </div> */}
+        </div>
         </>
     )
 }
 
-export default Complaints;
+export default Analytics;

@@ -1,27 +1,44 @@
-import React from "react";
-import { Line } from "react-chartjs-2";
-import chart from "../../../styles/Chart.module.scss";
+import React, { Component } from "react";
+import Chart from "react-apexcharts";
 
-const labels = ["January", "February", "March", "April", "May", "June"];
+class App extends Component {
+  constructor(props) {
+    super(props);
 
-const data = {
-  labels: labels,
-  datasets: [
-    {
-      label: "Complaints",
-      backgroundColor: "rgb(80, 106, 112)",
-      borderColor: "rgb(80, 106, 112)",
-      data: [0, 10, 5, 2, 20, 30, 45],
-    },
-  ],
-};
+    this.state = {
+      options: {
+        chart: {
+          id: "basic-bar"
+        },
+        xaxis: {
+          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+        }
+      },
+      series: [
+        {
+          name: "series-1",
+          data: [30, 40, 45, 50, 49, 60, 70, 91]
+        }
+      ]
+    };
+  }
 
-const LineChart = () => {
-  return (
-    <div className={chart.container}>
-      <Line data={data} />
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className="app">
+        <div className="row">
+          <div className="mixed-chart">
+            <Chart
+              options={this.state.options}
+              series={this.state.series}
+              type="line"
+              width="800"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  }
+}
 
-export default LineChart;
+export default App;

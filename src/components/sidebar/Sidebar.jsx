@@ -1,5 +1,5 @@
 import css from "./Sidebar.module.scss"
-
+import { Link } from "react-router-dom";
 import React, { useState } from "react";
 
 import {
@@ -15,6 +15,7 @@ import { FiHome, FiLogOut} from "react-icons/fi";
 import {IoIosArrowForward,IoIosArrowBack} from "react-icons/io"
 import "react-pro-sidebar/dist/css/styles.css";
 import "./Headers.scss";
+import { Router } from "react-router-dom";
 
 
 const Sidebar = (props) => {
@@ -40,7 +41,7 @@ const Sidebar = (props) => {
     })
 
     setActivewin(letsee);
-
+    
     console.log("Clicked" + index)
     console.log(activewin)
   }
@@ -73,13 +74,19 @@ const Sidebar = (props) => {
           <SidebarContent>
             <Menu iconShape="square">
               {props.catagories.map((e,index)=>{
-                return(<div key={index} onClick={(e)=>onclick(e,index)}><MenuItem active= {activewin[index]}icon={e.logos}>{e.detail}</MenuItem></div>)
+                return(
+                  <div key={index} onClick={(e)=>onclick(e,index)}>
+                      <MenuItem active= {activewin[index]}icon={e.logos}>{e.detail}
+                        <Link key={index} to={`${e.root}/${e.detail.toLowerCase()}`}/>
+                      </MenuItem>
+                  </div>
+                )
               })}
             </Menu>
           </SidebarContent>
           <SidebarFooter>
             <Menu iconShape="square">
-              <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+              <MenuItem icon={<FiLogOut/>}>Logout</MenuItem>
             </Menu>
           </SidebarFooter>
         </ProSidebar>
