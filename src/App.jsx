@@ -7,12 +7,16 @@ import User from "./pages/user";
 import Department from "./pages/department";
 import Complaints from "./pages/admin/components/Adminanalytics";
 import UserAnalytics from "./pages/user/components/UserAnalytics";
+import Login from "./pages/login";
+import Register from "./pages/register";
 
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<Root />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/user" element={<User />}>
           <Route path="analytics" element={<UserAnalytics />} />
         </Route>
