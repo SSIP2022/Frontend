@@ -1,9 +1,22 @@
-import React from 'react'
+import React from "react";
 
 function Login() {
   return (
-    <div>Login</div>
-  )
+    <div className="formWrapper">
+      <form>
+        <label htmlFor="username">Email:</label>
+        <input
+          type="text"
+          id="username"
+          // ref={userRef}
+          // autoComplete="off"
+          // onChange={(e) => setUser(e.target.value)}
+          // value={user}
+          required
+        />
+      </form>
+    </div>
+  );
 }
 
-export default Login
+export default Login;
