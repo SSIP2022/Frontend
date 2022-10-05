@@ -1,0 +1,117 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,900;1,700&display=swap");
+
+:root {
+  /* Global Color variable */
+  --darkBlackColor: rgb(25, 26, 30);
+  --blackColor: rgb(35, 36, 41);
+  --grayColor: rgb(239, 241, 237);
+  --whiteColor: rgb(255, 254, 254);
+  --goldColor: #c59c35;
+  --yellowColor: rgb(255, 152, 1);
+  --brownColor: rgb(172, 147, 100);
+  --blueColor: rgb(57, 62, 73);
+  --cardContainerColor: rgb(239, 234, 234);
+  --cardBackgroundColor: rgb(168, 208, 221);
+  --cardBorderColor: rgb(123, 123, 161);
+  --lightBlueColor: #f5f8fd;
+
+  /* global Variable */
+  --headingFont: 2rem;
+  --subHeadingFont: 1.2rem;
+  --textFont: 0.9rem;
+  --smallFont: 0.6rem;
+  /*component Color variable */
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    width: 100%;
+    font-family: "Poppins", sans-serif;
+  }
+  h2 {
+    font-size: var(--headingFont);
+  }
+  h3 {
+    font-size: var(--subHeadingFont);
+  }
+  h4,
+  p {
+    font-size: var(--textFont);
+  }
+  
+  a {
+    font-weight: 600;
+    text-decoration: none;
+    color: #000;
+    &:hover {
+      color: #000;
+    }
+  }
+  
+  button{
+    padding: 8px 15px;
+    font-size: clamp(14px,3vw,16px);
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    cursor: pointer;
+  }
+  
+  input[type="text"]:disabled {
+    outline:none;
+    border: none;
+    background-color: var(--lightBlueColor);
+    padding: 10px ;
+    margin: 10px ;
+  }
+
+  .formWrapper {
+    background-color: var(--lightBlueColor);
+    display: flex;
+    justify-content: center;
+    input,
+    select,
+    textarea {
+      width: 95%;
+      margin: 3px 2.5% 16px 2.5%;
+      outline: 1px solid black;
+      padding: 8px;
+      border-radius: 5px;
+      border: none;
+      font-size: 18px;
+      &:focus {
+        outline: 2px solid black;
+      }
+    }
+    label {
+      width: 95%;
+      margin: 0 2.5% 0 2.5%;
+      display: block;
+    }
+    form {
+      margin: 30px 0;
+      padding: 20px 10px;
+      background-color: #fff;
+      width: clamp(250px, 90%, 500px);
+      border-radius: 6px;
+    }
+    button {
+      font-weight: 600;
+      border: none;
+      border-radius: 5px;
+      padding: 15px;
+      color: white;
+      background-color: #2e3138;
+      width: 95%;
+      margin: 10px 2.5%;
+      cursor: pointer;
+      font-size: 18px;
+    }
+  }
