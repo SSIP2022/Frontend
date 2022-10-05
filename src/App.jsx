@@ -9,6 +9,7 @@ import Complaints from "./pages/admin/components/Adminanalytics";
 import UserAnalytics from "./pages/user/components/UserAnalytics";
 import Login from "./pages/login";
 import Register from "./pages/register";
+import Complain from "./pages/admin/components/Complain";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
 
         <Route path="/admin" element={<Admin />}>
           <Route path="analytics" element={<Complaints/>}/>
+          <Route path="complaint" element={<Complain/>}/>
         </Route>
       </Routes>
     </>
