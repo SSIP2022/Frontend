@@ -1,7 +1,6 @@
 import React from "react";
-import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
-import chart from "./chart.module.scss";
+import chart from "../../../styles/Chart.module.scss";
 
 const labels = ["January", "February", "March", "April", "May", "June"];
 
