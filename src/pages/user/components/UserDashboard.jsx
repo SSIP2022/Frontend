@@ -6,6 +6,7 @@ const UserDashboard = ()=>{
     return(
         <>
         <div className={user.main}>
+          
           <h2 className={user.title}>Complaints</h2>
 
           <div className={user.allcomplaints}>

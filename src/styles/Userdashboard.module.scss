@@ -119,3 +119,27 @@
     left: 40px;
     display: inline;  
   }
+  .header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+    background-color: #d5e4e6;
+    height: 60px;
+    border-radius: 19px;
+  }
+  .photo{
+    position: relative;
+    width: 44px;
+    height: 46px;
+    border-radius: 50px;
+    // right: 90px;
+  }
+  .name{
+    margin:0px 10px 0px 10px;
+    position:relative;
+    font-weight: bold;
+    // right: 25px;
+  }
