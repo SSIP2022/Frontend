@@ -1,4 +1,3 @@
-import logo from "./logo.jpg";
 import css from "./Sidebar.module.scss"
 
 import React, { useState } from "react";
@@ -27,6 +26,25 @@ const Sidebar = (props) => {
     menuCollapse ? setMenuCollapse(false) : setMenuCollapse(true);
   };
 
+  const [activewin,setActivewin] = useState([false,false,false,false]);
+   
+  const onclick = (e,index)=>{
+    const letsee = activewin.map((e,i)=>{
+      if(i===index)
+      {
+        return true;
+      }
+      else{
+        return false;
+      }
+    })
+
+    setActivewin(letsee);
+
+    console.log("Clicked" + index)
+    console.log(activewin)
+  }
+
   return (
     <>
       <div id="header">
@@ -35,9 +53,9 @@ const Sidebar = (props) => {
           <div className="logotext">
             <p>
                 {menuCollapse ? <div className={css.container}>
-                  <img className={css.img} src={logo} alt="AMC LOGO"/></div>:
+                  <img className={css.img} src="/logo.png" alt="AMC LOGO"/></div>:
                   <div className={css.container}>
-                <img className={css.img} src={logo} alt="AMC LOGO"/>
+                <img className={css.img} src="/logo.png" alt="AMC LOGO"/>
                 <span className={css.name}>Ahmedabad Municipal Corporation</span>
                 </div>}
             </p>
@@ -54,11 +72,8 @@ const Sidebar = (props) => {
           </SidebarHeader>
           <SidebarContent>
             <Menu iconShape="square">
-              <MenuItem active={true} icon={<FiHome />}>
-                Home
-              </MenuItem>
-              {props.catagories.map((e)=>{
-                return(<MenuItem icon={e.logos}>{e.detail}</MenuItem>)
+              {props.catagories.map((e,index)=>{
+                return(<div key={index} onClick={(e)=>onclick(e,index)}><MenuItem active= {activewin[index]}icon={e.logos}>{e.detail}</MenuItem></div>)
               })}
             </Menu>
           </SidebarContent>
