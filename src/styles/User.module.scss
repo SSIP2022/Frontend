@@ -1,0 +1,121 @@
+.container {
+    display: flex;
+    flex-direction: row;
+  }
+  .main {
+    display: flex;
+    flex-direction: column;
+    height: min-content;
+    max-width: fit-content;
+    padding: 20px;
+  }
+  .complaints {
+      position: relative;
+      display: flex;
+      flex-direction: row;
+    min-width: 334px;
+    height: 157px;
+    margin-top: 10px;
+    margin-right: 10px;
+    // left: 15vw;
+  //   top: 163px;
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 19px;
+  }
+  .allcomplaints {
+    margin: 10px;
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  .progresscircle{
+    position: absolute;
+    padding: 0;
+    width: 10px;
+    height: 10px;
+    top: 25px;
+    left: 20px;
+    background: #3A67E3;
+    border-radius: 50%;
+    margin: 0;
+  }
+  .rejectcircle{
+    position: absolute;
+    padding: 0;
+    width: 10px;
+    height: 10px;
+    top: 25px;
+    left: 20px;
+    background: #FF0000;
+    border-radius: 50%;
+    margin: 0;
+  }
+  
+  .resolvedcircle{
+    position: absolute;
+    padding: 0;
+    width: 10px;
+    height: 10px;
+    top: 25px;
+    left: 20px;
+    background: #3ae34b;
+    border-radius: 50%;
+    margin: 0;
+  }
+  .text1{
+      position: absolute;
+      top: 20px;
+      left: 40px;
+      display: inline;
+  }
+  .text2{
+    font-weight: bold;
+    position: absolute;
+    top: 50px;
+    left: 90px;
+    display: inline;
+  }
+  .text3{
+    position: absolute;
+    top: 80px;
+    left: 90px;
+    display: inline;
+  }
+  .token{
+    color: #9f9f9f;
+    position: absolute;
+    top: 20px;
+    right:20px;
+    display: inline;
+  }
+  .rate{
+    position: absolute;
+    bottom: 20px;
+    left:40px;
+    display: inline;
+  }
+  .cImage{
+    position: absolute;
+  width: 44px;
+  height: 46px;
+  left: 41px;
+  top: 50px;
+  
+  border-radius: 7px;
+  }
+  .withdraw{
+    color: #3A67E3;
+    position: absolute;
+    top: 120px;
+    left: 40px;
+    display: inline;  
+  }
+  .reopen{
+    color: #3A67E3;
+    position: absolute;
+    top: 120px;
+    left: 40px;
+    display: inline;  
+  }
