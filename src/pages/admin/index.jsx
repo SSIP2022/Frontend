@@ -13,9 +13,9 @@ const Admin = ()=>{
         <Sidebar 
         catagories={
         [
-            {detail:"Complaints",logos:<BsClipboardData />},
-            {detail:"Analytics",logos:<AiFillPieChart />},
-            {detail:"Profile",logos:<MdOutlineAccountCircle />}
+            { root:"/admin", detail:"Complaints",logos:<BsClipboardData />},
+            { root:"/admin", detail:"Analytics",logos:<AiFillPieChart />},
+            { root:"/admin", detail:"Profile",logos:<MdOutlineAccountCircle />}
         ]
         }
         />
