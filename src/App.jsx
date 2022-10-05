@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Admin from "./components/admin/Admin";
+import Admin from "./pages/admin/index";
 import "./App.scss";
 import Root from "./pages/root";
 import User from "./pages/user";
@@ -21,9 +21,7 @@ function App() {
           <Route path="analytics" element={<UserAnalytics />} />
         </Route>
         <Route path="/department" element={<Department />} />
-        <Route path="/admin" element={<Admin />}>
-          <Route path="analytics" element={<AdminAnalytics />} />
-        </Route>
+        <Route path="/admin" element={<Admin />}/>
       </Routes>
     </>
   );
