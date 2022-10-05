@@ -73,7 +73,7 @@
   }
 
   .formWrapper {
-    background-color: var(--lightBlueColor);
+    background-color: var(--blueColor);
     display: flex;
     justify-content: center;
     input,
@@ -101,6 +101,7 @@
       background-color: #fff;
       width: clamp(250px, 90%, 500px);
       border-radius: 6px;
+   
     }
     button {
       font-weight: 600;

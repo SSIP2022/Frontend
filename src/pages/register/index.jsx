@@ -28,7 +28,7 @@ function Register() {
         />
         <label htmlFor="username">📱 Mobile Number</label>
         <input
-          type="text"
+          type="number"
           id="mobilenumber"
           // ref={userRef}
           // autoComplete="off"
@@ -64,8 +64,10 @@ function Register() {
           <option>👩🏻 Female</option>
           <option>Other</option>
         </select>
+        
 
-        <label htmlFor="username">🏙️ District</label>
+        
+        <label htmlFor="username">🔢 Pincode</label>
         <input
           type="text"
           id="username"
@@ -75,6 +77,7 @@ function Register() {
           // value={user}
           required
         />
+        
 
         <label htmlFor="username">🌐 Area</label>
         <input
@@ -87,7 +90,7 @@ function Register() {
           required
         />
 
-        <label htmlFor="username">City</label>
+        <label htmlFor="username">🏙️ District</label>
         <input
           type="text"
           id="username"
@@ -98,16 +101,8 @@ function Register() {
           required
         />
 
-        <label htmlFor="username">🔢 Pincode</label>
-        <input
-          type="text"
-          id="username"
-          // ref={userRef}
-          // autoComplete="off"
-          // onChange={(e) => setUser(e.target.value)}
-          // value={user}
-          required
-        />
+
+
         <button>Register</button>
       </form>
     </div>
