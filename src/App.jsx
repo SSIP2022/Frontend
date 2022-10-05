@@ -5,7 +5,7 @@ import "./App.scss";
 import Root from "./pages/root";
 import User from "./pages/user/index";
 import Department from "./pages/department";
-import AdminAnalytics from "./pages/admin/components/AdminAnalytics";
+import Complaints from "./pages/admin/components/Adminanalytics";
 import UserAnalytics from "./pages/user/components/UserAnalytics";
 import Login from "./pages/login";
 import Register from "./pages/register";
@@ -21,7 +21,10 @@ function App() {
           <Route path="analytics" element={<UserAnalytics />} />
         </Route>
         <Route path="/department" element={<Department />} />
-        <Route path="/admin" element={<Admin />}/>
+
+        <Route path="/admin" element={<Admin />}>
+          <Route path="analytics" element={<Complaints/>}/>
+        </Route>
       </Routes>
     </>
   );

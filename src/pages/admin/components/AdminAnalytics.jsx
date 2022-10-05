@@ -4,7 +4,8 @@ import LineChart from "./Linechart";
 
 const Complaints = ()=>{
     return(
-        <>
+        <><h1>Comming Soon</h1>
+        {/* <h1>dnsjandkjsnakjdnkjsnakjndsjksadsdsads</h1>
         <div className={complaints.navbarContainer}>
             <h2 className={complaints.navbar}>Dashboard</h2>
             <div className={complaints.chartwrapper}>
@@ -25,7 +26,7 @@ const Complaints = ()=>{
                     </div>
                 </div>
             </div>
-        </div>
+        </div> */}
         </>
     )
 }
