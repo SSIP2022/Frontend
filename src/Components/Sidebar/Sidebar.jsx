@@ -15,7 +15,7 @@ import {
 import { FiHome, FiLogOut} from "react-icons/fi";
 import {IoIosArrowForward,IoIosArrowBack} from "react-icons/io"
 import "react-pro-sidebar/dist/css/styles.css";
-import "./Header.scss";
+import "./Headers.scss";
 
 
 const Sidebar = (props) => {
