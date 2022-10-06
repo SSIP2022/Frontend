@@ -3,6 +3,8 @@ import firebase from "firebase/app";
 import "firebase/auth";
 import { baseURL } from '../../config/config';
 
+let temp = "";
+
 const Login= (props)=> {
   const [viewOtpForm, setViewOtpForm] = useState(false);
   const [mynumber, setnumber] = useState("");
@@ -17,8 +19,6 @@ const Login= (props)=> {
     messagingSenderId: "981917289800",
     appId: "1:981917289800:web:7ef7ba8c74a2d3c65ef77d"
   };
-
-
 
   useEffect(() => {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
@@ -53,7 +53,7 @@ const Login= (props)=> {
 
     
     let phone_number = "+91" + e.target.phone.value;
-    console.log(e.target.phone.value);
+    temp = e.target.phone.value;
     console.log("baseURL:", baseURL);
     const response = await fetch (baseURL + "/user/check-login",{
       method:"POST",
@@ -98,7 +98,7 @@ const Login= (props)=> {
         console.log(confirmationResult);
         console.log("success");
         props.check(true)
-        localStorage.setItem("token",e.target.phone.value)
+        localStorage.setItem("token",temp)
       })
       .catch((error) => {
         alert(error.message);
