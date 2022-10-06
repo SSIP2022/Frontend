@@ -7,7 +7,6 @@
     flex-direction: column;
     height: min-content;
     max-width: fit-content;
-    padding: 20px;
   }
   .complaints {
       position: relative;
@@ -16,7 +15,7 @@
     min-width: 334px;
     height: 157px;
     margin-top: 10px;
-    margin-right: 10px;
+    margin-right: 20px;
     // left: 15vw;
   //   top: 163px;
     background: #ffffff;
@@ -29,6 +28,7 @@
     max-width: 100%;
     flex-wrap: wrap;
     flex-direction: row;
+    
   }
   .progresscircle{
     position: absolute;
@@ -127,8 +127,7 @@
     justify-content: flex-end;
     margin-bottom: 20px;
     background-color: #d5e4e6;
-    height: 60px;
-    border-radius: 19px;
+    height: 73px;
   }
   .photo{
     position: relative;
@@ -142,4 +141,9 @@
     position:relative;
     font-weight: bold;
     // right: 25px;
+  }
+  .wrapper{
+    display: flex;
+    flex-direction: column;
+    padding-left: 5%;
   }
