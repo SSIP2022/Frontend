@@ -1,7 +1,58 @@
 .select{
     width: 500px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin: 10px 0px;
+    font-size: 16px;
+    outline: none;
+    background-color: #d5e4e6;
+    color: #000;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+
 }
+.select option{
+    background-color: white;
+}
+option {
+    width: 250px;
+  }
 .description{
     height: 50px;
     width: 500px;
+}
+.card{
+
+    background: #ffffff;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 19px;
+    padding: 20px;
+}
+.container{ 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.label{
+    font-size: 20px;
+    font-weight: 500;
+    color: #000000;
+    margin-bottom: 10px;
+}
+h4{
+    padding: 10px 0px;
+}
+.submit{
+    width: 500px;
+}
+.file{
+    width:500px;
+}
+.main{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
 }
