@@ -6,7 +6,10 @@ const UserDashboard = ()=>{
     return(
         <>
         <div className={user.main}>
-          
+          <header className={user.header}>
+            <img className={user.photo} src="/logo.jpg" alt="profile"/>
+            <div className={user.name}>Dojetobhai Limdiwala</div>
+          </header>
           <h2 className={user.title}>Complaints</h2>
 
           <div className={user.allcomplaints}>
