@@ -78,3 +78,39 @@
 		text-align: left;
 	}
 }
+
+.modalimg{
+    width: 150px;
+    border-radius: 10px;
+}
+
+.modalwrapper{
+    display: flex;
+    padding: 10px;
+}
+
+.details{
+    padding-left: 30px;
+}
+
+.imgwrapper{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h4 span {
+    color: rgb(0, 0, 0);
+}
+
+h4{
+    padding: 5px;
+}
+
+.decs{
+    font-weight: normal;
+}
+.decs span{
+    font-weight: 1000;
+}
