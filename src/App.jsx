@@ -56,17 +56,26 @@ function App() {
       <Routes>
         <Route path="/login" element={!isAuthenticated?<Login check={setAuth} /> : <Navigate to={`/user/registercomplaint`}/>}/>
         <Route path="/register" element={!isAuthenticated?<Register/> : <Navigate to={`/login`}/>}/>
-        <Route path="/user" element={<User/>}>
-          <Route path="dashboard" element={<UserDashboard />} />
-          <Route path="profile" element={<UserProfile />} />
-          <Route path="registercomplaint" element={<RegisterComplaint />} />
+        <Route path="/user" 
+          element={isAuthenticated?<User/>:
+          <Navigate to={`/login`}/>}>
+          <Route path="dashboard" 
+            element={isAuthenticated?    <UserDashboard/> :   <Navigate to={`/login`}/>}/>
+          <Route path="profile" 
+            element={isAuthenticated?<UserProfile/> : <Navigate   to={`/login`}/>}/>
+          <Route path="registercomplaint" 
+            element={isAuthenticated?<RegisterComplaint/> :   <Navigate to={`/login`}/>}/>
         </Route>
         <Route path="/department" element={<Department />} />
 
-        <Route path="/admin" element={<Admin />}>
-          <Route path="analytics" element={<Adminanalytics/>}/>
-          <Route path="complaints" element={<Complaints/>}/>
-          <Route path="profile" element={<Profile/>}/>
+        <Route path="/admin" element={isAuthenticated?<Admin/>:
+          <Navigate to={`/login`}/>}>
+          <Route path="analytics" element={isAuthenticated?<Adminanalytics/>:
+          <Navigate to={`/login`}/>}/>
+          <Route path="complaints" element={isAuthenticated?<Complaints/>:
+          <Navigate to={`/login`}/>}/>
+          <Route path="profile" element={isAuthenticated?<Profile/>:
+          <Navigate to={`/login`}/>}/>
         </Route>
       </Routes>
       <Toaster />
