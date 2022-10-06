@@ -1,9 +1,16 @@
 import React from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
+import user from "../../../styles/Userdashboard.module.scss"
+
 import Button from "../../../components/button";
 const RegisterComplaint = () => {
   return (
     <>
+      <div className={form.main}>
+    <header className={user.header}>
+                <img className={user.photo} src="/logo.jpg" alt="profile"/>
+                <div className={user.name}>Dojetobhai Limdiwala</div>
+            </header>
       <div className={form.container}>
         <form className={form.card}>
           <label className={form.label}>
@@ -609,6 +616,7 @@ const RegisterComplaint = () => {
             />
           </label>
         </form>
+      </div>
       </div>
     </>
   );
