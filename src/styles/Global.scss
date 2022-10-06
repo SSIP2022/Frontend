@@ -73,11 +73,12 @@
   }
 
   .formWrapper {
-    background-color: var(--blueColor);
+    background-color: rgb(231, 236, 237);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    height: 722px;
     input,
     select,
     textarea {
@@ -122,3 +123,10 @@
       margin: 10px;
     }
   }
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none; 
+}
