@@ -1,15 +1,21 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Admin from "./pages/admin/index";
 import "./App.scss";
 import Root from "./pages/root";
-import User from "./pages/user/index";
 import Department from "./pages/department";
-import Complaints from "./pages/admin/components/Adminanalytics";
-import UserAnalytics from "./pages/user/components/UserAnalytics";
 import Login from "./pages/login";
 import Register from "./pages/register";
 import Complain from "./pages/admin/components/Complain";
+
+import Admin from "./pages/admin/index";
+import Adminanalytics from "./pages/admin/components/Adminanalytics";
+import Profile from "./pages/admin/components/Profile";
+import Complaints from "./pages/admin/components/Complaint";
+
+import User from "./pages/user/index";
+import UserProfile from "./pages/user/components/Profile";
+import RegisterComplaint from "./pages/user/components/RegisterComplaint";
+import UserDashboard from "./pages/user/components/UserDashboard";
 
 function App() {
   return (
@@ -19,7 +25,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/user" element={<User />}>
-          <Route path="analytics" element={<UserAnalytics />} />
+          <Route path="dashboard" element={<UserDashboard />} />
+          <Route path="profile" element={<UserProfile />} />
+          <Route path="registercomplaint" element={<RegisterComplaint />} />
         </Route>
         <Route path="/department" element={<Department />} />
 
