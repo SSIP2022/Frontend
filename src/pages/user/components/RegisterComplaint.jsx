@@ -1,7 +1,7 @@
 import React from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
 import user from "../../../styles/Userdashboard.module.scss"
-
+import {FiUpload} from "react-icons/fi";
 import Button from "../../../components/button";
 const RegisterComplaint = () => {
   return (
@@ -18,7 +18,7 @@ const RegisterComplaint = () => {
             <input
               type="text"
               name="problem"
-              placeholder="Enter description"
+              placeholder=" Enter description"
               className={form.description}
             />
             <h4>Problem :</h4>
@@ -513,7 +513,7 @@ const RegisterComplaint = () => {
             <input
               type="text"
               name="problem"
-              placeholder="Enter description"
+              placeholder=" Enter description"
               className={form.description}
             />
           </label>
@@ -582,7 +582,7 @@ const RegisterComplaint = () => {
             <input
               type="text"
               name="address"
-              placeholder="Your Address"
+              placeholder=" Your Address"
               className={form.description}
             />
           </label>
@@ -591,29 +591,33 @@ const RegisterComplaint = () => {
             <input
               type="number"
               name="name"
-              placeholder="Contact"
+              placeholder=" Contact"
               minLength={10}
               className={form.description}
             />
           </label>
-          <label>
+          {/* <label> */}
             <h4>Upload Image:</h4>
-            <Button
-              text="Choose file"
-              bgcolor="#d5e4e6"
-              type="file"
-              className={form.file}
-            />
+            {/* <input type="file" id="file" aria-label="File browser example"/>
+  <span class="file-custom"/> */}
             {/* <input type="file" name="file" className={form.file} /> */}
-          </label>
+
+          {/* </label> */}
+          {/* <div className={form.choose}> */}
+
+          <input type="file" name="file" id="file" className={form.file} />
+          <label for="file"><FiUpload/> Choose a file</label>
+          {/* </div> */}
+          <div></div>
           <label>
-            <div></div>
+            <input type="submit" value="Submit" className={form.select} />
+            {/* <div></div>
             <Button
               text="Submit"
               bgcolor="#d5e4e6"
               type="submit"
               className={form.submit}
-            />
+            /> */}
           </label>
         </form>
       </div>

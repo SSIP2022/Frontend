@@ -10,8 +10,9 @@ const UserProfile = () => {
           <img src="/userphoto.png"/>
         </div>
         <h1 className={userprofile.name}>
-          <span className={userprofile.firstname}>Priyanshu</span>
-          <span className={userprofile.lastname}> Patel</span>
+          <span className={userprofile.firstname}>Dojetobhai</span>
+          <span> </span>
+          <span className={userprofile.lastname}>Limdiwala</span>
         </h1>
         <p className={userprofile.email}>
           Email : <span>patelpriysnshu2410@gmail.com</span>
@@ -26,7 +27,7 @@ const UserProfile = () => {
           Gender : <span>Male</span>
         </p>
         <p className={userprofile.pincord}>
-          pincord : <span>393010</span>
+          Pincode : <span>393010</span>
         </p>
         <p className={userprofile.area}>
           Area : <span>vv nagar</span>
