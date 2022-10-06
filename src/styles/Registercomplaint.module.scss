@@ -50,9 +50,26 @@ h4{
 }
 .file{
     width:500px;
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
+.file + label {
+    width: 500px;
+    background-color: rgb(212, 212, 212);
+    display: inline-block;
+    // border-color: #000;
+    // border-width: 2px;
+    cursor: pointer;
+    padding: 5px 0px;
+}
+
 .main{
     display: flex;
     flex-direction: column;
     width: 100%;
 }
+
