@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "../../components/sidebar/Sidebar";
-import { AiFillPieChart } from "react-icons/ai";
 import user from "../../styles/Userdashboard.module.scss"
 import { BsClipboardData } from "react-icons/bs";
 import { FiHome} from "react-icons/fi";
