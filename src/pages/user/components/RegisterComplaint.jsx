@@ -1,22 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
 import user from "../../../styles/Userdashboard.module.scss"
-import FormData from "form-data"
-import {uploadByBuffer} from "telegraph-uploader"
-import fs from "fs"
-
+import {FiUpload} from "react-icons/fi"
 import Button from "../../../components/button";
-const RegisterComplaint = () => {
+import { PickerOverlay } from 'filestack-react';
 
-  const onfileupload = (e)=>{ 
-      e.preventDefault();
-    // let formData = new FormData();
-    // formData.append()
-      uploadByBuffer(fs.readFileSync('image.png'), '/logo.jpg')
-      .then((result) => {
-        console.log(result)
-      })
-  }
+const RegisterComplaint = () => {
+  const [isPicker,setIsPicker] = useState(false);
 
   return (
     <>
@@ -27,14 +17,15 @@ const RegisterComplaint = () => {
             </header>
       <div className={form.container}>
         <form className={form.card}>
+          <div className={form.title}>Register Complaint</div>
           <label className={form.label}>
-            <h4>Enter Title:</h4>
+            {/* <h4>Enter Title Of Your Complaint:</h4>
             <input
               type="text"
               name="problem"
-              placeholder="Enter description"
+              placeholder=" Enter description"
               className={form.description}
-            />
+            /> */}
             <h4>Problem :</h4>
             <select
               className={form.select}
@@ -527,7 +518,7 @@ const RegisterComplaint = () => {
             <input
               type="text"
               name="problem"
-              placeholder="Enter description"
+              placeholder="Enter your problem description"
               className={form.description}
             />
           </label>
@@ -606,28 +597,33 @@ const RegisterComplaint = () => {
               type="number"
               name="name"
               placeholder="Contact"
-              minLength={10}
+              minlength="10"
+              maxlength="10"
               className={form.description}
             />
           </label>
-          <label>
+          {/* <label> */}
             <h4>Upload Image:</h4>
-            <Button
-              text="Choose file"
-              bgcolor="#d5e4e6"
-              type="file"
-              className={form.file}  
-            />
+            {/* <input type="file" id="file" aria-label="File browser example"/>
+  <span class="file-custom"/> */}
             {/* <input type="file" name="file" className={form.file} /> */}
-          </label>
+
+          {/* </label> */}
+          {/* <div className={form.choose}> */}
+
+          <input type="button" name="file" id="file" className={form.file} onClick={e=>{console.log("clicked")}}/>
+          <label for="file"><FiUpload/> Choose a file</label>
+          {/* </div> */}
+          <div></div>
           <label>
-            <div></div>
+            <input type="submit" value="Submit" className={form.select} />
+            {/* <div></div>
             <Button
               text="Submit"
               bgcolor="#d5e4e6"
               type="submit"
               className={form.submit}
-            />
+            /> */}
           </label>
         </form>
       </div>

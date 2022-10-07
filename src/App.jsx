@@ -1,4 +1,4 @@
-import React , {useState ,useEffect}from "react";
+import React, { useState, useEffect } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./App.scss";
 import Root from "./pages/root";
@@ -17,65 +17,104 @@ import RegisterComplaint from "./pages/user/components/RegisterComplaint";
 import UserDashboard from "./pages/user/components/UserDashboard";
 import { Toaster } from "react-hot-toast";
 
-import { baseURL } from '../src/config/config';
-
+import { baseURL } from "../src/config/config";
 
 function App() {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  const [isAuthenticated,setIsAuthenticated] = useState(false);
-  
-  const setAuth= (boolean)=>{
+  const setAuth = (boolean) => {
     setIsAuthenticated(boolean);
-  }
+  };
 
-  const isAuth = async()=>{
+  const isAuth = async () => {
     try {
-      const response = await fetch (baseURL + "/user/check-login",{
-        method:"POST",
+      const response = await fetch(baseURL + "/user/check-login", {
+        method: "POST",
         credentials: "include",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
         },
         body: JSON.stringify({
-          mobile_number: localStorage.token
-        })
-      })
+          mobile_number: localStorage.token,
+        }),
+      });
       const data = await response.json();
-      data.success ? setAuth(true): setAuth(false);
+      data.success ? setAuth(true) : setAuth(false);
     } catch (err) {
-      console.error(err.message)
+      console.error(err.message);
     }
-  }
-  
-  useEffect(()=>{
+  };
+
+  useEffect(() => {
     console.log("Test");
-    isAuth()
-  })
+    isAuth();
+  });
   return (
     <>
       <Routes>
-        <Route path="/login" element={!isAuthenticated?<Login check={setAuth} /> : <Navigate to={`/user/registercomplaint`}/>}/>
-        <Route path="/register" element={!isAuthenticated?<Register/> : <Navigate to={`/login`}/>}/>
-        <Route path="/user" 
-          element={isAuthenticated?<User/>:
-          <Navigate to={`/login`}/>}>
-          <Route path="dashboard" 
-            element={isAuthenticated?    <UserDashboard/> :   <Navigate to={`/login`}/>}/>
-          <Route path="profile" 
-            element={isAuthenticated?<UserProfile/> : <Navigate   to={`/login`}/>}/>
-          <Route path="registercomplaint" 
-            element={isAuthenticated?<RegisterComplaint/> :   <Navigate to={`/login`}/>}/>
+        <Route
+          path="/login"
+          element={
+            !isAuthenticated ? (
+              <Login check={setAuth} />
+            ) : (
+              <Navigate to={`/user/registercomplaint`} />
+            )
+          }
+        />
+        <Route
+          path="/register"
+          element={!isAuthenticated ? <Register /> : <Navigate to={`/login`} />}
+        />
+        <Route
+          path="/user"
+          element={isAuthenticated ? <User /> : <Navigate to={`/login`} />}
+        >
+          <Route
+            path="dashboard"
+            element={
+              isAuthenticated ? <UserDashboard /> : <Navigate to={`/login`} />
+            }
+          />
+          <Route
+            path="profile"
+            element={
+              isAuthenticated ? <UserProfile /> : <Navigate to={`/login`} />
+            }
+          />
+          <Route
+            path="registercomplaint"
+            element={
+              isAuthenticated ? (
+                <RegisterComplaint />
+              ) : (
+                <Navigate to={`/login`} />
+              )
+            }
+          />
         </Route>
         <Route path="/department" element={<Department />} />
 
-        <Route path="/admin" element={isAuthenticated?<Admin/>:
-          <Navigate to={`/login`}/>}>
-          <Route path="analytics" element={isAuthenticated?<Adminanalytics/>:
-          <Navigate to={`/login`}/>}/>
-          <Route path="complaints" element={isAuthenticated?<Complaints/>:
-          <Navigate to={`/login`}/>}/>
-          <Route path="profile" element={isAuthenticated?<Profile/>:
-          <Navigate to={`/login`}/>}/>
+        <Route
+          path="/admin"
+          element={ <Admin /> }
+        >
+          <Route
+            path="analytics"
+            element={
+              isAuthenticated ? <Adminanalytics /> : <Navigate to={`/login`} />
+            }
+          />
+          <Route
+            path="complaints"
+            element={
+              isAuthenticated ? <Complaints /> : <Navigate to={`/login`} />
+            }
+          />
+          <Route
+            path="profile"
+            element={isAuthenticated ? <Profile /> : <Navigate to={`/login`} />}
+          />
         </Route>
       </Routes>
       <Toaster />
