@@ -1,3 +1,4 @@
+// import {MdDashboard} from 'react-icons/md';
 export const sidebarData = [
   {
     title: "Register Complaint",
@@ -8,7 +9,10 @@ export const sidebarData = [
   {
     title: "Dashboard",
     path: "/user/dashboard",
-    icon: "📝",
+    // icon: ()=>{
+    //   return <MdDashboard />
+    // },
+    // icon: "",
     cName: "nav-text",
   },
   {
