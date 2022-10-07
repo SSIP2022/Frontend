@@ -4,7 +4,8 @@ import { baseURL } from "../../config/config";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import regpage from "../../styles/Registerpage.module.scss"
-
+import { Link } from "react-router-dom";
+import {FiExternalLink} from "react-icons/fi"
 function Register() {
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
@@ -47,7 +48,7 @@ function Register() {
       toast.success("Register Successfully");
       navigate("/login");
     }else{
-      toast.error("Login Fail");
+      toast.error("Registeration Fail");
     }
   }
   return (
@@ -79,6 +80,7 @@ function Register() {
             type="number"
             id="mobilenumber"
             onChange={(e) => setMobile(e.target.value)}
+            minlength
             value={mobile}
            
             required
@@ -149,6 +151,9 @@ function Register() {
           />
 
           <button type="submit">Register</button>
+          <span>Already Registered?</span>
+          <Link to="/login"><span> Login here <FiExternalLink /></span></Link>
+           
         </form>
       </div>
     </div>

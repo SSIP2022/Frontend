@@ -1,15 +1,23 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import firebase from "firebase/app";
 import "firebase/auth";
-import { baseURL } from '../../config/config';
-
+import { baseURL } from "../../config/config";
+import { FiExternalLink } from "react-icons/fi";
+import { Link, useNavigate } from "react-router-dom";
+import { setUserLogin } from "../../store/userReducer";
+import toast from "react-hot-toast";
+import Model from "../../components/model"
 let temp = "";
 
-const Login= (props)=> {
+const Login = () => {
   const [viewOtpForm, setViewOtpForm] = useState(false);
   const [mynumber, setnumber] = useState("");
-  const [otp, setotp] = useState('');
+  const [otp, setotp] = useState("");
   const [user, setUser] = useState(false);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const firebaseConfig = {
     apiKey: "AIzaSyCrsq8N2NQZ5WSg8NoxwZgdtcPT-yaf9bg",
@@ -17,7 +25,7 @@ const Login= (props)=> {
     projectId: "ssip-5767d",
     storageBucket: "ssip-5767d.appspot.com",
     messagingSenderId: "981917289800",
-    appId: "1:981917289800:web:7ef7ba8c74a2d3c65ef77d"
+    appId: "1:981917289800:web:7ef7ba8c74a2d3c65ef77d",
   };
 
   useEffect(() => {
@@ -37,7 +45,7 @@ const Login= (props)=> {
   if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
   } else {
-    firebase.app(); 
+    firebase.app();
   }
 
   const auth = firebase.auth();
@@ -48,28 +56,47 @@ const Login= (props)=> {
     }
   });
 
-  const loginSubmit = async (e) => {
-    e.preventDefault();
-
-    
-    let phone_number = "+91" + e.target.phone.value;
-    temp = e.target.phone.value;
-    console.log("baseURL:", baseURL);
-    const response = await fetch (baseURL + "/user/check-login",{
-      method:"POST",
+  async function getUserData() {
+    const response = await fetch(baseURL + "/user/login", {
+      method: "POST",
       credentials: "include",
       headers: {
         "Content-type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        mobile_number: e.target.phone.value
-      })
-    })
+        mobile_number: temp,
+      }),
+    });
+    const data = await response.json();
+    if (data.success) {
+      dispatch(setUserLogin(data));
+      toast.success("Login Successfully");
+      navigate(`/${data.user.role}/home`);
+    } else {
+      toast.error("Login Fail");
+    }
+  }
+
+  const loginSubmit = async (e) => {
+    e.preventDefault();
+
+    let phone_number = "+91" + e.target.phone.value;
+    temp = e.target.phone.value;
+    console.log("baseURL:", baseURL);
+    const response = await fetch(baseURL + "/user/check-login", {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        mobile_number: e.target.phone.value,
+      }),
+    });
     const data = await response.json();
     console.log(data);
-    if(!data.success)
-    {
-        return alert("Number not valid");
+    if (!data.success) {
+      return alert("Number not valid");
     }
     const appVerifier = window.recaptchaVerifier;
 
@@ -86,7 +113,6 @@ const Login= (props)=> {
       });
   };
 
-
   const otpSubmit = (e) => {
     e.preventDefault();
 
@@ -97,8 +123,8 @@ const Login= (props)=> {
       .then((confirmationResult) => {
         console.log(confirmationResult);
         console.log("success");
-        props.check(true)
-        localStorage.setItem("token",temp)
+   
+        getUserData();
       })
       .catch((error) => {
         alert(error.message);
@@ -109,40 +135,45 @@ const Login= (props)=> {
     <div>
       <div id="recaptcha-container"></div>
       <div className="formWrapper">
-          <>
-            {!viewOtpForm ? 
-            (<>
-             <form onSubmit={loginSubmit}>
-             <h3 className="title">Login Now</h3>
-             <label htmlFor="username">Mobile Number</label>
-             <input 
-              placeholder='Enter Your Phone Number'
-              type="number"
-              name="phone"
-              />
-            <button type="sumbit">Send</button>
-            </form>
+        <>
+          {!viewOtpForm ? (
+            <>
+              <form onSubmit={loginSubmit}>
+                <h3 className="title">Login Now</h3>
+                <label htmlFor="username">Mobile Number</label>
+                <input
+                  placeholder="Enter Your Phone Number"
+                  type="number"
+                  name="phone"
+                />
+                <button type="sumbit">Send</button>
+                <span>New here?</span>
+                <Link to="/register">
+                  <span>
+                    {" "}
+                    Register <FiExternalLink />
+                  </span>
+                </Link>
+              </form>
             </>
-            ) : 
-            
-            (<>         
-            <form onSubmit={otpSubmit}>
-            <h3 className="title">Verify Otp</h3>
-              <label htmlFor="username">Enter Your Otp</label>
-              <input 
-              placeholder='Enter Your Phone Number'
-              type="number"
-              name="otp_value"
-              />
-             <button type="sumbit">Submit</button>
-             </form>
-             </>
-            )
-            }
-          </>
+          ) : (
+            <Model title="" close={()=>setViewOtpForm(false)}>
+              <form onSubmit={otpSubmit}>
+                <h3 className="title">Verify Otp</h3>
+                <label htmlFor="username">Enter Your Otp</label>
+                <input
+                  placeholder="Enter Your Phone Number"
+                  type="number"
+                  name="otp_value"
+                />
+                <button type="sumbit">Submit</button>
+              </form>
+            </Model>
+          )}
+        </>
       </div>
     </div>
   );
-}
+};
 
 export default Login;
