@@ -3,6 +3,7 @@ import { useState } from "react";
 import { baseURL } from "../../config/config";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
+import regpage from "../../styles/Registerpage.module.scss"
 
 function Register() {
   const navigate = useNavigate();
@@ -50,10 +51,13 @@ function Register() {
     }
   }
   return (
+      <>
+
+
     <div>
-      <div className="formWrapper">
+      <div className={regpage.formWrapper}>
         <form onSubmit={handleRegister}>
-          <h3 className="title">Register Now</h3>
+          <h3 className={regpage.title}>Register Now</h3>
           <label htmlFor="username">First Name</label>
           <input
             type="text"
@@ -70,7 +74,7 @@ function Register() {
             value={lastName}
             required
           />
-          <label htmlFor="username">📱 Mobile Number</label>
+          <label htmlFor="username">Mobile Number</label>
           <input
             type="number"
             id="mobilenumber"
@@ -78,7 +82,7 @@ function Register() {
             value={mobile}
             required
           />
-          <label htmlFor="username">📩 Email</label>
+          <label htmlFor="username">Email</label>
           <input
             type="email"
             id="email"
@@ -87,7 +91,7 @@ function Register() {
             required
           />
 
-          <label htmlFor="username">📅 Date of Birth</label>
+          <label htmlFor="username">Date of Birth</label>
           <input
             type="date"
             id="dob"
@@ -98,12 +102,12 @@ function Register() {
 
           <label htmlFor="username">Gender</label>
           <select onChange={(e) => setGender(e.target.value)} value={gender}>
-            <option value="Male">👨🏻 Male</option>
-            <option value="Female">👩🏻 Female</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
             <option value="Other">Other</option>
           </select>
 
-          <label htmlFor="username">🔢 Pincode</label>
+          <label htmlFor="username">Pincode</label>
           <input
             type="text"
             id="username"
@@ -112,7 +116,7 @@ function Register() {
             required
           />
 
-          <label htmlFor="username">🌐 Area</label>
+          <label htmlFor="username">Area</label>
           <input
             type="text"
             id="username"
@@ -121,7 +125,7 @@ function Register() {
             required
           />
 
-          <label htmlFor="username">🏙️ District</label>
+          <label htmlFor="username">District</label>
           <input
             type="text"
             id="username"
@@ -132,7 +136,7 @@ function Register() {
             required
           />
 
-          <label htmlFor="username">🗺️ Address</label>
+          <label htmlFor="username">Address</label>
           <textarea
             type="text"
             id="username"
@@ -147,6 +151,7 @@ function Register() {
         </form>
       </div>
     </div>
+    </>
   );
 }
 

@@ -1,8 +1,11 @@
 import React, { useState , useEffect } from 'react';
 import firebase from "firebase/app";
 import "firebase/auth";
+import { baseURL } from '../../config/config';
 
-const Login= ()=> {
+let temp = "";
+
+const Login= (props)=> {
   const [viewOtpForm, setViewOtpForm] = useState(false);
   const [mynumber, setnumber] = useState("");
   const [otp, setotp] = useState('');
@@ -45,13 +48,29 @@ const Login= ()=> {
     }
   });
 
-  const changeNumber = (e) =>{
-    setnumber(e.value.target)
-  }
-  const loginSubmit = (e) => {
+  const loginSubmit = async (e) => {
     e.preventDefault();
 
+    
     let phone_number = "+91" + e.target.phone.value;
+    temp = e.target.phone.value;
+    console.log("baseURL:", baseURL);
+    const response = await fetch (baseURL + "/user/check-login",{
+      method:"POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        mobile_number: e.target.phone.value
+      })
+    })
+    const data = await response.json();
+    console.log(data);
+    if(!data.success)
+    {
+        return alert("Number not valid");
+    }
     const appVerifier = window.recaptchaVerifier;
 
     auth
@@ -78,7 +97,8 @@ const Login= ()=> {
       .then((confirmationResult) => {
         console.log(confirmationResult);
         console.log("success");
-        // window.open("/", "_self");
+        props.check(true)
+        localStorage.setItem("token",temp)
       })
       .catch((error) => {
         alert(error.message);
@@ -94,7 +114,7 @@ const Login= ()=> {
             (<>
              <form onSubmit={loginSubmit}>
              <h3 className="title">Login Now</h3>
-             <label htmlFor="username">📱 Mobile Number</label>
+             <label htmlFor="username">Mobile Number</label>
              <input 
               placeholder='Enter Your Phone Number'
               type="number"
@@ -105,7 +125,7 @@ const Login= ()=> {
             </>
             ) : 
             
-            (    <>         
+            (<>         
             <form onSubmit={otpSubmit}>
             <h3 className="title">Verify Otp</h3>
               <label htmlFor="username">Enter Your Otp</label>
