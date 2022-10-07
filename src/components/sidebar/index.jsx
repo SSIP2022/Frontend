@@ -4,7 +4,7 @@ import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
-function Sidebar({sidebarData,title}) {
+function Sidebar({ sidebarData, title }) {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
@@ -12,12 +12,26 @@ function Sidebar({sidebarData,title}) {
   return (
     <>
       <div className="navbar">
-        <div  className="menu-bars" onClick={showSidebar}>
-          <FaBars/>
+        <div
+          className="menu-bars"
+          onMouseEnter={showSidebar}
+          onClick={showSidebar}
+        >
+          <FaBars />
         </div>
-        <h3>
-          {window.location.pathname.split("/").slice(-1)[0]}
-        </h3>
+        <div className="amc">
+          <img src="/logo.png" className="logo" alt="" />
+          <span>Ahemdabad Municipal Corporation</span>
+        </div>
+
+        <h3>{window.location.pathname.split("/").slice(-1)[0]}</h3>
+        {/* <Link to="/admin/profile"> */}
+        <div className="profile">
+          
+          <img src="/userphoto.png"  alt="" />
+          <span>Dojetobhai Limdiwala</span>
+        </div>
+        {/* </Link> */}
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
