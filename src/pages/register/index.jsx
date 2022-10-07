@@ -48,7 +48,7 @@ function Register() {
       toast.success("Register Successfully");
       navigate("/login");
     }else{
-      toast.error("Login Fail");
+      toast.error("Registeration Fail");
     }
   }
   return (
