@@ -534,7 +534,15 @@ const RegisterComplaint = () => {
                 className={form.description}
               />
             </label>
-
+            <h4>Pincode</h4>
+            <label>
+              <input
+                type="number"
+                name="name"
+                placeholder="Enter Pincode"
+                className={form.description}
+              />
+            </label>
             <label>
               <h4>Your Area :</h4>
               <select
@@ -603,17 +611,7 @@ const RegisterComplaint = () => {
                 className={form.description}
               />
             </label>
-            <h4>Contact</h4>
-            <label>
-              <input
-                type="number"
-                name="name"
-                placeholder="Contact"
-                minlength="10"
-                maxlength="10"
-                className={form.description}
-              />
-            </label>
+
             {/* <label> */}
             <h4>Upload Image:</h4>
             {/* <input type="file" id="file" aria-label="File browser example"/>
