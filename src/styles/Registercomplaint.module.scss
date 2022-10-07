@@ -3,8 +3,8 @@
     cursor: pointer;
     border: 1px solid #ccc;
     border-radius: 4px;
-    padding: 10px;
-    margin: 10px 0px;
+    padding: 8px;
+    margin: 8px 0px;
     font-size: 16px;
     outline: none;
     background-color: #d5e4e6;
@@ -22,6 +22,7 @@ option {
 .description{
     height: 50px;
     width: 500px;
+    padding-left: 10px;
 }
 .card{
 
@@ -40,7 +41,7 @@ option {
     font-size: 20px;
     font-weight: 500;
     color: #000000;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
 }
 h4{
     padding: 10px 0px;
