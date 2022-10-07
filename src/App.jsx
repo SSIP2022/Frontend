@@ -97,7 +97,7 @@ function App() {
 
         <Route
           path="/admin"
-          element={isAuthenticated ? <Admin /> : <Navigate to={`/login`} />}
+          element={ <Admin /> }
         >
           <Route
             path="analytics"
