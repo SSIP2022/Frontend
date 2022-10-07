@@ -1,8 +1,8 @@
 .navbar {
-  /* position: fixed; */
+  position: fixed;
   background-color: #d5e4e6;
   height: 80px;
-  width: 100vw;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,7 +20,7 @@
 }
 .navbar h3 {
   flex-basis: 100%;
-  margin-right: 20% ;
+  /* margin-right: 20% ; */
   width: min-content;
   text-align: center;
   text-transform: uppercase;
@@ -54,7 +54,8 @@
 }
 
 .nav-menu {
-  margin-top: 80px;
+  margin-top: 30px;
+  padding-top:80px ;
   background-color: #fff;
   width: 250px;
   height: 100vh;
@@ -77,6 +78,7 @@
   background: white;
   list-style: none;
   height: 60px;
+  top:80px;
   margin-bottom: 10px;
   padding-left: clamp(10px, 4vw, 25px);
 }
@@ -95,7 +97,7 @@
 
 .nav-menu-items {
   width: 100%;
-  
+  top:80px;
   list-style: none;
-  margin-top: 12vh;
+  /* margin-top: 12vh; */
 }

@@ -1,7 +1,12 @@
 import React from "react";
 import userprofile from "../../../styles/Profile.module.scss";
+import { useSelector } from "react-redux";
+import {user} from "../../../store/userReducer"
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
+  const {userData} = useSelector(user)
+  const navigate = useNavigate()
   return (
     <div className={userprofile.mainwrapper}>
     <div className={userprofile.dmain}>
@@ -10,30 +15,30 @@ const UserProfile = () => {
           <img src="/userphoto.png"/>
         </div>
         <h1 className={userprofile.name}>
-          <span className={userprofile.firstname}>Dojetobhai</span>
+          <span className={userprofile.firstname}>{userData.first_name}</span>
           <span> </span>
-          <span className={userprofile.lastname}>Limdiwala</span>
+          <span className={userprofile.lastname}>{userData.last_name}</span>
         </h1>
         <p className={userprofile.email}>
-          Email : <span>patelpriysnshu2410@gmail.com</span>
+          Email : <span>{userData.email}</span>
         </p>
         <p className={userprofile.number}>
-          Mobile number : <span>29419545</span>
+          Mobile number : <span>{userData.mobile_number}</span>
         </p>
         <p className={userprofile.dob}>
-          Date of Birth : <span>24/10/2003</span>
+          Date of Birth : <span>{userData.birth_date}</span>
         </p>
         <p className={userprofile.gender}>
-          Gender : <span>Male</span>
+          Gender : <span>{userData.gender}</span>
         </p>
         <p className={userprofile.pincord}>
-          Pincode : <span>393010</span>
+          Pincode : <span>{userData.pincode}</span>
         </p>
         <p className={userprofile.area}>
-          Area : <span>vv nagar</span>
+          Area : <span>{userData.area}</span>
         </p>
         <p>
-          <button>Edit</button>
+          <button onClick={()=>navigate("/")}>Logout</button>
         </p>
       </div>
     </div>
