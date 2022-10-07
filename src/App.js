@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import Root from "./pages/root";
 import Department from "./pages/department";
@@ -51,9 +51,6 @@ function App() {
   // });
   return (
     <>
-      {/* <header className="appheader">
-        <h1>AMC</h1>
-      </header> */}
       <Routes>
         <Route path="/" element={<Root />} />
         <Route path="/login" element={<Login />} />
