@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
 const UserDashboard = () => {
   const { userData } = useSelector(user);
+  console.log("userData:", userData);
   const [details, setDetails] = useState({});
   const [openModel, setOpenModel] = useState(false);
 
@@ -15,8 +16,7 @@ const UserDashboard = () => {
 
   async function getUserComplaints() {
     const response = await fetch(
-      baseURL +
-        "/complain/user-complains?creator_id=0d31b1f5-c565-4a27-b389-4c04ed32d5f4",
+      baseURL + `/complain/user-complains?creator_id=${userData.user_id}`,
       {
         method: "GET",
         credentials: "include",
