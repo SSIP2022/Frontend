@@ -1,9 +1,23 @@
 import React from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
 import user from "../../../styles/Userdashboard.module.scss"
+import FormData from "form-data"
+import {uploadByBuffer} from "telegraph-uploader"
+import fs from "fs"
 
 import Button from "../../../components/button";
 const RegisterComplaint = () => {
+
+  const onfileupload = (e)=>{ 
+      e.preventDefault();
+    // let formData = new FormData();
+    // formData.append()
+      uploadByBuffer(fs.readFileSync('image.png'), '/logo.jpg')
+      .then((result) => {
+        console.log(result)
+      })
+  }
+
   return (
     <>
       <div className={form.main}>
@@ -602,7 +616,7 @@ const RegisterComplaint = () => {
               text="Choose file"
               bgcolor="#d5e4e6"
               type="file"
-              className={form.file}
+              className={form.file}  
             />
             {/* <input type="file" name="file" className={form.file} /> */}
           </label>
