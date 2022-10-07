@@ -73,4 +73,19 @@ h4{
     flex-direction: column;
     width: 100%;
 }
-
+@media only screen and (max-width: 412px) {
+    .card{
+        width: 346px;
+    }
+    .select{
+        width: 309px;
+    }
+    .description
+    {
+        width: 309px;
+    }
+    .file + label {
+        width: 309px;
+    }
+    
+  }

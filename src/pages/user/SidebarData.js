@@ -12,7 +12,7 @@ export const sidebarData = [
     // icon: ()=>{
     //   return <MdDashboard />
     // },
-    // icon: "",
+    icon: "📝",
     cName: "nav-text",
   },
   {

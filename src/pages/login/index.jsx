@@ -159,10 +159,10 @@ const Login = () => {
           ) : (
             <Model title="" close={()=>setViewOtpForm(false)}>
               <form onSubmit={otpSubmit}>
-                <h3 className="title">Verify Otp</h3>
-                <label htmlFor="username">Enter Your Otp</label>
+                <h3 className="otptitle">Verify Otp</h3>
+                {/* <label htmlFor="username"></label> */}
                 <input
-                  placeholder="Enter Your Phone Number"
+                  placeholder="Enter Your Otp"
                   type="number"
                   name="otp_value"
                 />

@@ -1,7 +1,7 @@
 export const sidebarData = [
   {
     title: "Complaints",
-    path: "/admin/complaints",
+    path: "/admin/home",
     icon: "🧾",
     cName: "nav-text",
   },

@@ -21,7 +21,7 @@ function Sidebar({ sidebarData, title }) {
         </div>
         <div className="amc">
           <img src="/logo.png" className="logo" alt="" />
-          <span>Ahemdabad Municipal Corporation</span>
+          {/* <span>Ahemedabad Municipal Corporation</span> */}
         </div>
 
         <h3>{window.location.pathname.split("/").slice(-1)[0]}</h3>
