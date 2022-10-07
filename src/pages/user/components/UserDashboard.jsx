@@ -71,13 +71,13 @@ const UserDashboard = () => {
                 alt=""
               />
               <span className={styles.text2} type="button" onClick={onclick}>
-                {complaint.subject} <AiOutlineInfoCircle fontSize="1em" />
+                {complaint.subject.slice(0,25) + ".."} <AiOutlineInfoCircle fontSize="1em" />
               </span>
 
               <span className={styles.text3}>
                 {complaint.area.length === 0
                   ? "Near Ahemdabad"
-                  : complaint.area}
+                  : "Near " +complaint.area}
               </span>
               <span className={styles.withdraw}>Withdraw</span>
             </div>
@@ -107,8 +107,15 @@ const UserDashboard = () => {
                 {userData.first_name + " " + userData.last_name}
               </h4>
               <h4>
+                <span>Problem</span> :{" "}
+                {details.subject}
+                {/* {complaints.map(
+                  (complaint) =>complaint.subject)
+                  } */}
+              </h4>
+              <h4>
                 <span>Area</span> :{" "}
-                {details.area ? details.area : "Near Ahemdabad"}
+                {details.area ?"Near "+ details.area : "Near Ahemdabad"}
               </h4>
               <h4>
                 <span>Status</span> : {details.status}
