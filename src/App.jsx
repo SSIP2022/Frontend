@@ -95,26 +95,10 @@ function App() {
         </Route>
         <Route path="/department" element={<Department />} />
 
-        <Route
-          path="/admin"
-          element={ <Admin /> }
-        >
-          <Route
-            path="analytics"
-            element={
-              isAuthenticated ? <Adminanalytics /> : <Navigate to={`/login`} />
-            }
-          />
-          <Route
-            path="complaints"
-            element={
-              isAuthenticated ? <Complaints /> : <Navigate to={`/login`} />
-            }
-          />
-          <Route
-            path="profile"
-            element={isAuthenticated ? <Profile /> : <Navigate to={`/login`} />}
-          />
+        <Route path="/admin" element={<Admin />}>
+          <Route path="analytics" element={<Adminanalytics />} />
+          <Route path="complaints" element={<Complaints />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
       <Toaster />
