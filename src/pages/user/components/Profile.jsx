@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import userprofile from "../../../styles/Profile.module.scss";
 import { useSelector } from "react-redux";
 import {user} from "../../../store/userReducer"
