@@ -1,8 +1,8 @@
 export const sidebarData = [
   {
-    title: "Home",
-    path: "/admin/home",
-    icon: "🏡",
+    title: "Complaints",
+    path: "/admin/complaints",
+    icon: "🧾",
     cName: "nav-text",
   },
   {
@@ -12,27 +12,10 @@ export const sidebarData = [
     cName: "nav-text",
   },
   {
-    title: "Manager List",
-    path: "/admin/manager-list",
-    icon: "📃",
+    title: "Analytics",
+    path: "/admin/analytics",
+    icon: "📈",
     cName: "nav-text",
   },
-  {
-    title: "Lawyer List",
-    path: "/admin/lawyer-list",
-    icon: "📃",
-    cName: "nav-text",
-  },
-  {
-    title: "Add Manager",
-    path: "/admin/add-manager",
-    icon: "🧑🏻‍💼",
-    cName: "nav-text",
-  },
-  {
-    title: "Add Lawyer",
-    path: "/admin/add-lawyer",
-    icon: "🧑🏻‍⚖️",
-    cName: "nav-text",
-  },
+  
 ];

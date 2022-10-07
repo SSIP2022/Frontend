@@ -11,10 +11,10 @@ const RegisterComplaint = () => {
   return (
     <>
       <div className={form.main}>
-    <header className={user.header}>
+    {/* <header className={user.header}>
                 <img className={user.photo} src="/logo.jpg" alt="profile"/>
                 <div className={user.name}>Dojetobhai Limdiwala</div>
-            </header>
+            </header> */}
       <div className={form.container}>
         <form className={form.card}>
           <div className={form.title}>Register Complaint</div>

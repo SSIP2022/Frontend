@@ -6,9 +6,10 @@ const Analytics = ()=>{
     return(
         <>
         <div className={Analyticscss.navbarContainer}>
-            <h2 className={Analyticscss.navbar}>Dashboard</h2>
+ 
             <div className={Analyticscss.chartwrapper}>
                 <div className={Analyticscss.chartbox}>
+                <span className={Analyticscss.title}>Dashboard</span>
                     <LineChart/>
                 </div>
                 <div className={Analyticscss.chartbox2}>
