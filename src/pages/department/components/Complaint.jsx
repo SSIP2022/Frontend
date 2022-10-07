@@ -1,107 +1,227 @@
-import React, { useState } from "react";
-import track from "../../../styles/Complain.module.scss"
+import React, { useEffect, useState } from "react";
+import track from "../../../styles/Complain.module.scss";
 import Modal from "../../../components/model/index";
+import { useSelector } from "react-redux";
+import { user } from "../../../store/userReducer";
+import { baseURL } from "../../../config/config";
+import toast from "react-hot-toast";
+import Button from "../../../components/button";
 
-const Complain = () =>{
+const OfficerComplain = () => {
+  const buttonText = {
+    open: "In Progress",
+    assign: "In Progress",
+    "in progress": "Resolved",
+    resolved: "No Action",
+  };
+  function timeFormate(date) {
+    const newDate = new Date(date);
+    return `${newDate.getDate()}/${
+      newDate.getMonth() + 1
+    }/${newDate.getFullYear()}`;
+  }
+  const { userData } = useSelector(user);
+  console.log("userData:", userData);
+  const [complaints, setComplaints] = useState([]);
+  const [details, setDetails] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [openDetail, setopenDetail] = useState(false);
 
-    const [details,setDetails] = useState(false);
-
-    const onclick = ()=>{
-        setDetails(true)
+  const onclick = () => {
+    setDetails(true);
+  };
+  const onclose = () => {
+    setDetails(false);
+  };
+  async function getUserComplaints() {
+    const response = await fetch(
+      baseURL + `/user/department-complains?department=health`,
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+        },
+      }
+    );
+    const data = await response.json();
+    console.log("data:", data);
+    if (data.success) {
+      setComplaints(data.complains);
+    } else {
     }
-    const onclose = ()=>{
-        setDetails(false)
-    }
+  }
 
-    return(
+  async function handleChangeStatus(id, newStatus, index) {
+    if (newStatus == "no action") {
+      toast.error("Can not perform this action");
+      return;
+    }
+    const response = await fetch(baseURL + `/complain/update-status`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        status: newStatus,
+        complain_id: id,
+      }),
+    });
+    const data = await response.json();
+    console.log("data:", data);
+    if (data.success) {
+      toast.success("Status Updated Successfully");
+      setConfirm(false);
+    } else {
+      toast.error("Fail To Update Status");
+    }
+  }
+
+  useEffect(() => {
+    getUserComplaints();
+  }, []);
+
+  return (
+    <>
+      {openDetail ? (
         <>
-        {
-            details ? (<>
-            <Modal title="Complaint Detail" close={onclose}>
-                <div className={track.modalwrapper}>
-                    <div className="imgwrapper">
-                         <img className={track.modalimg} src="/istockphoto-1074493878-612x612.png" alt="" />
-                    </div>
-                <div className={track.details}>
-                    <h4><span>Name</span> : Om Limdiwala</h4>
-                    <h4><span>Area</span> : kalupur</h4>
-                    <h4><span>Status</span> : Passed</h4>
-                    <h4><span>Department</span>: Electricity</h4>
-                    <h4 className={track.decs}><span>Description</span> : Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ipsum qui accusamus ea magnam laudantium culpa deleniti labore enim necessitatibus veniam repellat quam neque, sint modi omnis, nemo impedit odit voluptate optio aspernatur perferendis vitae quo. Quidem provident laborum enim perspiciatis dicta soluta accusantium repellat! Molestiae quibusdam nihil beatae voluptate perferendis dolor tempora, repudiandae, aliquam, ex facere blanditiis? Sit odit placeat excepturi impedit omnis odio autem possimus id similique magni dolores dolor neque necessitatibus alias dolorem nemo, unde inventore qui, expedita nobis! Asperiores eum, eos iusto officiis eveniet incidunt mollitia illo magni dolorem nostrum esse ex, ullam provident ducimus sint minus.</h4>
-                </div>
-                </div>
-            </Modal>
-                </>):(<>
-                <div className={track.back}>
-                    <table className={track.table}>
-                <thead>
-                  <tr>
-                   <th>S.No</th>
-                   <th>Name</th>
-                   <th>Area</th>
-                   <th>Dept</th>
-                   <th>Status</th>
-                   <th>Date</th>
-                   <th>Details</th>
-                  </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td data-label="S.No">1</td>
-                        <td data-label="Name">Dinesh</td>
-                        <td data-label="Area">kalupur</td>
-                        <td data-label="Dept">water</td>
-                        <td data-label="Staus" className="pass">Passed</td>
-                        <td data-label="Date">4/10/2022</td>
-                        <td><button type="button" onClick={onclick}className={track.button}>Details</button></td>
-                    </tr>
-            
-                    <tr>
-                        <td data-label="S.No">2</td>
-                        <td data-label="Name">Kamal</td>
-                        <td data-label="Area">vastral</td>
-                        <td data-label="Dept">water</td>
-                        <td data-label="Staus" className="pass">Passed</td>
-                        <td data-label="Date">4/10/2022</td>
-                        <td><button type="button" onClick={onclick} className={track.button}>Details</button></td>
-                    </tr>
-            
-                    <tr>
-                        <td data-label="S.No">3</td>
-                        <td data-label="Name">Neha</td>
-                        <td data-label="Area">Nana chiloda</td>
-                        <td data-label="Dept">Electric</td>
-                        <td data-label="Staus" className="inprogress">In Progress</td>
-                        <td data-label="Date">4/10/2022</td>
-                        <td><button type="button" onClick={onclick}className={track.button}>Details</button></td>
-                    </tr>
-            
-                    <tr>
-                        <td data-label="S.No">4</td>
-                        <td data-label="Name">Priya</td>
-                        <td data-label="Area">Chiloda</td>
-                        <td data-label="Dept">Electric</td>
-                        <td data-label="Staus" className="fail">Failed</td>
-                        <td data-label="Date">4/10/2022</td>
-                        <td><button type="button" onClick={onclick}className={track.button}>Details</button></td>
-                    </tr>
-                    <tr>
-                        <td data-label="S.No">4</td>
-                        <td data-label="Name">Priya</td>
-                        <td data-label="Area">Chiloda</td>
-                        <td data-label="Dept">Electric</td>
-                        <td data-label="Staus" className="fail">Failed</td>
-                        <td data-label="Date">4/10/2022</td>
-                        <td><button type="button" onClick={onclick}className={track.button}>Details</button></td>
-                    </tr>
-                   
-                </tbody>
-              </table>
-                </div>
-                </>)
-        }
+          <Modal title="Complaint Detail" close={() => setopenDetail(false)}>
+            <div className={track.modalwrapper}>
+              <div className={track.imgwrapper}>
+                <img
+                  className={track.modalimg}
+                  src={
+                    details.img_url
+                      ? details.img_url
+                      : "/istockphoto-1074493878-612x612.png"
+                  }
+                  alt=""
+                />
+              </div>
+              <div className={track.details}>
+                <h4>
+                  <span>User ID </span> : {details.creator_id.slice(-6)}
+                </h4>
+                <h4>
+                  <span>Area</span> :{" "}
+                  {details.area ? details.area : "Near Ahemdabad"}
+                </h4>
+                <h4>
+                  <span>Status</span> : {details.status}
+                </h4>
+                <h4>
+                  <span>Department</span>: {details.assign_department}
+                </h4>
+                <h4 className={track.decs}>
+                  <span>Description</span> : {details.description}
+                </h4>
+              </div>
+            </div>
+          </Modal>
         </>
-    )
-}
+      ) : (
+        <>
+          <div className={track.back}>
+            <table className={track.table}>
+              <thead>
+                <tr>
+                  <th>S.No</th>
+                  <th>User ID</th>
+                  <th>Area</th>
+                  <th>Dept</th>
+                  <th>Status</th>
+                  <th>Date</th>
+                  <th>Details</th>
+                  <th>Update</th>
+                </tr>
+              </thead>
+              <tbody>
+                {complaints.length !== 0 ? (
+                  complaints.map((complain, i) => {
+                    return (
+                      <tr>
+                        <td data-label="S.No">{i + 1}</td>
+                        <td data-label="Name">
+                          {complain.creator_id.slice(-6)}
+                        </td>
+                        <td data-label="Area">
+                          {" "}
+                          {complain.area.length === 0
+                            ? "Near Ahemdabad"
+                            : complain.area}
+                        </td>
+                        <td data-label="Dept">{complain.assign_department}</td>
+                        <td data-label="Staus" className="pass">
+                          {complain.status}
+                        </td>
+                        <td data-label="Date">
+                          {timeFormate(complain.create_at)}
+                        </td>
+                        <td>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              setDetails(complain);
+                              setopenDetail(true);
+                            }}
+                          >
+                            Details
+                          </button>
+                        </td>
+                        <td style={{ display: "flex" }}>
+                          <Button
+                            type="button"
+                            className={track.button}
+                            bgcolor="#23322b"
+                            onClick={() => {
+                              console.log(
+                                buttonText[complain.status.toLowerCase()]
+                              );
+                              if (
+                                buttonText[complain.status.toLowerCase()] !==
+                                "No Action"
+                              ) {
+                                setDetails(complain);
+                                setConfirm(true);
+                              }
+                            }}
+                            id={i}
+                            text={buttonText[complain.status.toLowerCase()]}
+                          />
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <div>No Complaints Found</div>
+                )}
+              </tbody>
+            </table>
+            {confirm && (
+              <Modal title="Confirm Status" close={() => setConfirm(false)}>
+                <h4>
+                  Now the status for this complain will become {details.status}{" "}
+                  To {buttonText[details.status]}
+                </h4>
+                <Button
+                  onClick={() =>
+                    handleChangeStatus(
+                      details.complain_id,
+                      buttonText[details.status.toLowerCase()]
+                    )
+                  }
+                  bgcolor="green"
+                  color="white"
+                  text="Confirm"
+                />
+              </Modal>
+            )}
+          </div>
+        </>
+      )}
+    </>
+  );
+};
 
-export default Complain;
+export default OfficerComplain;

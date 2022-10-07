@@ -18,6 +18,8 @@ import UserDashboard from "./pages/user/components/UserDashboard";
 import { Toaster } from "react-hot-toast";
 
 import { baseURL } from "../src/config/config";
+import OfficerComplain from "./pages/department/components/Complaint";
+import AdminProfile from "./pages/department/components/Profile";
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -60,7 +62,10 @@ function App() {
           <Route path="profile" element={<UserProfile />} />
           <Route path="home" element={<RegisterComplaint />} />
         </Route>
-        <Route path="/department" element={<Department />} />
+        <Route path="/officer" element={<Department />}>
+          <Route path="home" element={<OfficerComplain />} />
+          <Route path="profile" element={<AdminProfile />} />
+        </Route>
 
         <Route path="/admin" element={<Admin />}>
           <Route path="analytics" element={<Adminanalytics />} />

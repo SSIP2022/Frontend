@@ -47,7 +47,7 @@
   border-radius: 50%;
   position: absolute;
   top: -15px;
-  right: -10px;
+  right: 10px;
   border: 0.5px solid black;
   display: flex;
   justify-content: center;
@@ -69,5 +69,6 @@
 
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
+    // bottom:30%
   }
 }
