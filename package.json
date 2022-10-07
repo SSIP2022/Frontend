@@ -11,7 +11,9 @@
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
     "apexcharts": "^3.35.5",
+    "filestack-react": "^4.0.1",
     "firebase": "^8.10.1",
+    "form-data": "^4.0.0",
     "framer-motion": "^7.5.2",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
