@@ -14,7 +14,7 @@ function Sidebar({ sidebarData, title }) {
       <div className="navbar">
         <div
           className="menu-bars"
-          onMouseEnter={showSidebar}
+          // onMouseEnter={showSidebar}
           onClick={showSidebar}
         >
           <FaBars />
