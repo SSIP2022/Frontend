@@ -15,9 +15,7 @@ import User from "./pages/user/index";
 import UserProfile from "./pages/user/components/Profile";
 import RegisterComplaint from "./pages/user/components/RegisterComplaint";
 import UserDashboard from "./pages/user/components/UserDashboard";
-import { Toaster } from "react-hot-toast";
-
-import { baseURL } from "../src/config/config";
+import { Toaster } from "react-hot-toast"; 
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);

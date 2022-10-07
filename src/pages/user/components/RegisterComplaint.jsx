@@ -239,7 +239,7 @@ const RegisterComplaint = () => {
 
   const onSubmitComplain = async (e)=>{
       e.preventDefault();
-      const response = await fetch(`https://ssip2022.herokuapp.com/complain/create`,{
+      const response = await fetch(`${baseURL}/complain/create`,{
         method:"POST",
         credentials: "include",
         headers: {
@@ -247,7 +247,7 @@ const RegisterComplaint = () => {
         },
         body:JSON.stringify({
           subject:subject,
-          description : "",
+          description : description,
           // status :"Open",
           // district:"",
           address: address,
