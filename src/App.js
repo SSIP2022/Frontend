@@ -2,9 +2,13 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import Root from "./pages/root";
-import Department from "./pages/department";
 import Login from "./pages/login";
 import Register from "./pages/register";
+
+import Department from "./pages/department/index";
+import Complaint from "./pages/department/components/Complaint";  
+
+
 
 import Admin from "./pages/admin/index";
 import Adminanalytics from "./pages/admin/components/Adminanalytics";
@@ -15,7 +19,11 @@ import User from "./pages/user/index";
 import UserProfile from "./pages/user/components/Profile";
 import RegisterComplaint from "./pages/user/components/RegisterComplaint";
 import UserDashboard from "./pages/user/components/UserDashboard";
-import { Toaster } from "react-hot-toast"; 
+import { Toaster } from "react-hot-toast";
+
+import { baseURL } from "../src/config/config";
+import OfficerComplain from "./pages/department/components/Complaint";
+import AdminProfile from "./pages/department/components/Profile";
 
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -59,7 +67,10 @@ function App() {
           <Route path="profile" element={<UserProfile />} />
           <Route path="home" element={<RegisterComplaint />} />
         </Route>
-        <Route path="/department" element={<Department />} />
+        <Route path="/officer" element={<Department />}>
+          <Route path="home" element={<OfficerComplain />} />
+          <Route path="profile" element={<AdminProfile />} />
+        </Route>
 
         <Route path="/admin" element={<Admin />}>
           <Route path="analytics" element={<Adminanalytics />} />
