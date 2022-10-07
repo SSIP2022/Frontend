@@ -87,3 +87,18 @@
     padding: 7px 0px 29px 0px;
     margin-right: 305px;
   }
+  @media (max-width: 415px) {
+    *{
+      font-size:12px;
+    }
+    // .mainwrapper{
+    //   font-size: 50%;
+    //   width: 10%;
+    //   background-color: aqua;
+    // }
+    .card{
+      // background-color: aqua;
+      width: 374px;
+    height: 750px;
+    }
+  }

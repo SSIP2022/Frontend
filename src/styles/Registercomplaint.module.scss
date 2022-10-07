@@ -63,7 +63,7 @@ h4{
     background-color: rgb(212, 212, 212);
     display: inline-block;
     // border-color: #000;
-    // border-width: 2px;
+     // border-width: 2px;
     cursor: pointer;
     padding: 5px 0px;
 }
@@ -74,3 +74,6 @@ h4{
     width: 100%;
 }
 
+@media only screen and (max-width: 600px) {
+
+}
