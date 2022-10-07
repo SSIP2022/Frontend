@@ -2,7 +2,8 @@ import React, { useState , useEffect } from 'react';
 import firebase from "firebase/app";
 import "firebase/auth";
 import { baseURL } from '../../config/config';
-
+import {FiExternalLink} from 'react-icons/fi'
+import { Link } from "react-router-dom";
 let temp = "";
 
 const Login= (props)=> {
@@ -121,6 +122,8 @@ const Login= (props)=> {
               name="phone"
               />
             <button type="sumbit">Send</button>
+            <span>New here?</span>
+            <Link to="/register"><span> Register <FiExternalLink /></span></Link>
             </form>
             </>
             ) : 
@@ -135,6 +138,7 @@ const Login= (props)=> {
               name="otp_value"
               />
              <button type="sumbit">Submit</button>
+
              </form>
              </>
             )
