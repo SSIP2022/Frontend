@@ -869,11 +869,17 @@ const RegisterComplaint = () => {
             {isPicker && (
               <PickerOverlay
                 apikey={"AJbGbxcJRbqofHCOKiyGJz"}
+                action="pick"
+                pickerOptions={{
+                  maxSize : 10 * 1024,
+                }}
                 onSuccess={(resp)=>
-                { setFilename(resp.filesUploaded[0].filename)
+                { 
+                  setFilename(resp.filesUploaded[0].filename)
                   setImageurl(resp.filesUploaded[0].url)
                   setIsPicker(false)
-                  console.log(address)}}
+                  console.log(address)}
+                }
                 onUploadDone={(res) => console.log(res)}
               />
             )}
