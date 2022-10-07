@@ -1,13 +1,19 @@
 export const sidebarData = [
   {
     title: "Complaints",
-    path: "/department/complaint",
+    path: "/officer/home",
     icon: "🧾",
     cName: "nav-text",
   },
+  {
+    title: "Your Profile",
+    path: "/officer/profile",
+    icon: "🧔🏻",
+    cName: "nav-text",
+  },
   // {
-  //   title: "New Complaint",
-  //   path: "/department/new-complaint",
+  //   title: "Analytics",
+  //   path: "/officer/analytics",
   //   icon: "📈",
   //   cName: "nav-text",
   // },
