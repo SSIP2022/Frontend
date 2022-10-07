@@ -1,10 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import Root from "./pages/root";
-import Department from "./pages/department";
 import Login from "./pages/login";
 import Register from "./pages/register";
+
+import Department from "./pages/department/index";
+import Complaint from "./pages/department/components/Complaint";  
+
+
 
 import Admin from "./pages/admin/index";
 import Adminanalytics from "./pages/admin/components/Adminanalytics";
@@ -51,9 +55,6 @@ function App() {
   // });
   return (
     <>
-      {/* <header className="appheader">
-        <h1>AMC</h1>
-      </header> */}
       <Routes>
         <Route path="/" element={<Root />} />
         <Route path="/login" element={<Login />} />
@@ -63,7 +64,9 @@ function App() {
           <Route path="profile" element={<UserProfile />} />
           <Route path="home" element={<RegisterComplaint />} />
         </Route>
-        <Route path="/department" element={<Department />} />
+        <Route path="/department" element={<Department />}>
+          <Route path="complaint" element={<Complaint />} />
+        </Route>
 
         <Route path="/admin" element={<Admin />}>
           <Route path="analytics" element={<Adminanalytics />} />

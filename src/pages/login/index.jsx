@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import firebase from "firebase/app";
-import "firebase/auth";
+import firebase from 'firebase/compat/app';
+// import logincss from "../../styles/Login.module.scss";
+import 'firebase/compat/auth';
 import { baseURL } from "../../config/config";
 import { FiExternalLink } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
@@ -158,7 +159,7 @@ const Login = () => {
             </>
           ) : (
             <Model title="" close={()=>setViewOtpForm(false)}>
-              <form onSubmit={otpSubmit}>
+              <form onSubmit={otpSubmit} >
                 <h3 className="otptitle">Verify Otp</h3>
                 {/* <label htmlFor="username"></label> */}
                 <input
