@@ -19,6 +19,7 @@ const UserProfile = () => {
           <span> </span>
           <span className={userprofile.lastname}>{userData.last_name}</span>
         </h1>
+        <div className={userprofile.details}>
         <p className={userprofile.email}>
           Email : <span>{userData.email}</span>
         </p>
@@ -37,6 +38,7 @@ const UserProfile = () => {
         <p className={userprofile.area}>
           Area : <span>{userData.area}</span>
         </p>
+        </div>
         <p>
           <button onClick={()=>navigate("/")}>Logout</button>
         </p>

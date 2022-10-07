@@ -51,6 +51,9 @@ function App() {
   // });
   return (
     <>
+      {/* <header className="appheader">
+        <h1>AMC</h1>
+      </header> */}
       <Routes>
         <Route path="/" element={<Root />} />
         <Route path="/login" element={<Login />} />
