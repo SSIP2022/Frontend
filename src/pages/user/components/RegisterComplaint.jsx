@@ -4,6 +4,8 @@ import { FiUpload } from "react-icons/fi";
 import { PickerOverlay } from "filestack-react";
 import { baseURL } from "../../../config/config";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { user } from "../../../store/userReducer";
 
 // const pincodes =  {
 //   "363610": { "area": "Vagad", "state": "Gujarat", "district": "Ahmedabad" },
@@ -211,6 +213,7 @@ import { useNavigate } from "react-router-dom";
 const RegisterComplaint = () => {
   const [isPicker, setIsPicker] = useState(false);
   const [fileName,setFilename] = useState("Change File");
+  const { userData } = useSelector(user);
   //body states
   const [subject,setSubject] = useState("");
   const [description,setDecription] = useState("");
@@ -252,13 +255,13 @@ const RegisterComplaint = () => {
           pincode : 123322,
           tags: [],
           img_url : img_url,
-          creator_id :"0d31b1f5-c565-4a27-b389-4c04ed32d5f4",
+          creator_id :userData.user_id,
       })
       })
       const data = await response.json();
       if(data.success)
       {
-          navigate(`${baseURL}/dashboard`)
+          navigate(`/user/dashboard`)
       }
   }
   return (
