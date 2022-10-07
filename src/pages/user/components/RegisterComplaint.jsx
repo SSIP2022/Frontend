@@ -1,13 +1,266 @@
 import React, { useState } from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
-import user from "../../../styles/Userdashboard.module.scss";
 import { FiUpload } from "react-icons/fi";
-import Button from "../../../components/button";
 import { PickerOverlay } from "filestack-react";
+import { baseURL } from "../../../config/config";
+import { useNavigate } from "react-router-dom";
+
+// const pincodes =  {
+//   "363610": { "area": "Vagad", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380001": { "area": "Raipur", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380002": {
+//     "area": "Revdibazar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380004": {
+//     "area": "Sub Foreign",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380005": {
+//     "area": "Sabarmati",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380006": {
+//     "area": "Ellisbridge",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380007": {
+//     "area": "Shardanagar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380008": {
+//     "area": "Vasisthnagar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380009": {
+//     "area": "Navrangpura",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380013": { "area": "Vadaj", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380014": { "area": "Navjivan", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380015": { "area": "S A c", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380016": {
+//     "area": "Public Office",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380018": { "area": "Saraspur", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380019": {
+//     "area": "Railway Colony",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380021": {
+//     "area": "Rajpur Gomtipur",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380022": { "area": "M D marg", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380023": {
+//     "area": "Sukhrampura",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380024": {
+//     "area": "I E bapunagar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380026": {
+//     "area": "Ctm Char rasta",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380027": {
+//     "area": "Gandhi Ashram",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380028": {
+//     "area": "Shah Alam roza",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380050": { "area": "Ghodasar", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380051": { "area": "Vejalpur", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380052": { "area": "Memnagar", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380054": {
+//     "area": "Thaltej Road",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "380055": { "area": "Juhapura", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380058": { "area": "Shilaj", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380059": { "area": "Thaltej", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380060": { "area": "Sola", "state": "Gujarat", "district": "Ahmedabad" },
+//   "380061": {
+//     "area": "Ghatlodia",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382110": {
+//     "area": "Vinchhiya",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382115": { "area": "Nedharad", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382120": { "area": "Zanzarva", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382130": {
+//     "area": "Vinzuvada",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382140": { "area": "Ukardi", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382145": { "area": "Telavi", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382150": { "area": "Zezra", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382170": {
+//     "area": "Virochannagar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382210": {
+//     "area": "Vishalpur",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382213": {
+//     "area": "Vasna chacharvadi",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382220": { "area": "Sari", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382230": { "area": "Vejalka", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382240": { "area": "Rupgadh", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382250": { "area": "Zinzar", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382255": {
+//     "area": "Sunderiana",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382260": { "area": "Saroda", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382265": { "area": "Virdi", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382276": { "area": "Badarkha", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382330": { "area": "Vehlal", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382340": {
+//     "area": "Noblenagar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382345": {
+//     "area": "Saijpur Bogha",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382350": {
+//     "area": "T B nagar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382405": { "area": "Shahwadi", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382415": {
+//     "area": "Odhav Industrial estate",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382418": { "area": "Vastral", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382421": { "area": "Khodiyar", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382425": { "area": "Vasai", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382426": { "area": "Jetalpur", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382427": { "area": "Ode", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382430": { "area": "Zanu", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382433": { "area": "Vadod", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382435": { "area": "Nandej", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382440": { "area": "Vatva", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382443": { "area": "Isanpur", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382445": { "area": "Vinzol", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382449": { "area": "Vanch", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382450": { "area": "Valhia", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382451": {
+//     "area": "Salangpur - hanuman",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382455": { "area": "Sandhida", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382460": { "area": "Zanzarka", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382463": { "area": "Valinda", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382465": { "area": "Pipli", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382470": { "area": "Tragad", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382475": {
+//     "area": "Sardarnagar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "382480": { "area": "Ranip", "state": "Gujarat", "district": "Ahmedabad" },
+//   "382481": {
+//     "area": "Nirnaynagar",
+//     "state": "Gujarat",
+//     "district": "Ahmedabad"
+//   },
+//   "387810": { "area": "Vautha", "state": "Gujarat", "district": "Ahmedabad" }
+// }
+
+
 
 const RegisterComplaint = () => {
   const [isPicker, setIsPicker] = useState(false);
   const [fileName,setFilename] = useState("Change File");
+  //body states
+  const [subject,setSubject] = useState("");
+  const [description,setDecription] = useState("");
+  const [area,setArea] = useState("");
+  const [address,setAddress] = useState("");
+  const [pincode,setPincode] = useState("");
+  const [img_url,setImageurl] = useState("");
+  // const [creator_id,setCretor] = useState("");
+
+  const navigate = useNavigate();
+
+  // const checkPincode = ()=>{
+  //   if(pincodes[pincode].area != undefined)
+  //   {
+  //     setArea(pincodes[pincode].area)
+  //     console.log(pincode);
+  //   }
+  // }
+
+  // useEffect(()=>{
+
+  // },[area1])
+
+  const onSubmitComplain = async (e)=>{
+      e.preventDefault();
+      const response = await fetch(`https://ssip2022.herokuapp.com/complain/create`,{
+        method:"POST",
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+        },
+        body:JSON.stringify({
+          subject:subject,
+          description : "",
+          // status :"Open",
+          // district:"",
+          address: address,
+          area : area,
+          pincode : 123322,
+          tags: [],
+          img_url : img_url,
+          creator_id :"0d31b1f5-c565-4a27-b389-4c04ed32d5f4",
+      })
+      })
+      const data = await response.json();
+      if(data.success)
+      {
+          navigate(`${baseURL}/dashboard`)
+      }
+  }
   return (
     <>
       <div className={form.main}>
@@ -32,6 +285,9 @@ const RegisterComplaint = () => {
                 name="Problems"
                 id="ctl00_ContentPlaceHolder1_ddlProblem"
                 title="Please Select Problem"
+                onChange={(e) =>{
+                  // console.log(e.target.options[e.target.selectedIndex].text)
+                  setSubject(e.target.options[e.target.selectedIndex].text)}}
               >
                 <option value="0">Please Select Problem</option>
                 <option value="249">
@@ -532,67 +788,21 @@ const RegisterComplaint = () => {
                 name="problem"
                 placeholder="Enter your problem description"
                 className={form.description}
+                value={description}
+                onChange={e => setDecription(e.target.value)}
               />
             </label>
 
             <label>
               <h4>Your Area :</h4>
-              <select
-                name="ctl00$ContentPlaceHolder1$ddlWardForArea"
-                id="ctl00_ContentPlaceHolder1_ddlWardForArea"
-                title="Please Select Your Ward"
-                className={form.select}
-              >
-                <option value="0">Please Select Your Ward</option>
-                <option value="51">Amraiwadi</option>
-                <option value="24">Asarva</option>
-                <option value="42">Bapu nagar</option>
-                <option value="30">Behrampura</option>
-                <option value="50">Bhaipura Hatkeshwar</option>
-                <option value="69">Bodakdev</option>
-                <option value="53">Chandkheda Motera</option>
-                <option value="64">Chandlodiya</option>
-                <option value="35">Danilimda</option>
-                <option value="13">Dariapur</option>
-                <option value="67">Ghatlodiya</option>
-                <option value="43">Gomtipur</option>
-                <option value="63">Gota</option>
-                <option value="26">India Colony</option>
-                <option value="32">Indrapuri</option>
-                <option value="37">Isanpur</option>
-                <option value="16">Jamalpur</option>
-                <option value="71">Jodhpur</option>
-                <option value="17">Khadia</option>
-                <option value="33">Khokhra</option>
-                <option value="21">Kuber nagar</option>
-                <option value="36">Lambha</option>
-                <option value="74">Maktampura</option>
-                <option value="34">Maninagar</option>
-                <option value="55">Naranpura</option>
-                <option value="20">Naroda</option>
-                <option value="56">Nava Vadaj</option>
-                <option value="60">Navrangpura</option>
-                <option value="40">Nikol</option>
-                <option value="47">Odhav</option>
-                <option value="61">Paldi</option>
-                <option value="52">Ramol Hathijan</option>
-                <option value="66">Ranip</option>
-                <option value="54">Sabarmati</option>
-                <option value="22">Saijpur Bogha</option>
-                <option value="29">Saraspur</option>
-                <option value="18">Sardar nagar</option>
-                <option value="70">Sarkhej</option>
-                <option value="73">Shahibaug</option>
-                <option value="12">Shahpur</option>
-                <option value="58">SP Stadium</option>
-                <option value="28">Thakkarbapa nagar</option>
-                <option value="68">Thaltej</option>
-                <option value="62">Vasna</option>
-                <option value="48">Vastral</option>
-                <option value="39">Vatva</option>
-                <option value="72">Vejalpur</option>
-                <option value="41">Virat nagar</option>
-              </select>
+              <input
+                type="text"
+                name="area"
+                placeholder="Your Area"
+                className={form.description}
+                value = {area}
+                onChange = {e => setArea(e.target.value)}
+              />
             </label>
             <h4>Location of Complaint</h4>
             <label>
@@ -601,6 +811,8 @@ const RegisterComplaint = () => {
                 name="address"
                 placeholder="Your Address"
                 className={form.description}
+                value = {address}
+                onChange = {e => setAddress(e.target.value)}
               />
             </label>
             <h4>Contact</h4>
@@ -608,10 +820,11 @@ const RegisterComplaint = () => {
               <input
                 type="number"
                 name="name"
-                placeholder="Contact"
-                minlength="10"
-                maxlength="10"
+                placeholder="Pincode"
                 className={form.description}
+                value = {pincode}
+                onChange = {e=>
+                  {setPincode(e.target.value)}}
               />
             </label>
             {/* <label> */}
@@ -632,13 +845,13 @@ const RegisterComplaint = () => {
                 isPicker ? setIsPicker(false) : setIsPicker(true);
               }}
             />
-            <label for="file">
+            <label htmlFor="file">
               <FiUpload /> {fileName}
             </label>
             {/* </div> */}
             <div></div>
             <label>
-              <input type="submit" value="Submit" className={form.select} />
+              <input value="Submit" className={form.select} onClick={e=>onSubmitComplain(e)} />
               {/* <div></div>
             <Button
             text="Submit"
@@ -655,7 +868,9 @@ const RegisterComplaint = () => {
                 apikey={"AJbGbxcJRbqofHCOKiyGJz"}
                 onSuccess={(resp)=>
                 { setFilename(resp.filesUploaded[0].filename)
-                  setIsPicker(false)}}
+                  setImageurl(resp.filesUploaded[0].url)
+                  setIsPicker(false)
+                  console.log(address)}}
                 onUploadDone={(res) => console.log(res)}
               />
             )}
