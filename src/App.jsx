@@ -17,6 +17,7 @@ import UserProfile from "./pages/user/components/Profile";
 import RegisterComplaint from "./pages/user/components/RegisterComplaint";
 import UserDashboard from "./pages/user/components/UserDashboard";
 
+
 function App() {
   return (
     <>
@@ -32,8 +33,9 @@ function App() {
         <Route path="/department" element={<Department />} />
 
         <Route path="/admin" element={<Admin />}>
-          <Route path="analytics" element={<Complaints/>}/>
-          <Route path="complaint" element={<Complain/>}/>
+          <Route path="analytics" element={<Adminanalytics/>}/>
+          <Route path="complaints" element={<Complaints/>}/>
+          <Route path="profile" element={<Profile/>}/>
         </Route>
       </Routes>
     </>
