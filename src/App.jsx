@@ -95,26 +95,10 @@ function App() {
         </Route>
         <Route path="/department" element={<Department />} />
 
-        <Route
-          path="/admin"
-          element={ <Admin /> }
-        >
-          <Route
-            path="analytics"
-            element={
-               <Adminanalytics /> 
-            }
-          />
-          <Route
-            path="complaints"
-            element={
-             <Complaints />
-            }
-          />
-          <Route
-            path="profile"
-            element={<Profile />}
-          />
+        <Route path="/admin" element={<Admin />}>
+          <Route path="analytics" element={<Adminanalytics />} />
+          <Route path="complaints" element={<Complaints />} />
+          <Route path="profile" element={<Profile />} />
         </Route>
       </Routes>
       <Toaster />
