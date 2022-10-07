@@ -27,7 +27,7 @@ const UserProfile = () => {
           Mobile number : <span>{userData.mobile_number}</span>
         </p>
         <p className={userprofile.dob}>
-          Date of Birth : <span>{userData.birth_date}</span>
+          Date of Birth : <span>{userData.birth_date.slice(0,10)}</span>
         </p>
         <p className={userprofile.gender}>
           Gender : <span>{userData.gender}</span>

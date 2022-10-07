@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import track from "../../../styles/Complain.module.scss"
 import Modal from "../../../components/model/index";
+// import { useSelector } from "react-redux";
+// import { user } from "../../../store/userReducer";
+// import { useNavigate } from "react-router-dom";
 
 const Complain = () =>{
 
@@ -12,6 +15,15 @@ const Complain = () =>{
     const onclose = ()=>{
         setDetails(false)
     }
+
+    // const navigate = useNavigate();
+    // const { role ,isLogin} = useSelector(user)  
+    
+    //  if(role!=='admin')
+    // {
+    //     console.log(role);
+    //     window.location.href ="/login"
+    //  }
 
     return(
         <>

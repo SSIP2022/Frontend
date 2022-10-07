@@ -1,31 +1,110 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useRef, useState } from "react";
 import Chart from "react-apexcharts";
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+const AdminChart = () => {
+  const [options, setOptions] = useState({
+    chart: {
+      id: "apexchart-example",
+    },
+    xaxis: {
+      // categories: data.forCharts.department,
+      categories: ["data", "data", "data"],
+    },
+  });
+  const [series, setSeries] = useState([
+    {
+      name: "series-1",
+      // data: data.forCharts.count,
+      data: [10, 20, 30],
+    },
+  ]);
 
-    this.state = {
-      options: {
-        chart: {
-          id: 'apexchart-example'
+  const screenWidth = window.screen.width;
+
+  let data ;
+  // let options;
+
+  // let series;
+  const getAnalytics = async () => {
+    const response = await fetch(
+      "https://ssip2022.herokuapp.com/complain/analytics/department-wise",
+      {
+        method: "GET",
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
         },
-        xaxis: {
-          categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
-        }
+      }
+    );
+    data = await response.json();
+    
+    // console.log(data.forCharts);
+    setOptions({
+      chart: {
+        id: "apexchart-example",
       },
-      series: [{
-        name: 'series-1',
-        data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
-      }]
-    }
-  }
-  render() {
-    const screenWidth = window.screen.width
-    return (
-      <Chart options={this.state.options} series={this.state.series} type="bar" width={screenWidth * 0.65} height={320} />
-    )
-  }
-}
+      xaxis: {
+        categories: data.forCharts.department,
+        // categories: ["vishal", "om", "hardik"],
+      },
+    });
+    setSeries([
+      {
+        name: "series-1",
+        data: data.forCharts.count,
+        // data: [10, 20, 30],
+      },
+    ]);
+  };
+  useEffect(()=>{
+    getAnalytics();
+  }, []);
 
-export default App;
+  // getAnalytics();
+
+  return (
+    <Chart
+      options={options}
+      series={series}
+      type="bar"
+      width={screenWidth * 0.65}
+      height={320}
+    />
+  );
+};
+
+// class App extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       options: {
+//         chart: {
+//           id: "apexchart-example",
+//         },
+//         xaxis: {
+//           categories: data.forCharts.department,
+//         },
+//       },
+//       series: [
+//         {
+//           name: "series-1",
+//           data: data.forCharts.count,
+//         },
+//       ],
+//     };
+//   }
+//   render() {
+//     const screenWidth = window.screen.width;
+//     return (
+//       <Chart
+//         options={this.state.options}
+//         series={this.state.series}
+//         type="bar"
+//         width={screenWidth * 0.65}
+//         height={320}
+//       />
+//     );
+//   }
+// }
+
+export default AdminChart;

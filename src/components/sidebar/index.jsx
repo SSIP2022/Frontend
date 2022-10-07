@@ -7,12 +7,14 @@ import "./Sidebar.css";
 import { useSelector } from "react-redux";
 import { user } from "../../store/userReducer"
 
+
 function Sidebar({ sidebarData, title }) {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
 
   const {userData} = useSelector(user);
+
 
   return (
     <>
