@@ -1,13 +1,29 @@
-.main{
+.mainwrapper
+{
+  padding: 40px;
+  height: min-content;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dmain{
     display: flex;
     justify-content: center;
-    margin: auto;
+    width: 500px;
+    height: 30%;
 }
 
 .image{
-    width: 200px;
-    margin-left: 170px;
-    border-radius: 103px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image img{
+  margin: 20px;
+  width: 100px;
+  border-radius: 50%;
 }
 
 .card {
@@ -40,7 +56,7 @@
 
   .name{
     font-weight: bold;
-    font-size: 50px;
+    font-size: 20px;
     padding: 25px 0px 8px;
   }
 

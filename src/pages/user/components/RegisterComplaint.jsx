@@ -1,12 +1,28 @@
 import React from "react";
-import form from "../../../styles/Registercomplaint.module.scss"
+import form from "../../../styles/Registercomplaint.module.scss";
+import user from "../../../styles/Userdashboard.module.scss"
+import {FiUpload} from "react-icons/fi";
+import Button from "../../../components/button";
 const RegisterComplaint = () => {
   return (
     <>
-      <div className={form.container  }>
-        <form>
-          <label>
-            <h4>Problem :</h4>  
+      <div className={form.main}>
+    <header className={user.header}>
+                <img className={user.photo} src="/logo.jpg" alt="profile"/>
+                <div className={user.name}>Dojetobhai Limdiwala</div>
+            </header>
+      <div className={form.container}>
+        <form className={form.card}>
+          <div className={form.title}>Register Complaint</div>
+          <label className={form.label}>
+            {/* <h4>Enter Title Of Your Complaint:</h4>
+            <input
+              type="text"
+              name="problem"
+              placeholder=" Enter description"
+              className={form.description}
+            /> */}
+            <h4>Problem :</h4>
             <select
               className={form.select}
               name="Problems"
@@ -495,7 +511,12 @@ const RegisterComplaint = () => {
               <option value="198">Zoo</option>
             </select>
             <h4>OR</h4>
-            <input type="text" name="problem" placeholder="Enter description" className={form.description}/>
+            <input
+              type="text"
+              name="problem"
+              placeholder="Enter your problem description"
+              className={form.description}
+            />
           </label>
 
           <label>
@@ -557,14 +578,51 @@ const RegisterComplaint = () => {
               <option value="41">Virat nagar</option>
             </select>
           </label>
-          {/* <h4>Department:</h4>
-          <h4>Category:</h4> */}
+          <h4>Location of Complaint</h4>
           <label>
-            <h4>Upload Image:</h4>
-            <input type="file" name="file" className={form.file} />
+            <input
+              type="text"
+              name="address"
+              placeholder="Your Address"
+              className={form.description}
+            />
           </label>
-          <input type="submit" value="Submit" />
+          <h4>Contact</h4>
+          <label>
+            <input
+              type="number"
+              name="name"
+              placeholder="Contact"
+              minlength="10"
+              maxlength="10"
+              className={form.description}
+            />
+          </label>
+          {/* <label> */}
+            <h4>Upload Image:</h4>
+            {/* <input type="file" id="file" aria-label="File browser example"/>
+  <span class="file-custom"/> */}
+            {/* <input type="file" name="file" className={form.file} /> */}
+
+          {/* </label> */}
+          {/* <div className={form.choose}> */}
+
+          <input type="file" name="file" id="file" className={form.file} />
+          <label for="file"><FiUpload/> Choose a file</label>
+          {/* </div> */}
+          <div></div>
+          <label>
+            <input type="submit" value="Submit" className={form.select} />
+            {/* <div></div>
+            <Button
+              text="Submit"
+              bgcolor="#d5e4e6"
+              type="submit"
+              className={form.submit}
+            /> */}
+          </label>
         </form>
+      </div>
       </div>
     </>
   );
