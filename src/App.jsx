@@ -102,18 +102,18 @@ function App() {
           <Route
             path="analytics"
             element={
-              isAuthenticated ? <Adminanalytics /> : <Navigate to={`/login`} />
+               <Adminanalytics /> 
             }
           />
           <Route
             path="complaints"
             element={
-              isAuthenticated ? <Complaints /> : <Navigate to={`/login`} />
+             <Complaints />
             }
           />
           <Route
             path="profile"
-            element={isAuthenticated ? <Profile /> : <Navigate to={`/login`} />}
+            element={<Profile />}
           />
         </Route>
       </Routes>
