@@ -13,14 +13,15 @@ const RegisterComplaint = () => {
             </header>
       <div className={form.container}>
         <form className={form.card}>
+          <div className={form.title}>Register Complaint</div>
           <label className={form.label}>
-            <h4>Enter Title:</h4>
+            {/* <h4>Enter Title Of Your Complaint:</h4>
             <input
               type="text"
               name="problem"
               placeholder=" Enter description"
               className={form.description}
-            />
+            /> */}
             <h4>Problem :</h4>
             <select
               className={form.select}
@@ -513,7 +514,7 @@ const RegisterComplaint = () => {
             <input
               type="text"
               name="problem"
-              placeholder=" Enter description"
+              placeholder="Enter your problem description"
               className={form.description}
             />
           </label>
@@ -582,7 +583,7 @@ const RegisterComplaint = () => {
             <input
               type="text"
               name="address"
-              placeholder=" Your Address"
+              placeholder="Your Address"
               className={form.description}
             />
           </label>
@@ -591,8 +592,9 @@ const RegisterComplaint = () => {
             <input
               type="number"
               name="name"
-              placeholder=" Contact"
-              minLength={10}
+              placeholder="Contact"
+              minlength="10"
+              maxlength="10"
               className={form.description}
             />
           </label>

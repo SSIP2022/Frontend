@@ -6,7 +6,7 @@ import { BsClipboardData } from "react-icons/bs";
 import { FiHome} from "react-icons/fi";
 import {MdOutlineAccountCircle} from "react-icons/md"
 
-const UserDashboard= () =>{
+const UserDashboard= (props) =>{
   return (
     <>
       <div className={user.container}>
