@@ -6,6 +6,8 @@ import { baseURL } from "../../../config/config";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
+import Span from "../../../components/span";
+import track from "../../../styles/Complain.module.scss";
 
 const UserDashboard = () => {
   const { userData } = useSelector(user);
@@ -101,47 +103,60 @@ const UserDashboard = () => {
       )}
 
       {openModel && (
-        <Modal title="Your Complain" close={() => setOpenModel(false)}>
-          <div className={styles.modalwrapper}>
-            <div className={styles.imgwrapper}>
-              <img
-                className={styles.modalimg}
-                src={
-                    details.img_url
-                    ? details.img_url
-                    : "/istockphoto-1074493878-612x612.png"
-                }
-                alt=""
-              />
-            </div>
-            <div className={styles.details}>
-              <h4>
-                <span>Name</span> :{" "}
-                {userData.first_name + " " + userData.last_name}
-              </h4>
-              <h4>
-                <span>Problem</span> :{" "}
-                {details.subject}
-                {/* {complaints.map(
-                  (complaint) =>complaint.subject)
-                  } */}
-              </h4>
-              <h4>
-                <span>Area</span> :{" "}
-                {details.area ?"Near "+ details.area : "Near Ahemdabad"}
-              </h4>
-              <h4>
-                <span>Status</span> : {details.status}
-              </h4>
-              <h4>
-                <span>Department</span>: {details.assign_department}
-              </h4>
-              <h4 className={styles.decs}>
-                <span>Description</span> : {details.description}
-              </h4>
-            </div>
+        <Modal title="Complaint Detail" close={() => setOpenModel(false)}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ margin: "10px auto" }}>
+            <img
+              className={track.modalimg}
+              src={
+                details.img_url
+                  ? details.img_url
+                  : "/istockphoto-1074493878-612x612.png"
+              }
+              alt=""
+            />
           </div>
-        </Modal>
+          <div className={track.details}>
+            <h4>
+              <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.creator_id.slice(-6)}
+            </h4>
+
+            <h4>
+              <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.subject}
+            </h4>
+            <h4 className={track.decs}>
+              <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+              : {details.description}
+            </h4>
+            <h4>
+              <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.address}
+            </h4>
+            <h4>
+              <Span text="Area" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.area ? details.area : "Near Ahemdabad"}
+            </h4>
+            <h4>
+              <Span text="Pincode" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.pincode}
+            </h4>
+            <h4>
+              <Span text="District" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.district}
+            </h4>
+            <h4>
+              <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.status}
+            </h4>
+            <h4>
+              <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+              : {details.assign_department}
+            </h4>
+          </div>
+        </div>
+      </Modal>
       )}
     </div>
     // <>
