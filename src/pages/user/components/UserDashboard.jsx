@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styles from "../../../styles/Userdashboard.module.scss";
+import Button from "../../../components/button";
 import { AiOutlineStar, AiOutlineInfoCircle } from "react-icons/ai";
 import Modal from "../../../components/model";
 import { baseURL } from "../../../config/config";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
+import toast from "react-hot-toast";
 
 const UserDashboard = () => {
   const { userData } = useSelector(user);
@@ -14,9 +16,27 @@ const UserDashboard = () => {
   const [openModel, setOpenModel] = useState(false);
 
   const [complaints, setComplaints] = useState([]);
+  const [complain,setComplaint] = useState({});
 
-  // const [withdraw , setWithdraw] = useState(false);
+  const [withdraw , setWithdraw] = useState(false);
 
+  const withdrawComplaint = async ()=>{
+      const response = await fetch('https://ssip2022.herokuapp.com/complain/withdraw',{
+        method:"PUT",
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+        },
+        body:JSON.stringify({
+          creator_id:  userData.user_id,
+          complain_id : complain.complain_id
+        })
+      })
+      const data = await response.json();
+      console.log(data);
+      setWithdraw(false);
+      window.location.href = '/user/dashboard'
+  }
   async function getUserComplaints() {
     const response = await fetch(
       baseURL + `/complain/user-complains?creator_id=${userData.user_id}`,
@@ -91,14 +111,37 @@ const UserDashboard = () => {
                setOpenModel(true);
               }}>Withdraw</span> */}
                <span className={styles.detailsbtn} onClick={()=>{
-               console.log("test")
+                if(complaint.status != "open")
+                {
+                  toast.error("Complaint is not open")
+                  return;
+                }
+               setWithdraw(true)
+               setComplaint(complaint);
               }}>Withdraw</span>
             </div>
           );
         })
       ) : (
         <div>No Complain Found</div>
+
       )}
+
+  {   withdraw &&
+              (<Modal title="Confirm To Withdraw" close={() => setWithdraw(false)}>
+                <h4>
+                  Now the status for this complain will become {complain.status} to Withdraw 
+                </h4>
+                <Button
+                  onClick={() => 
+                    withdrawComplaint()
+                  }
+                  bgcolor="green"
+                  color="white"
+                  text="Confirm"
+                />
+              </Modal>)
+              }
 
       {openModel && (
         <Modal title="Your Complain" close={() => setOpenModel(false)}>
