@@ -4,10 +4,17 @@ import { FaBars } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 
+import { useSelector } from "react-redux";
+import { user } from "../../store/userReducer"
+
+
 function Sidebar({ sidebarData, title }) {
   const [sidebar, setSidebar] = useState(false);
 
   const showSidebar = () => setSidebar(!sidebar);
+
+  const {userData} = useSelector(user);
+
 
   return (
     <>
@@ -29,7 +36,7 @@ function Sidebar({ sidebarData, title }) {
         <div className="profile">
           
           <img src="/userphoto.png"  alt="" />
-          <span>Dojetobhai Limdiwala</span>
+          <span>{userData.first_name + " " + userData.last_name}</span>
         </div>
         {/* </Link> */}
       </div>

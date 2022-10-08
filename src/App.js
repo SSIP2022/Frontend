@@ -2,9 +2,13 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import Root from "./pages/root";
-import Department from "./pages/department";
 import Login from "./pages/login";
 import Register from "./pages/register";
+
+import Department from "./pages/department/index";
+import Complaint from "./pages/department/components/Complaint";  
+
+
 
 import Admin from "./pages/admin/index";
 import Adminanalytics from "./pages/admin/components/Adminanalytics";
@@ -51,6 +55,7 @@ function App() {
   //   console.log("Test");
   //   isAuth();
   // });
+
   return (
     <>
       <Routes>

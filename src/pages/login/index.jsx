@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import firebase from 'firebase/compat/app';
-
+// import logincss from "../../styles/Login.module.scss";
 import 'firebase/compat/auth';
 import { baseURL } from "../../config/config";
 import { FiExternalLink } from "react-icons/fi";
@@ -9,16 +9,23 @@ import { Link, useNavigate } from "react-router-dom";
 import { setUserLogin } from "../../store/userReducer";
 import toast from "react-hot-toast";
 import Model from "../../components/model"
+import { useSelector } from "react-redux";
+import { user as userState} from "../../store/userReducer";
 let temp = "";
 
 const Login = () => {
   const [viewOtpForm, setViewOtpForm] = useState(false);
-  const [mynumber, setnumber] = useState("");
-  const [otp, setotp] = useState("");
   const [user, setUser] = useState(false);
 
+  const {role , isLogin} = useSelector(userState);
+  
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  if(isLogin)
+  {
+    navigate(`/${role}/home`);
+  }
 
   const firebaseConfig = {
     apiKey: "AIzaSyCrsq8N2NQZ5WSg8NoxwZgdtcPT-yaf9bg",

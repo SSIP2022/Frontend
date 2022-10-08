@@ -1,0 +1,100 @@
+.mainwrapper
+{
+  padding: 40px;
+  height: min-content;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.dmain{
+    display: flex;
+    justify-content: center;
+    width: 500px;
+    height: 30%;
+}
+
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image img{
+  margin: 20px;
+  width: 100px;
+  border-radius: 50%;
+}
+
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    // max-width: 300px;
+    width: 545px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #d5e4e6;
+  }
+  
+  .email {
+    color: rgb(93, 90, 90);
+    font-size: 20px;
+    padding: 29px 0px 29px 0px;
+    margin-right: 80px;
+  }
+
+  .number{
+    color: rgb(93, 90, 90);
+    font-size: 20px;
+    padding: 7px 0px 29px 0px;
+    margin-right: 205px;
+  }
+
+ 
+
+  .name{
+    font-weight: bold;
+    font-size: 20px;
+    padding: 25px 0px 8px;
+  }
+
+  .dob{
+    color: rgb(93, 90, 90);
+    font-size: 20px;
+    padding: 7px 0px 29px 0px;
+    margin-right: 217px;
+  }
+
+  .gender{
+    color: rgb(93, 90, 90);
+    font-size: 20px;
+    padding: 7px 0px 29px 0px;
+    margin-right: 325px;
+  }
+
+  .pincord{
+    color: rgb(93, 90, 90);
+    font-size: 20px;
+    padding: 7px 0px 29px 0px;
+    margin-right: 300px;
+  }
+
+  .area{
+    color: rgb(93, 90, 90);
+    font-size: 20px;
+    padding: 7px 0px 29px 0px;
+    margin-right: 305px;
+  }
+  @media (max-width: 415px) {
+    *{
+      font-size:12px;
+    }
+    
+    .card{
+      
+      width: 350px;
+    height: 750px;
+    }
+  }
