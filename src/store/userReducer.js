@@ -14,10 +14,16 @@ export const userSlice = createSlice({
       state.role = action.payload.user.role;
     },
   
+
+    setUserLogout:(state)=>{
+      state.isLogin = false;
+      state.userData = {};
+      state.role = "";
+    }
   },
 });
 
-export const { setUserLogin} = userSlice.actions;
+export const { setUserLogin,setUserLogout} = userSlice.actions;
 
 export const user = (state) => state.user;
 
