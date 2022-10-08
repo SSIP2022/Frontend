@@ -1,12 +1,12 @@
 import React from "react";
 import userprofile from "../../../styles/Profile.module.scss";
-import { useSelector } from "react-redux";
-import {user} from "../../../store/userReducer"
+import { useDispatch, useSelector } from "react-redux";
+import {setUserLogout, user} from "../../../store/userReducer"
 import { useNavigate } from "react-router-dom";
 
 const AdminProfile = () => {
   const {userData} = useSelector(user)
-  console.log('userData:', userData)
+  const dispatch = useDispatch()
   const navigate = useNavigate()
   return (
     <div className={userprofile.mainwrapper}>
@@ -41,7 +41,10 @@ const AdminProfile = () => {
         </p>
         </div>
         <p>
-          <button onClick={()=>navigate("/")}>Logout</button>
+          <button  onClick={() => {
+                dispatch(setUserLogout());
+                navigate("/");
+              }}>Logout</button>
         </p>
       </div>
     </div>
