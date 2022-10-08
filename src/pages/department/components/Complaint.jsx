@@ -77,6 +77,7 @@ const OfficerComplain = () => {
   }
 
   async function handleChangeStatus(id, newStatus, index) {
+    console.log('newStatus:', newStatus)
     if (newStatus == "no action") {
       toast.error("Can not perform this action");
       return;
@@ -242,7 +243,7 @@ const OfficerComplain = () => {
                   onClick={() =>
                     handleChangeStatus(
                       details.complain_id,
-                      buttonText[details.status.toLowerCase()]
+                      buttonText[details.status.toLowerCase()]["text"]
                     )
                   }
                   bgcolor="green"
