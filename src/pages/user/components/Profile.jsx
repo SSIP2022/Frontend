@@ -18,7 +18,7 @@ const UserProfile = () => {
           <h1 className={userprofile.name}>
             <span className={userprofile.firstname}>{userData.first_name}</span>
             <span> </span>
-            <span className={userprofile.lastname}>{userData.first_name}</span>
+            <span className={userprofile.lastname}>{userData.last_name}</span>
           </h1>
           <div className={userprofile.details}>
             <p className={userprofile.email}>
