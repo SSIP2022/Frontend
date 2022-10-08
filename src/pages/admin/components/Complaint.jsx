@@ -75,17 +75,6 @@ const Complain = () => {
     }
   }
 
-<<<<<<< HEAD
-
-
-  const onclick = () => {
-    setDetails(true);
-  };
-  const onclose = () => {
-    setDetails(false);
-  };
-=======
->>>>>>> 5209711a11fcdea7ab9e85c3ca5cfc75aa68881a
   async function getUserComplaints() {
     const response = await fetch(baseURL + `/complain/get-all`, {
       method: "GET",
