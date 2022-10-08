@@ -140,6 +140,12 @@ const OfficerComplain = () => {
                   <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
                   : {details.description}
                 </h4>
+                <h4 className={track.decs}>
+                  <span>Problem</span> : {details.subject}
+                </h4>
+                <h4 className={track.decs}>
+                  <span>Address</span> : {details.address}
+                </h4>
                 <h4>
                   <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
                   {details.address}

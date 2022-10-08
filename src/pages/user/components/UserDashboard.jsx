@@ -17,6 +17,8 @@ const UserDashboard = () => {
 
   const [complaints, setComplaints] = useState([]);
 
+  // const [withdraw , setWithdraw] = useState(false);
+
   async function getUserComplaints() {
     const response = await fetch(
       baseURL + `/complain/user-complains?creator_id=${userData.user_id}`,
@@ -53,10 +55,10 @@ const UserDashboard = () => {
           return (
             <div
               className={styles.complaints}
-              onClick={() => {
-                setDetails(complaint);
-                setOpenModel(true);
-              }}
+              // onClick={() => {
+              //   setDetails(complaint);
+              //   setOpenModel(true);
+              // }}
               style={{ cursor: "pointer" }}
             >
               <div className={styles.progresscircle}></div>
@@ -73,7 +75,7 @@ const UserDashboard = () => {
                 className={styles.cImage}
                 alt=""
               />
-              <span className={styles.text2} type="button" onClick={onclick}>
+              <span className={styles.text2} type="button" >
                 {complaint.subject.slice(0,25) + ".."} <AiOutlineInfoCircle fontSize="1em" />
               </span>
 
@@ -82,7 +84,17 @@ const UserDashboard = () => {
                   ? "Near Ahemdabad"
                   : "Near " +complaint.area}
               </span>
-              <span className={styles.withdraw}>Withdraw</span>
+              <span className={styles.withdraw} onClick={()=>{
+               setDetails(complaint);
+               setOpenModel(true);
+              }}>Details</span>
+              {/* <span className={styles.withdraw} onClick={()=>{
+               setDetails(complaint);
+               setOpenModel(true);
+              }}>Withdraw</span> */}
+               <span className={styles.detailsbtn} onClick={()=>{
+               console.log("test")
+              }}>Withdraw</span>
             </div>
           );
         })

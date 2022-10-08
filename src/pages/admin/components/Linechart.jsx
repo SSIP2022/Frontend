@@ -38,21 +38,18 @@ const AdminChart = () => {
     );
     data = await response.json();
     
-    // console.log(data.forCharts);
     setOptions({
       chart: {
         id: "apexchart-example",
       },
       xaxis: {
         categories: data.forCharts.department,
-        // categories: ["vishal", "om", "hardik"],
       },
     });
     setSeries([
       {
         name: "series-1",
         data: data.forCharts.count,
-        // data: [10, 20, 30],
       },
     ]);
   };

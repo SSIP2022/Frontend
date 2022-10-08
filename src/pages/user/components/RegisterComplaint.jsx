@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
 import { FiUpload } from "react-icons/fi";
+import toast from "react-hot-toast";
 import { PickerOverlay } from "filestack-react";
 import { baseURL } from "../../../config/config";
 import { useNavigate } from "react-router-dom";
@@ -261,7 +262,11 @@ const RegisterComplaint = () => {
       const data = await response.json();
       if(data.success)
       {
+          toast.success("Complaint Registerd");
           navigate(`/user/dashboard`)
+      }
+      else{
+        toast.error("Fail To Register");
       }
   }
   return (
@@ -785,7 +790,7 @@ const RegisterComplaint = () => {
                 </option>
                 <option value="198">Zoo</option>
               </select>
-              <h4>OR</h4>
+              <h4>Description</h4>
               <input
                 type="text"
                 name="problem"
@@ -803,6 +808,7 @@ const RegisterComplaint = () => {
                 name="name"
                 placeholder="Enter Pincode"
                 // className={form.description}
+                maxLength={6}
               />
               </label>
             <label>
@@ -835,6 +841,7 @@ const RegisterComplaint = () => {
                 placeholder="Pincode"
                 // className={form.description}
                 value = {pincode}
+                maxLength={10}
                 onChange = {e=>
                   {setPincode(e.target.value)}}
               />
@@ -880,7 +887,7 @@ const RegisterComplaint = () => {
                 apikey={"AJbGbxcJRbqofHCOKiyGJz"}
                 action="pick"
                 pickerOptions={{
-                  maxSize : 10 * 1024,
+                  maxSize : 10 * 1024 * 1024,
                 }}
                 onSuccess={(resp)=>
                 { 
