@@ -31,9 +31,9 @@ useEffect(()=>{
           <div className={Analyticscss.chartbox}>
             <span className={Analyticscss.title}>Dashboard</span>
             <LineChart />
-          </div>
-          <div className={Analyticscss.chartbox2}>
-            Statistics
+            <div className={Analyticscss.chartbox2}>
+            <h4 className={Analyticscss.title}>Statistics</h4>
+            <div className={Analyticscss.statistics}>
             <div className={Analyticscss.innerbox}>
               Total Analyticscss Solved
               <br />
@@ -45,11 +45,16 @@ useEffect(()=>{
               <br />
               <span className={Analyticscss.unsolved}>128</span>
             </div>
+            </div>
           </div>
-        </div>
-        <div className={Analyticscss.secondchart}>
+          </div>
+          <div className={Analyticscss.secondchart}>
+            <span className={Analyticscss.title}>Status</span>
           <PieChart />
         </div>
+          
+        </div>
+
       </div>
     </>
   );
