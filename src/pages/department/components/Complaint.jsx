@@ -9,10 +9,22 @@ import Button from "../../../components/button";
 
 const OfficerComplain = () => {
   const buttonText = {
-    open: "In Progress",
-    assign: "In Progress",
-    "in progress": "Resolved",
-    resolved: "No Action",
+    open: {
+      text: "In Progress",
+      color: "rgba(255, 14, 14, 0.59)",
+    },
+    assign: {
+      text: "In Progress",
+      color: "blue",
+    },
+    "in progress": {
+      text: "Resolved",
+      color: "rgba(255, 212, 14, 0.59)",
+    },
+    resolved: {
+      text: "No Action",
+      color: "rgba(39, 236, 128, 0.59)",
+    },
   };
   function timeFormate(date) {
     const newDate = new Date(date);
@@ -152,7 +164,17 @@ const OfficerComplain = () => {
                             : complain.area}
                         </td>
                         <td data-label="Dept">{complain.assign_department}</td>
-                        <td data-label="Staus" className="pass">
+                        <td
+                          data-label="Staus"
+                          className="pass"
+                          style={{
+                        
+                              backgroundColor:buttonText[complain.status.toLowerCase()][
+                                "color"
+                              ],
+                          
+                          }}
+                        >
                           {complain.status}
                         </td>
                         <td data-label="Date">
@@ -179,15 +201,18 @@ const OfficerComplain = () => {
                                 buttonText[complain.status.toLowerCase()]
                               );
                               if (
-                                buttonText[complain.status.toLowerCase()] !==
-                                "No Action"
+                                buttonText[complain.status.toLowerCase()][
+                                  "text"
+                                ] !== "No Action"
                               ) {
                                 setDetails(complain);
                                 setConfirm(true);
                               }
                             }}
                             id={i}
-                            text={buttonText[complain.status.toLowerCase()]}
+                            text={
+                              buttonText[complain.status.toLowerCase()]["text"]
+                            }
                           />
                         </td>
                       </tr>
