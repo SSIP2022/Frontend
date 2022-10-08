@@ -20,6 +20,8 @@ const Profile = ()=>{
             <span> </span>
             <span className={adminprofile.lastname}>{userData.last_name}</span>
           </h1>
+          <div className={adminprofile.details}>
+
           <p className={adminprofile.email}>
             Email : <span>{userData.email}</span>
           </p>
@@ -38,6 +40,7 @@ const Profile = ()=>{
           <p className={adminprofile.area}>
             Area : <span>{userData.area}</span>
           </p>
+          </div>
           <p>
             <button onClick={()=>navigate("/")}>Logout</button>
           </p>
