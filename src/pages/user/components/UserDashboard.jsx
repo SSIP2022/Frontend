@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import styles from "../../../styles/Userdashboard.module.scss";
-import { AiFillClockCircle,AiFillCheckCircle,AiFillMinusCircle, AiOutlineInfoCircle } from "react-icons/ai";
+import Button from "../../../components/button";
+import { AiOutlineStar, AiOutlineInfoCircle } from "react-icons/ai";
 import Modal from "../../../components/model";
 import { baseURL } from "../../../config/config";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-// import "react-step-progress-bar/styles.css";
-// import { ProgressBar, Step } from "react-step-progress-bar";
+import toast from "react-hot-toast"
+import Span from "../../../components/span";
+import track from "../../../styles/Complain.module.scss";
 
 const UserDashboard = () => {
   const { userData } = useSelector(user);
@@ -16,9 +18,27 @@ const UserDashboard = () => {
   const [openModel, setOpenModel] = useState(false);
 
   const [complaints, setComplaints] = useState([]);
+  const [complain,setComplaint] = useState({});
 
-  // const [withdraw , setWithdraw] = useState(false);
+  const [withdraw , setWithdraw] = useState(false);
 
+  const withdrawComplaint = async ()=>{
+      const response = await fetch('https://ssip2022.herokuapp.com/complain/withdraw',{
+        method:"PUT",
+        credentials: "include",
+        headers: {
+          "Content-type": "application/json;charset=UTF-8",
+        },
+        body:JSON.stringify({
+          creator_id:  userData.user_id,
+          complain_id : complain.complain_id
+        })
+      })
+      const data = await response.json();
+      console.log(data);
+      setWithdraw(false);
+      window.location.href = '/user/dashboard'
+  }
   async function getUserComplaints() {
     const response = await fetch(
       baseURL + `/complain/user-complains?creator_id=${userData.user_id}`,
@@ -98,97 +118,94 @@ const UserDashboard = () => {
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-              <span
-                className={styles.detailsbtn}
-                onClick={() => {
-                  console.log("test");
-                }}
-              >
-                Withdraw
-              </span>
+               <span className={styles.detailsbtn} onClick={()=>{
+                if(complaint.status != "open")
+                {
+                  toast.error("Complaint is not open")
+                  return;
+                }
+               setWithdraw(true)
+               setComplaint(complaint);
+              }}>Withdraw</span>
             </div>
           );
         })
       ) : (
         <div>No Complain Found</div>
+
       )}
 
+  {   withdraw &&
+              (<Modal title="Confirm To Withdraw" close={() => setWithdraw(false)}>
+                <h4>
+                  Now the status for this complain will become {complain.status} to Withdraw 
+                </h4>
+                <Button
+                  onClick={() => 
+                    withdrawComplaint()
+                  }
+                  bgcolor="green"
+                  color="white"
+                  text="Confirm"
+                />
+              </Modal>)
+              }
+
       {openModel && (
-        <Modal title="Your Complain" close={() => setOpenModel(false)}>
-          {/* <ProgressBar
-            percent={100}
-            filledBackground="linear-gradient(to right, rgb(114 120 254), rgb(72 49 240))"
-          >
-            <Step  transition="scale">
-              {({ accomplished }) => (
-                // <img
-                //   style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                //   width="30"
-                //   src=""
-                // >
-                <AiFillMinusCircle size="25px" color="#f23737"/>
-              )}
-            </Step>
-            <Step transition="scale">
-              {({ accomplished }) => (
-                // <img
-                //   style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                //   width="30"
-                //   src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/9/97/Pikachu_%28Smiling%29.png/revision/latest?cb=20170410234508"
-                // />
-                <AiFillClockCircle  size="25px" color="#f5f539"/>
-              )}
-            </Step>
-            <Step transition="scale">
-              {({ accomplished }) => (
-                // <img
-                //   style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
-                //   width="30"
-                //   src="https://orig00.deviantart.net/493a/f/2017/095/5/4/raichu_icon_by_pokemonshuffle_icons-db4ryym.png"
-                // />
-                <AiFillCheckCircle  size="25px" color="#29cc29"/>
-              )}
-            </Step>
-          </ProgressBar> */}
-          <div className={styles.modalwrapper}>
-            <div className={styles.imgwrapper}>
-              <img
-                className={styles.modalimg}
-                src={
-                  details.img_url
-                    ? details.img_url
-                    : "/istockphoto-1074493878-612x612.png"
-                }
-                alt=""
-              />
-            </div>
-            <div className={styles.details}>
-              <h4>
-                <span>Name</span> :{" "}
-                {userData.first_name + " " + userData.last_name}
-              </h4>
-              <h4>
-                <span>Problem</span> : {details.subject}
-                {/* {complaints.map(
-                  (complaint) =>complaint.subject)
-                  } */}
-              </h4>
-              <h4>
-                <span>Area</span> :{" "}
-                {details.area ? "Near " + details.area : "Near Ahemdabad"}
-              </h4>
-              <h4>
-                <span>Status</span> : {details.status}
-              </h4>
-              <h4>
-                <span>Department</span>: {details.assign_department}
-              </h4>
-              <h4 className={styles.decs}>
-                <span>Description</span> : {details.description}
-              </h4>
-            </div>
+        <Modal title="Complaint Detail" close={() => setOpenModel(false)}>
+        <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ margin: "10px auto" }}>
+            <img
+              className={track.modalimg}
+              src={
+                details.img_url
+                  ? details.img_url
+                  : "/istockphoto-1074493878-612x612.png"
+              }
+              alt=""
+            />
           </div>
-        </Modal>
+          <div className={track.details}>
+            <h4>
+              <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.creator_id.slice(-6)}
+            </h4>
+
+            <h4>
+              <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.subject}
+            </h4>
+            <h4 className={track.decs}>
+              <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+              : {details.description}
+            </h4>
+            <h4>
+              <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.address}
+            </h4>
+            <h4>
+              <Span text="Area" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.area ? details.area : "Near Ahemdabad"}
+            </h4>
+            <h4>
+              <Span text="Pincode" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.pincode}
+            </h4>
+            <h4>
+              <Span text="District" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.district}
+            </h4>
+            <h4>
+              <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+              {details.status}
+            </h4>
+            <h4>
+              <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+              : {details.assign_department}
+            </h4>
+          </div>
+        </div>
+      </Modal>
       )}
     </div>
     // <>

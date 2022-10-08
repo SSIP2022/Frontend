@@ -14,8 +14,12 @@ const OfficerComplain = () => {
       text: "In Progress",
       color: "rgba(255, 14, 14, 0.59)",
     },
-    close: {
-      text: "In Progress",
+    withdraw: {
+      text: "No Action",
+      color: "rgba(255, 14, 14, 0.59)",
+    },
+    closed: {
+      text: "No Action",
       color: "rgba(29, 255, 10, 0.68)",
     },
     assign: {
@@ -34,7 +38,7 @@ const OfficerComplain = () => {
       text: "No Action",
       color: "rgba(39, 236, 128, 0.59)",
     },
-    reject: {
+    rejected: {
       text: "No Action",
       color: "rgba(110, 54, 54, 0.68)",
     },
@@ -100,6 +104,7 @@ const OfficerComplain = () => {
     if (data.success) {
       toast.success("Status Updated Successfully");
       setConfirm(false);
+      window.location.href = "/officer/home"
     } else {
       toast.error("Fail To Update Status");
     }
@@ -244,6 +249,8 @@ const OfficerComplain = () => {
                               ) {
                                 setDetails(complain);
                                 setConfirm(true);
+                              }else{
+                                toast.error("You can't perform this action")
                               }
                             }}
                             id={i}
