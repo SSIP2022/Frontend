@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styles from "../../../styles/Userdashboard.module.scss";
-import { AiOutlineStar, AiOutlineInfoCircle } from "react-icons/ai";
+import { AiFillClockCircle,AiFillCheckCircle,AiFillMinusCircle, AiOutlineInfoCircle } from "react-icons/ai";
 import Modal from "../../../components/model";
 import { baseURL } from "../../../config/config";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
+// import "react-step-progress-bar/styles.css";
+// import { ProgressBar, Step } from "react-step-progress-bar";
 
 const UserDashboard = () => {
   const { userData } = useSelector(user);
@@ -73,26 +75,37 @@ const UserDashboard = () => {
                 className={styles.cImage}
                 alt=""
               />
-              <span className={styles.text2} type="button" >
-                {complaint.subject.slice(0,25) + ".."} <AiOutlineInfoCircle fontSize="1em" />
+              <span className={styles.text2} type="button">
+                {complaint.subject.slice(0, 25) + ".."}{" "}
+                <AiOutlineInfoCircle fontSize="1em" />
               </span>
 
               <span className={styles.text3}>
                 {complaint.area.length === 0
                   ? "Near Ahemdabad"
-                  : "Near " +complaint.area}
+                  : "Near " + complaint.area}
               </span>
-              <span className={styles.withdraw} onClick={()=>{
-               setDetails(complaint);
-               setOpenModel(true);
-              }}>Details</span>
+              <span
+                className={styles.withdraw}
+                onClick={() => {
+                  setDetails(complaint);
+                  setOpenModel(true);
+                }}
+              >
+                Details
+              </span>
               {/* <span className={styles.withdraw} onClick={()=>{
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-               <span className={styles.detailsbtn} onClick={()=>{
-               console.log("test")
-              }}>Withdraw</span>
+              <span
+                className={styles.detailsbtn}
+                onClick={() => {
+                  console.log("test");
+                }}
+              >
+                Withdraw
+              </span>
             </div>
           );
         })
@@ -102,12 +115,47 @@ const UserDashboard = () => {
 
       {openModel && (
         <Modal title="Your Complain" close={() => setOpenModel(false)}>
+          {/* <ProgressBar
+            percent={100}
+            filledBackground="linear-gradient(to right, rgb(114 120 254), rgb(72 49 240))"
+          >
+            <Step  transition="scale">
+              {({ accomplished }) => (
+                // <img
+                //   style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
+                //   width="30"
+                //   src=""
+                // >
+                <AiFillMinusCircle size="25px" color="#f23737"/>
+              )}
+            </Step>
+            <Step transition="scale">
+              {({ accomplished }) => (
+                // <img
+                //   style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
+                //   width="30"
+                //   src="https://vignette.wikia.nocookie.net/pkmnshuffle/images/9/97/Pikachu_%28Smiling%29.png/revision/latest?cb=20170410234508"
+                // />
+                <AiFillClockCircle  size="25px" color="#f5f539"/>
+              )}
+            </Step>
+            <Step transition="scale">
+              {({ accomplished }) => (
+                // <img
+                //   style={{ filter: `grayscale(${accomplished ? 0 : 80}%)` }}
+                //   width="30"
+                //   src="https://orig00.deviantart.net/493a/f/2017/095/5/4/raichu_icon_by_pokemonshuffle_icons-db4ryym.png"
+                // />
+                <AiFillCheckCircle  size="25px" color="#29cc29"/>
+              )}
+            </Step>
+          </ProgressBar> */}
           <div className={styles.modalwrapper}>
             <div className={styles.imgwrapper}>
               <img
                 className={styles.modalimg}
                 src={
-                    details.img_url
+                  details.img_url
                     ? details.img_url
                     : "/istockphoto-1074493878-612x612.png"
                 }
@@ -120,15 +168,14 @@ const UserDashboard = () => {
                 {userData.first_name + " " + userData.last_name}
               </h4>
               <h4>
-                <span>Problem</span> :{" "}
-                {details.subject}
+                <span>Problem</span> : {details.subject}
                 {/* {complaints.map(
                   (complaint) =>complaint.subject)
                   } */}
               </h4>
               <h4>
                 <span>Area</span> :{" "}
-                {details.area ?"Near "+ details.area : "Near Ahemdabad"}
+                {details.area ? "Near " + details.area : "Near Ahemdabad"}
               </h4>
               <h4>
                 <span>Status</span> : {details.status}
