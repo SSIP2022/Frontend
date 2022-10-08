@@ -6,6 +6,7 @@ import { user } from "../../../store/userReducer";
 import { baseURL } from "../../../config/config";
 import toast from "react-hot-toast";
 import Button from "../../../components/button";
+import Span from "../../../components/span";
 
 const OfficerComplain = () => {
   const buttonText = {
@@ -59,7 +60,8 @@ const OfficerComplain = () => {
   };
   async function getUserComplaints() {
     const response = await fetch(
-      baseURL + `/user/department-complains?department=health`,
+      baseURL +
+        `/user/department-complains?department=${userData.alloted_dept}`,
       {
         method: "GET",
         credentials: "include",
@@ -77,7 +79,7 @@ const OfficerComplain = () => {
   }
 
   async function handleChangeStatus(id, newStatus, index) {
-    console.log('newStatus:', newStatus)
+    console.log("newStatus:", newStatus);
     if (newStatus == "no action") {
       toast.error("Can not perform this action");
       return;
@@ -112,8 +114,8 @@ const OfficerComplain = () => {
       {openDetail ? (
         <>
           <Modal title="Complaint Detail" close={() => setopenDetail(false)}>
-            <div className={track.modalwrapper}>
-              <div className={track.imgwrapper}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ margin: "10px auto" }}>
                 <img
                   className={track.modalimg}
                   src={
@@ -126,7 +128,17 @@ const OfficerComplain = () => {
               </div>
               <div className={track.details}>
                 <h4>
-                  <span>User ID </span> : {details.creator_id.slice(-6)}
+                  <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.creator_id.slice(-6)}
+                </h4>
+
+                <h4>
+                  <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.subject}
+                </h4>
+                <h4 className={track.decs}>
+                  <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.description}
                 </h4>
                 <h4 className={track.decs}>
                   <span>Problem</span> : {details.subject}
@@ -135,17 +147,28 @@ const OfficerComplain = () => {
                   <span>Address</span> : {details.address}
                 </h4>
                 <h4>
-                  <span>Area</span> :{" "}
+                  <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.address}
+                </h4>
+                <h4>
+                  <Span text="Area" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
                   {details.area ? details.area : "Near Ahemdabad"}
                 </h4>
                 <h4>
-                  <span>Status</span> : {details.status}
+                  <Span text="Pincode" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.pincode}
                 </h4>
                 <h4>
-                  <span>Department</span>: {details.assign_department}
+                  <Span text="District" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.district}
                 </h4>
-                <h4 className={track.decs}>
-                  <span>Description</span> : {details.description}
+                <h4>
+                  <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.status}
+                </h4>
+                <h4>
+                  <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.assign_department}
                 </h4>
               </div>
             </div>
@@ -183,15 +206,13 @@ const OfficerComplain = () => {
                             : complain.area}
                         </td>
                         <td data-label="Dept">{complain.assign_department}</td>
-                        <td
-                          data-label="Staus"
-                          className="pass"
-                        
-                        >
-                          <Button text={complain.status} bgcolor={buttonText[complain.status.toLowerCase()][
-                                "color"
-                              ]} /> 
-                          
+                        <td data-label="Staus" className="pass">
+                          <Button
+                            text={complain.status}
+                            bgcolor={
+                              buttonText[complain.status.toLowerCase()]["color"]
+                            }
+                          />
                         </td>
                         <td data-label="Date">
                           {timeFormate(complain.create_at)}
@@ -243,7 +264,7 @@ const OfficerComplain = () => {
               <Modal title="Confirm Status" close={() => setConfirm(false)}>
                 <h4>
                   Now the status for this complain will become {details.status}{" "}
-                  To {buttonText[details.status]}
+                 -- &gt; {buttonText[details.status.toLowerCase()]["text"]}
                 </h4>
                 <Button
                   onClick={() =>

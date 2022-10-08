@@ -14,6 +14,10 @@ const Complain = () => {
       text: "In Progress",
       color: "rgba(255, 14, 14, 0.59)",
     },
+    withdraw: {
+      text: "In Progress",
+      color: "rgba(255, 14, 14, 0.59)",
+    },
     close: {
       text: "In Progress",
       color: "rgba(29, 255, 10, 0.68)",
@@ -47,6 +51,7 @@ const Complain = () => {
   }
   const { userData } = useSelector(user);
   const [complaints, setComplaints] = useState([]);
+  console.log('complaints:', complaints)
   const [details, setDetails] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [openDetail, setopenDetail] = useState(false);
@@ -100,8 +105,8 @@ const Complain = () => {
       {openDetail ? (
         <>
           <Modal title="Complaint Detail" close={() => setopenDetail(false)}>
-            <div className={track.modalwrapper}>
-              <div className={track.imgwrapper}>
+            <div  style={{display:"flex",flexDirection:"column"}}>
+              <div  style={{margin:"10px auto"}}>
                 <img
                   className={track.modalimg}
                   src={
@@ -114,28 +119,37 @@ const Complain = () => {
               </div>
               <div className={track.details}>
                 <h4>
-                  <span>User ID </span> : {details.creator_id.slice(-6)}
+                  <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> : {details.creator_id.slice(-6)}
+                </h4>
+              
+                <h4>
+                <Span text="Subject"  bgcolor="rgba(167, 164, 165, 0.4)" />  : {details.subject}
                 </h4>
                 <h4 className={track.decs}>
-                  <span>Problem</span> : {details.subject}
-                </h4>
-                <h4 className={track.decs}>
-                  <span>Address</span> : {details.address}
+                <Span text="Description"  bgcolor="rgba(167, 164, 165, 0.4)" />  : {details.description}
                 </h4>
                 <h4>
-                  <span>Area</span> :{" "}
+                <Span text="Address"  bgcolor="rgba(167, 164, 165, 0.4)" />  : {details.address}
+                </h4>
+                <h4>
+                <Span text="Area"  bgcolor="rgba(167, 164, 165, 0.4)" />  :{" "}
                   {details.area ? details.area : "Near Ahemdabad"}
                 </h4>
                 <h4>
-                  <span>Status</span> : {details.status}
+                <Span text="Pincode"  bgcolor="rgba(167, 164, 165, 0.4)" />  :{" "}
+                  {details.pincode }
                 </h4>
                 <h4>
-                  <span>Department</span>: {details.assign_department}
+                <Span text="District"  bgcolor="rgba(167, 164, 165, 0.4)" />  :{" "}
+                  {details.district }
                 </h4>
-                <h4 className={track.decs}>
-                  <span>Description</span> : {details.description}
+                <h4>
+                <Span text="Status"  bgcolor="rgba(167, 164, 165, 0.4)" />  : {details.status}
                 </h4>
-                
+                <h4>
+                <Span text="Department"  bgcolor="rgba(167, 164, 165, 0.4)" /> : {details.assign_department}
+                </h4>
+              
               </div>
             </div>
           </Modal>
@@ -188,6 +202,7 @@ const Complain = () => {
                           <button
                             type="button"
                             onClick={() => {
+                              console.log(complain)
                               setDetails(complain);
                               setopenDetail(true);
                             }}
@@ -241,7 +256,7 @@ const Complain = () => {
               <Modal title="Confirm Status" close={() => setConfirm(false)}>
                 <h4>
                   Now the status for this complain will become {details.status}{" "}
-                  To {action}
+                  -- &gt; {action}
                 </h4>
                 <Button
                   onClick={() =>
