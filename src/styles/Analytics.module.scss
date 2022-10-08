@@ -1,5 +1,6 @@
 .navbarContainer{
     display: flex;
+    flex-direction: column;
     margin: 1rem;
     text-align: center;
     width: 900px;
@@ -63,7 +64,6 @@
     font-size: 90px;
     color: rgb(188, 99, 99);
 }
-
 @media (max-width: 415px) {
     .navbarContainer{
         display: flex;
