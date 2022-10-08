@@ -24,6 +24,7 @@ const PieChart = () => {
       }
     );
     data = await response.json();
+    console.log(screenWidth)
 
     // console.log(data.forCharts);
     setOptions({
@@ -36,7 +37,7 @@ const PieChart = () => {
     getAnalytics();
   }, []);
 
-  return(<Chart options={options} series={series} type="donut" width="380" />);
+  return(<Chart options={options} series={series} type="donut" width={screenWidth == '412' ? "300px" : "360px"} />);
 };
 
 // class Donut extends Component {

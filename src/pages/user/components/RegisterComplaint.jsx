@@ -213,7 +213,7 @@ import { user } from "../../../store/userReducer";
 
 const RegisterComplaint = () => {
   const [isPicker, setIsPicker] = useState(false);
-  const [fileName,setFilename] = useState("Change File");
+  const [fileName,setFilename] = useState("Choose File");
   const { userData } = useSelector(user);
   //body states
   const [subject,setSubject] = useState("");
@@ -276,10 +276,10 @@ const RegisterComplaint = () => {
                 <img className={user.photo} src="/logo.jpg" alt="profile"/>
                 <div className={user.name}>Dojetobhai Limdiwala</div>
             </header> */}
-        <div className={form.container}>
-          <form className={form.card}>
-            <div className={form.title}>Register Complaint</div>
-            <label className={form.label}>
+        <div className="formWrapper">
+          <form >
+            <h3 className="title">Register Complaint</h3>
+            <label >
               {/* <h4>Enter Title Of Your Complaint:</h4>
             <input
               type="text"
@@ -289,7 +289,7 @@ const RegisterComplaint = () => {
             /> */}
               <h4>Problem :</h4>
               <select
-                className={form.select}
+                // className={form.select}
                 name="Problems"
                 id="ctl00_ContentPlaceHolder1_ddlProblem"
                 title="Please Select Problem"
@@ -795,50 +795,51 @@ const RegisterComplaint = () => {
                 type="text"
                 name="problem"
                 placeholder="Enter your problem description"
-                className={form.description}
+                // className={form.description}
                 value={description}
                 onChange={e => setDecription(e.target.value)}
               />
             </label>
-            <h4>Pincode</h4>
             <label>
+              <h4>Pincode</h4>
+            
               <input
                 type="number"
                 name="name"
                 placeholder="Enter Pincode"
+                // className={form.description}
                 maxLength={6}
-                className={form.description}
               />
-            </label>
+              </label>
             <label>
               <h4>Your Area :</h4>
               <input
                 type="text"
                 name="area"
                 placeholder="Your Area"
-                className={form.description}
+                // className={form.description}
                 value = {area}
                 onChange = {e => setArea(e.target.value)}
               />
             </label>
-            <h4>Location of Complaint</h4>
             <label>
+            <h4>Location of Complaint</h4>
               <input
                 type="text"
                 name="address"
                 placeholder="Your Address"
-                className={form.description}
+                // className={form.description}
                 value = {address}
                 onChange = {e => setAddress(e.target.value)}
               />
             </label>
-            <h4>Contact</h4>
             <label>
+            <h4>Contact</h4>
               <input
                 type="number"
                 name="name"
                 placeholder="Pincode"
-                className={form.description}
+                // className={form.description}
                 value = {pincode}
                 maxLength={10}
                 onChange = {e=>
@@ -857,19 +858,18 @@ const RegisterComplaint = () => {
             <input
               name="file"
               id="file"
-              className={form.file}
+              // disabled
+              // className={form.file}
+              style={{cursor:"pointer"}}
+              value={fileName}
               onClick={(e) => {
                 e.preventDefault();
                 isPicker ? setIsPicker(false) : setIsPicker(true);
               }}
             />
-            <label htmlFor="file">
-              <FiUpload /> {fileName}
-            </label>
             {/* </div> */}
             <div></div>
             <label>
-              <input value="Submit" className={form.select} onClick={e=>onSubmitComplain(e)} />
               {/* <div></div>
             <Button
             text="Submit"
@@ -878,6 +878,7 @@ const RegisterComplaint = () => {
             className={form.submit}
           /> */}
             </label>
+          <button value="Submit"  onClick={e=>onSubmitComplain(e)} >Submit</button>
           </form>
 
           <div style={{ margin: "4px", position: "relative" }}>
