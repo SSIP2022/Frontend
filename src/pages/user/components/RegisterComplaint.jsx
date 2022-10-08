@@ -239,7 +239,7 @@ const RegisterComplaint = () => {
 
   const onSubmitComplain = async (e)=>{
       e.preventDefault();
-      const response = await fetch(`https://ssip2022.herokuapp.com/complain/create`,{
+      const response = await fetch(`${baseURL}/complain/create`,{
         method:"POST",
         credentials: "include",
         headers: {
@@ -247,7 +247,7 @@ const RegisterComplaint = () => {
         },
         body:JSON.stringify({
           subject:subject,
-          description : "",
+          description : description,
           // status :"Open",
           // district:"",
           address: address,
@@ -877,11 +877,17 @@ const RegisterComplaint = () => {
             {isPicker && (
               <PickerOverlay
                 apikey={"AJbGbxcJRbqofHCOKiyGJz"}
+                action="pick"
+                pickerOptions={{
+                  maxSize : 10 * 1024,
+                }}
                 onSuccess={(resp)=>
-                { setFilename(resp.filesUploaded[0].filename)
+                { 
+                  setFilename(resp.filesUploaded[0].filename)
                   setImageurl(resp.filesUploaded[0].url)
                   setIsPicker(false)
-                  console.log(address)}}
+                  console.log(address)}
+                }
                 onUploadDone={(res) => console.log(res)}
               />
             )}
