@@ -14,6 +14,8 @@ const Complain = () => {
   const [complaints, setComplaints] = useState([]);
   const [details, setDetails] = useState(false);
 
+
+
   const onclick = () => {
     setDetails(true);
   };
