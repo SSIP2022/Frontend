@@ -128,6 +128,12 @@ const OfficerComplain = () => {
                 <h4>
                   <span>User ID </span> : {details.creator_id.slice(-6)}
                 </h4>
+                <h4 className={track.decs}>
+                  <span>Problem</span> : {details.subject}
+                </h4>
+                <h4 className={track.decs}>
+                  <span>Address</span> : {details.address}
+                </h4>
                 <h4>
                   <span>Area</span> :{" "}
                   {details.area ? details.area : "Near Ahemdabad"}
