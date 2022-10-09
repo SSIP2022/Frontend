@@ -21,6 +21,7 @@ const UserDashboard = () => {
   const [complain,setComplaint] = useState({});
 
   const [withdraw , setWithdraw] = useState(false);
+  const [trace, setTrace] = useState([]);
 
   const withdrawComplaint = async ()=>{
       const response = await fetch('https://ssip2022.herokuapp.com/complain/withdraw',{
@@ -57,6 +58,29 @@ const UserDashboard = () => {
     } else {
     }
   }
+
+  async function handleGetStatus() {
+    const response = await fetch(baseURL + `/complain/trace-complain`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        complain_id: details.complain_id,
+      }),
+    });
+    const data = await response.json();
+    console.log("data:", data);
+    if (data.success) {
+      setTrace(data.trace);
+    } else {
+    }
+  }
+
+  useEffect(() => {
+    handleGetStatus();
+  }, [openModel]);
 
   useEffect(() => {
     getUserComplaints();
@@ -198,6 +222,34 @@ const UserDashboard = () => {
               : {details.assign_department}
             </h4>
           </div>
+          {trace.length !== 0 ? (
+                <div style={{ display: "flex", margin: "5px" }}>
+                  <Span text="Status Flow" bgcolor="#fed049" />
+                  
+                  {trace.map((data) => {
+                    return (
+                      <div style={{ margin: "5px" }}>
+                        <Span
+                          bgcolor="#6a5c80"
+                          color="white"
+                          text={data.status}
+                        />{" "}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {" "}
+                  <div style={{ display: "flex", margin: "5px" }}>
+                    <Span text="Status Flow" bgcolor="#fed049" />
+                    <div  style={{ margin: "5px" }}>
+
+                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+                    </div>
+                  </div>
+                </div>
+              )}
         </div>
       </Modal>
       )}

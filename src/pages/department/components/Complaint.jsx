@@ -55,6 +55,7 @@ const OfficerComplain = () => {
   const [details, setDetails] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [openDetail, setopenDetail] = useState(false);
+  const [trace, setTrace] = useState([]);
 
   const onclick = () => {
     setDetails(true);
@@ -110,9 +111,32 @@ const OfficerComplain = () => {
     }
   }
 
+  async function handleGetStatus() {
+    const response = await fetch(baseURL + `/complain/trace-complain`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        complain_id: details.complain_id,
+      }),
+    });
+    const data = await response.json();
+    console.log("data:", data);
+    if (data.success) {
+      setTrace(data.trace);
+    } else {
+    }
+  }
+
   useEffect(() => {
     getUserComplaints();
   }, []);
+
+  useEffect(() => {
+    handleGetStatus();
+  }, [openDetail]);
 
   return (
     <>
@@ -176,6 +200,34 @@ const OfficerComplain = () => {
                   : {details.assign_department}
                 </h4>
               </div>
+              {trace.length !== 0 ? (
+                <div style={{ display: "flex", margin: "5px" }}>
+                  <Span text="Status Flow" bgcolor="#fed049" />
+                  
+                  {trace.map((data) => {
+                    return (
+                      <div style={{ margin: "5px" }}>
+                        <Span
+                          bgcolor="#6a5c80"
+                          color="white"
+                          text={data.status}
+                        />{" "}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {" "}
+                  <div style={{ display: "flex", margin: "5px" }}>
+                    <Span text="Status Flow" bgcolor="#fed049" />
+                    <div  style={{ margin: "5px" }}>
+
+                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </Modal>
         </>
