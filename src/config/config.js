@@ -1,4 +1,4 @@
 const production = true;
 export const baseURL = production
-  ? "https://ssip2022.herokuapp.com"
+  ? "https://wild-lime-prawn.cyclic.app"
   : "http://localhost:5500";
