@@ -846,7 +846,8 @@ const RegisterComplaint = () => {
                   {setPincode(e.target.value)}}
               />
             </label>
-            {/* <label> */}
+            <label>
+            
             <h4>Upload Image:</h4>
             {/* <input type="file" id="file" aria-label="File browser example"/>
   <span class="file-custom"/> */}
@@ -868,8 +869,8 @@ const RegisterComplaint = () => {
               }}
             />
             {/* </div> */}
-            <div></div>
-            <label>
+            {/* <div></div> */}
+            {/* <label> */}
               {/* <div></div>
             <Button
             text="Submit"

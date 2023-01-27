@@ -3,7 +3,7 @@ import userprofile from "../../../styles/Profile.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserLogout, user } from "../../../store/userReducer";
 import { useNavigate } from "react-router-dom";
-
+import { BsPencil } from "react-icons/bs";
 const UserProfile = () => {
   const { userData } = useSelector(user);
   const dispatch = useDispatch();
@@ -14,6 +14,9 @@ const UserProfile = () => {
         <div className={userprofile.card}>
           <div className={userprofile.image}>
             <img src="/userphoto.png" />
+            <div className={userprofile.edit} >
+              <BsPencil /> 
+            </div>
           </div>
           <h1 className={userprofile.name}>
             <span className={userprofile.firstname}>{userData.first_name}</span>

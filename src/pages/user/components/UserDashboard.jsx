@@ -229,7 +229,7 @@ const UserDashboard = () => {
             </h4>
           </div>
           {trace.length !== 0 ? (
-                <div style={{ display: "flex", margin: "5px" }}>
+                <div style={{ display: "flex", margin: "5px",padding: "0px 0px 0px 30px" }}>
                   <Span text="Status Flow" bgcolor="#fed049" />
                   
                   {trace.map((data) => {
