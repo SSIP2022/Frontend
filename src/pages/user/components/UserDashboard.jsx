@@ -119,19 +119,25 @@ const UserDashboard = () => {
                 className={styles.cImage}
                 alt=""
               />
-              <span className={styles.text2} type="button" >
-                {complaint.subject.slice(0,25) + ".."} <AiOutlineInfoCircle fontSize="1em" />
+              <span className={styles.text2} type="button">
+                {complaint.subject.slice(0, 25) + ".."}{" "}
+                <AiOutlineInfoCircle fontSize="1em" />
               </span>
 
               <span className={styles.text3}>
                 {complaint.area.length === 0
                   ? "Near Ahemdabad"
-                  : "Near " +complaint.area}
+                  : "Near " + complaint.area}
               </span>
-              <span className={styles.withdraw} onClick={()=>{
-               setDetails(complaint);
-               setOpenModel(true);
-              }}>Details</span>
+              <span
+                className={styles.withdraw}
+                onClick={() => {
+                  setDetails(complaint);
+                  setOpenModel(true);
+                }}
+              >
+                Details
+              </span>
               {/* <span className={styles.withdraw} onClick={()=>{
                setDetails(complaint);
                setOpenModel(true);

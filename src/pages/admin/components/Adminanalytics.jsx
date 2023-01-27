@@ -2,10 +2,11 @@ import React, { useEffect } from "react";
 import Analyticscss from "../../../styles/Analytics.module.scss";
 import LineChart from "./Linechart";
 import PieChart from "./Piechart";
+import { useState } from "react";
 
 const Analytics = () => {
 
-    // const [analyticsData,set]
+    const [analyticsData,setAnalyticsData] = useState("");
 
     const getAnalytics = async () => {
         const response = await fetch(
@@ -18,6 +19,8 @@ const Analytics = () => {
             },
           }
     );
+    const data = await response.json();
+    setAnalyticsData(data);
 }
 
 useEffect(()=>{
@@ -37,13 +40,13 @@ useEffect(()=>{
             <div className={Analyticscss.innerbox}>
               Total Analyticscss Solved
               <br />
-              <span className={Analyticscss.solved}>32</span>
+              <span className={Analyticscss.solved}>{analyticsData.complains[0].resolved}</span>
             </div>
             <div className={Analyticscss.innerbox}>
               Total Analyticscss
               <br />
               <br />
-              <span className={Analyticscss.unsolved}>128</span>
+              <span className={Analyticscss.unsolved}>{analyticsData.complains[0].total}</span>
             </div>
             </div>
           </div>
