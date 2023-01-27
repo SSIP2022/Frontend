@@ -56,6 +56,7 @@ const Complain = () => {
   const [confirm, setConfirm] = useState(false);
   const [openDetail, setopenDetail] = useState(false);
   const [action, setAction] = useState("");
+  const [trace, setTrace] = useState([]);
 
   async function handleChangeStatus(id, newStatus, index) {
     const response = await fetch(baseURL + `/complain/update-status`, {
@@ -74,10 +75,29 @@ const Complain = () => {
     if (data.success) {
       toast.success("Status Updated Successfully");
       setConfirm(false);
-      window.location.href = "/admin/home"
+      window.location.href = "/admin/home";
     } else {
       toast.error("Fail To Update Status");
       setConfirm(false);
+    }
+  }
+
+  async function handleGetStatus() {
+    const response = await fetch(baseURL + `/complain/trace-complain`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        complain_id: details.complain_id,
+      }),
+    });
+    const data = await response.json();
+    console.log("data:", data);
+    if (data.success) {
+      setTrace(data.trace);
+    } else {
     }
   }
 
@@ -100,6 +120,10 @@ const Complain = () => {
   useEffect(() => {
     getUserComplaints();
   }, []);
+
+  useEffect(() => {
+    handleGetStatus();
+  }, [openDetail]);
 
   return (
     <>
@@ -157,6 +181,34 @@ const Complain = () => {
                   : {details.assign_department}
                 </h4>
               </div>
+              {trace.length !== 0 ? (
+                <div style={{ display: "flex", margin: "5px" }}>
+                  <Span text="Status Flow" bgcolor="#fed049" />
+                  
+                  {trace.map((data) => {
+                    return (
+                      <div style={{ margin: "5px" }}>
+                        <Span
+                          bgcolor="#6a5c80"
+                          color="white"
+                          text={data.status}
+                        />{" "}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {" "}
+                  <div style={{ display: "flex", margin: "5px" }}>
+                    <Span text="Status Flow" bgcolor="#fed049" />
+                    <div  style={{ margin: "5px" }}>
+
+                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </Modal>
         </>
@@ -228,8 +280,8 @@ const Complain = () => {
                                 setDetails(complain);
                                 setConfirm(true);
                                 setAction("closed");
-                              }else{
-                                toast.error("You can't perform this action")
+                              } else {
+                                toast.error("You can't perform this action");
                               }
                             }}
                           />
@@ -248,8 +300,8 @@ const Complain = () => {
                                 setDetails(complain);
                                 setConfirm(true);
                                 setAction("rejected");
-                              }else{
-                                toast.error("You can't perform this action")
+                              } else {
+                                toast.error("You can't perform this action");
                               }
                             }}
                           />
