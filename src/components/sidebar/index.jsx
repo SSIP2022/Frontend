@@ -15,6 +15,12 @@ function Sidebar({ sidebarData, title }) {
 
   const {userData} = useSelector(user);
 
+  if(sidebar){
+    document.body.style.overflow = "hidden";
+  }else{
+    document.body.style.overflow = "auto";
+  }
+
 
   return (
     <>
