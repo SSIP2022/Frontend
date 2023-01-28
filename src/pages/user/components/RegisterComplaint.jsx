@@ -859,6 +859,7 @@ const RegisterComplaint = () => {
             <input
               name="file"
               id="file"
+              type="button"
               // disabled
               // className={form.file}
               style={{cursor:"pointer"}}

@@ -121,7 +121,10 @@ const UserDashboard = () => {
               />
               <span className={styles.text2} type="button">
                 {complaint.subject.slice(0, 25) + ".."}{" "}
-                <AiOutlineInfoCircle fontSize="1em" />
+                <AiOutlineInfoCircle  onClick={() => {
+                  setDetails(complaint);
+                  setOpenModel(true);
+                }}fontSize="1em" />
               </span>
 
               <span className={styles.text3}>
