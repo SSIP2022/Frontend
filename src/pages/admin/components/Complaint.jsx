@@ -220,11 +220,12 @@ const Complain = () => {
                 <tr>
                   <th>S.No</th>
                   <th>User ID</th>
+                  <th>Token No</th>
                   <th>Area</th>
                   <th>Dept</th>
                   <th>Status</th>
                   <th>Date</th>
-                  <th>Details</th>
+                  {/* <th>Details</th> */}
                   <th>Close</th>
                   <th>Reject</th>
                 </tr>
@@ -235,9 +236,15 @@ const Complain = () => {
                     return (
                       <tr>
                         <td data-label="S.No">{i + 1}</td>
-                        <td data-label="Name">
+                        <td data-label="Name" >
                           {complain.creator_id.slice(-6)}
                         </td>
+                        <td data-lable="Token No" onClick={() => {
+                              console.log(complain);
+                              setDetails(complain);
+                              setopenDetail(true);
+                            }}
+                            style={{color:"#3a67e3b6",textDecorationLine:"underline",cursor:"pointer"}}>{complain.complain_id.slice(-6)}</td>
                         <td data-label="Area">
                           {" "}
                           {complain.area.length === 0
@@ -256,7 +263,7 @@ const Complain = () => {
                         <td data-label="Date">
                           {timeFormate(complain.create_at)}
                         </td>
-                        <td>
+                        {/* <td>
                           <button
                             type="button"
                             onClick={() => {
@@ -268,7 +275,7 @@ const Complain = () => {
                           >
                             Details
                           </button>
-                        </td>
+                        </td> */}
                         <td>
                           <Button
                             text="Close"
