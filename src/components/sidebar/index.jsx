@@ -34,17 +34,17 @@ function Sidebar({ sidebarData, title }) {
         </div>
         <div className="amc">
           <img src="/logo.png" className="logo" alt="" />
-          <span>Ahemedabad Municipal Corporation</span>
+          <span>Ahmedabad Municipal Corporation</span>
         </div>
 
         <h3>{window.location.pathname.split("/").slice(-1)[0]}</h3>
-        {/* <Link to="/admin/profile"> */}
+        <Link to={`profile`}>
         <div className="profile">
           
           <img src="/userphoto.png"  alt="" />
           <span>{userData.first_name}</span>
         </div>
-        {/* </Link> */}
+        </Link>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
