@@ -27,7 +27,7 @@ const AdminChart = () => {
   // let series;
   const getAnalytics = async () => {
     const response = await fetch(
-      "https://ssip2022.herokuapp.com/complain/analytics/department-wise",
+      "https://wild-lime-prawn.cyclic.app/complain/analytics/department-wise",
       {
         method: "GET",
         credentials: "include",
