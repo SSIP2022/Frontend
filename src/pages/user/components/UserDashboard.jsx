@@ -24,7 +24,7 @@ const UserDashboard = () => {
   const [trace, setTrace] = useState([]);
 
   const withdrawComplaint = async ()=>{
-      const response = await fetch('https://ssip2022.herokuapp.com/complain/withdraw',{
+      const response = await fetch('https://wild-lime-prawn.cyclic.app/complain/withdraw',{
         method:"PUT",
         credentials: "include",
         headers: {
@@ -146,11 +146,17 @@ const UserDashboard = () => {
                setOpenModel(true);
               }}>Withdraw</span> */}
                <span className={styles.detailsbtn} onClick={()=>{
+                 if(complaint.status == "withdraw")
+                 {
+                   toast.error("Complaint is already withdraw")
+                   return;
+                 }
                 if(complaint.status != "open")
                 {
-                  toast.error("Complaint is not open")
+                  toast.error("Complaint is in progress")
                   return;
                 }
+               
                setWithdraw(true)
                setComplaint(complaint);
               }}>Withdraw</span>
