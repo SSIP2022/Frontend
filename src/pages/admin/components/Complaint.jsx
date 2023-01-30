@@ -274,6 +274,7 @@ const Complain = () => {
                         <td data-label="Staus" className="pass">
                           <Button
                             text={complain.status}
+                            cursor="auto"
                             bgcolor={
                               buttonText[complain.status.toLowerCase()]["color"]
                             }

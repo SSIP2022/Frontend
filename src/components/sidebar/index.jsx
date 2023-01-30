@@ -1,18 +1,17 @@
-import React, { useState } from "react";
+import React, { useState,useRef,useEffect } from "react";
 import { FaBars } from "react-icons/fa";
-
-import { Link } from "react-router-dom";
+import { BsCaretDownFill } from "react-icons/bs";
+import { Link,useNavigate } from "react-router-dom";
 import "./Sidebar.css";
-
-import { useSelector } from "react-redux";
-import { user } from "../../store/userReducer"
+import { useSelector,useDispatch } from "react-redux";
+import { user,setUserLogout } from "../../store/userReducer"
 
 
 function Sidebar({ sidebarData, title }) {
   const [sidebar, setSidebar] = useState(false);
-
+  const dispatch = useDispatch();
   const showSidebar = () => setSidebar(!sidebar);
-
+  const navigate = useNavigate();
   const {userData} = useSelector(user);
 
   if(sidebar){
@@ -20,7 +19,24 @@ function Sidebar({ sidebarData, title }) {
   }else{
     document.body.style.overflow = "auto";
   }
+  const [menuOpen, setMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
+  const handleClickOutside = event => {
+    if (dropdownRef.current && dropdownRef.current.contains) {
+      if (!dropdownRef.current.contains(event.target)) {
+        setMenuOpen(false);
+        // console.log("clicked outside");
+      }
+    }
+  };
+  
+  useEffect(() => {
+    document.addEventListener('click', handleClickOutside);
+    return () => {
+      document.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -43,13 +59,37 @@ function Sidebar({ sidebarData, title }) {
         <div className="nav-center">
         <h3>{window.location.pathname.split("/").slice(-1)[0]}</h3>
         </div>
-        <Link to={`profile`}>
+        <div>
+          
+      <div className="dropdown-button"  ref={dropdownRef} onClick={() => setMenuOpen(!menuOpen)}>
+      <div className="profile">
+          
+          <img src="/userphoto.png"  alt="" />
+          <span style={{paddingRight:"5px"}}>{userData.first_name}</span>
+          <BsCaretDownFill />
+        </div>
+      </div>
+      {menuOpen && (
+        <ul className="dropdown-menu">
+          <li className="dropdown-menu-item"><Link to={`profile`} style={{fontWeight:"100"}}>Your Profile </Link></li>
+          <li className="dropdown-menu-item"><span
+              onClick={() => {
+                dispatch(setUserLogout());
+                navigate("/");
+              }}
+            >
+              Logout
+            </span></li>
+        </ul>
+      )}
+    </div>
+        {/* <Link to={`profile`}>
         <div className="profile">
           
           <img src="/userphoto.png"  alt="" />
           <span>{userData.first_name}</span>
         </div>
-        </Link>
+        </Link> */}
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>

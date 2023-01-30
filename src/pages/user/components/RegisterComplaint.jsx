@@ -800,7 +800,7 @@ const RegisterComplaint = () => {
                 onChange={e => setDecription(e.target.value)}
               />
             </label>
-            <label>
+            {/* <label>
               <h4>Pincode</h4>
             
               <input
@@ -810,7 +810,7 @@ const RegisterComplaint = () => {
                 // className={form.description}
                 maxLength={6}
               />
-              </label>
+              </label> */}
             <label>
               <h4>Your Area :</h4>
               <input
@@ -834,7 +834,7 @@ const RegisterComplaint = () => {
               />
             </label>
             <label>
-            <h4>Contact</h4>
+            <h4>Pincode</h4>
               <input
                 type="number"
                 name="name"
