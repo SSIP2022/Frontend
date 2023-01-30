@@ -55,6 +55,7 @@ const Complain = () => {
   const [details, setDetails] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [openDetail, setopenDetail] = useState(false);
+  const [feedback, setFeedback] = useState(false);
   const [action, setAction] = useState("");
   const [trace, setTrace] = useState([]);
 
@@ -124,9 +125,11 @@ const Complain = () => {
   useEffect(() => {
     handleGetStatus();
   }, [openDetail]);
+ 
 
   return (
     <>
+      
       {openDetail ? (
         <>
           <Modal title="Complaint Detail" close={() => setopenDetail(false)}>
@@ -212,7 +215,22 @@ const Complain = () => {
             </div>
           </Modal>
         </>
-      ) : (
+      ) 
+      : 
+      feedback ? (
+        <Modal title="Feedback" close={() => setFeedback(false)}>
+           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '23px' }}>
+      <h3 style={{ fontSize: '20px', marginBottom: '20px' }}>Please provide your feedback :</h3>
+      <input style={{ width: '350px', height: '40px', padding: '10px', marginBottom: '20px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '10px' }} placeholder="Enter your feedback" type="text" />
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '19px' , marginTop:'10px' }}>
+        <input style={{ marginRight: '10px' , transform: 'scale(1.7)' }} type="checkbox" width="10px" />
+        <label style={{ fontSize: '18px' }}>Send feedback to all users</label>
+      </div>
+      <button style={{ width: '200px', height: '50px', backgroundColor: 'green', color: 'white', fontSize: '18px', borderRadius: '10px', marginTop: '12px' }}>Submit</button>
+    </div>
+            </Modal>
+      ):
+      (
         <>
           <div className={track.back}>
             <table className={track.table}>
@@ -228,6 +246,7 @@ const Complain = () => {
                   {/* <th>Details</th> */}
                   <th>Close</th>
                   <th>Reject</th>
+                  <th>FeedBack</th>
                 </tr>
               </thead>
               <tbody>
@@ -313,6 +332,13 @@ const Complain = () => {
                               }
                             }}
                           />
+                        </td>
+                        <td>
+                          <Button text="feedback" onClick={() => {
+                              
+                              // setopenDetail(true);
+                              setFeedback(true);
+                            }}/>
                         </td>
                       </tr>
                     );
