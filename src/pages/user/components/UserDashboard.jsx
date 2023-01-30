@@ -134,6 +134,7 @@ const UserDashboard = () => {
               </span>
               <span
                 className={styles.withdraw}
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   setDetails(complaint);
                   setOpenModel(true);
@@ -145,12 +146,13 @@ const UserDashboard = () => {
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-               <span className={styles.detailsbtn} onClick={()=>{
+               <span className={styles.detailsbtn} style={{cursor:"pointer"}} onClick={()=>{
                 if(complaint.status != "open")
                 {
                   toast.error("Complaint is not open")
                   return;
                 }
+                
                setWithdraw(true)
                setComplaint(complaint);
               }}>Withdraw</span>
