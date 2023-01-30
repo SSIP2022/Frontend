@@ -10,7 +10,7 @@ const Analytics = () => {
 
     const getAnalytics = async () => {
         const response = await fetch(
-          "https://ssip2022.herokuapp.com/complain/analytics/status",
+          "https://wild-lime-prawn.cyclic.app/complain/analytics/status",
           {
             method: "GET",
             credentials: "include",
@@ -20,13 +20,14 @@ const Analytics = () => {
           }
     );
     const data = await response.json();
-    setAnalyticsData(data);
+    setAnalyticsData(data.complains[0].resolved);
+    console.log(data);
 }
 
 useEffect(()=>{
     getAnalytics();
 },[])
-
+console.log();
   return (
     <>
       <div className={Analyticscss.navbarContainer}>
@@ -40,13 +41,13 @@ useEffect(()=>{
             <div className={Analyticscss.innerbox}>
               Total Analyticscss Solved
               <br />
-              <span className={Analyticscss.solved}>{analyticsData.complains[0].resolved}</span>
+              {/* <span className={Analyticscss.solved}>{analyticsData.complains[0].resolved}</span> */}
             </div>
             <div className={Analyticscss.innerbox}>
               Total Analyticscss
               <br />
               <br />
-              <span className={Analyticscss.unsolved}>{analyticsData.complains[0].total}</span>
+              {/* <span className={Analyticscss.unsolved}>{analyticsData.complains[0].total}</span> */}
             </div>
             </div>
           </div>

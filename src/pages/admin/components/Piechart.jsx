@@ -14,7 +14,7 @@ const PieChart = () => {
 
   const getAnalytics = async () => {
     const response = await fetch(
-      "https://ssip2022.herokuapp.com/complain/analytics/status",
+      "https://wild-lime-prawn.cyclic.app/complain/analytics/status",
       {
         method: "GET",
         credentials: "include",

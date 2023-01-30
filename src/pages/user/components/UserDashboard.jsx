@@ -103,7 +103,7 @@ const UserDashboard = () => {
               //   setDetails(complaint);
               //   setOpenModel(true);
               // }}
-              style={{ cursor: "pointer" }}
+              // style={{ cursor: "pointer" }}
             >
               <div className={styles.progresscircle}></div>
               <span className={styles.text1}>{complaint.status}</span>
@@ -119,12 +119,12 @@ const UserDashboard = () => {
                 className={styles.cImage}
                 alt=""
               />
-              <span className={styles.text2} type="button">
-                {complaint.subject.slice(0, 25) + ".."}{" "}
-                <AiOutlineInfoCircle  onClick={() => {
+              <span className={styles.text2} type="button" onClick={() => {
                   setDetails(complaint);
                   setOpenModel(true);
-                }}fontSize="1em" />
+                }}>
+                {complaint.subject.slice(0, 25) + ".."}{" "}
+                <AiOutlineInfoCircle  fontSize="1em" />
               </span>
 
               <span className={styles.text3}>

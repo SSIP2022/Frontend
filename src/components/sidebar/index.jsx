@@ -25,26 +25,31 @@ function Sidebar({ sidebarData, title }) {
   return (
     <>
       <div className="navbar">
+        <div className="nav-left">
+          
         <div
           className="menu-bars"
           // onMouseEnter={showSidebar}
           onClick={showSidebar}
-        >
+          >
           <FaBars />
         </div>
-        <div className="amc">
+        <div className="amc" style={{cursor:"pointer"}} onClick={() =>  window.open("https://ahmedabadcity.gov.in", "_blank")}>
           <img src="/logo.png" className="logo" alt="" />
-          <span>Ahemedabad Municipal Corporation</span>
+          <span className="amc-full">Ahmedabad Municipal Corporation</span>
+          <span className="amc-short">AMC</span>
+          </div>
         </div>
-
+        <div className="nav-center">
         <h3>{window.location.pathname.split("/").slice(-1)[0]}</h3>
-        {/* <Link to="/admin/profile"> */}
+        </div>
+        <Link to={`profile`}>
         <div className="profile">
           
           <img src="/userphoto.png"  alt="" />
           <span>{userData.first_name}</span>
         </div>
-        {/* </Link> */}
+        </Link>
       </div>
       <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
         <ul className="nav-menu-items" onClick={showSidebar}>
