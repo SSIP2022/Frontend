@@ -46,9 +46,8 @@ const Complain = () => {
   };
   function timeFormate(date) {
     const newDate = new Date(date);
-    return `${newDate.getDate()}/${
-      newDate.getMonth() + 1
-    }/${newDate.getFullYear()}`;
+    return `${newDate.getDate()}/${newDate.getMonth() + 1
+      }/${newDate.getFullYear()}`;
   }
   const { userData } = useSelector(user);
   const [complaints, setComplaints] = useState([]);
@@ -59,6 +58,31 @@ const Complain = () => {
   const [feedback, setFeedback] = useState(false);
   const [action, setAction] = useState("");
   const [trace, setTrace] = useState([]);
+  const [feedBackMsg, setfeedBackmsg] = useState("");
+  const [getComplaintid, setComplaintid] = useState("");
+  
+  const onFeedBackSubmit = async (id, msg, visibility = false) => {
+    const response = await fetch(baseURL + `/complain/addfeedback`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        feedback_msg: msg,
+        visibility : visibility,
+        complain_id: id
+      })
+    })
+    const data = await response.json();
+    if(data.response == false)
+    {
+      toast.error("Error")
+      return;
+    }
+    toast.success("Done")
+    setFeedback(false)
+  }
 
   async function handleChangeStatus(id, newStatus, index) {
     const response = await fetch(baseURL + `/complain/update-status`, {
@@ -238,6 +262,10 @@ const Complain = () => {
               }}
               placeholder="Enter your feedback"
               type="text"
+              onChange={(e) => {
+                setfeedBackmsg(e.target.value);
+                console.log(feedBackMsg)
+              }}
             />
             <div
               style={{
@@ -265,6 +293,9 @@ const Complain = () => {
                 fontSize: "18px",
                 borderRadius: "10px",
                 marginTop: "12px",
+              }}
+              onClick={() => {
+                onFeedBackSubmit(getComplaintid, feedBackMsg)
               }}
             >
               Submit
@@ -342,7 +373,7 @@ const Complain = () => {
                                 height: "20px",
                                 color:
                                   buttonText[complain.status.toLowerCase()][
-                                    "color"
+                                  "color"
                                   ],
 
                                 marginRight: "10px",
@@ -451,6 +482,7 @@ const Complain = () => {
                             }}
                             onClick={() => {
                               setFeedback(true);
+                              setComplaintid(complain.complain_id)
                             }}
                           />
                         </td>

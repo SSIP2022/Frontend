@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
-import { FiUpload } from "react-icons/fi";
 import toast from "react-hot-toast";
 import { PickerOverlay } from "filestack-react";
 import { baseURL } from "../../../config/config";
@@ -213,15 +212,15 @@ import { user } from "../../../store/userReducer";
 
 const RegisterComplaint = () => {
   const [isPicker, setIsPicker] = useState(false);
-  const [fileName,setFilename] = useState("Choose File");
+  const [fileName, setFilename] = useState("Choose File");
   const { userData } = useSelector(user);
   //body states
-  const [subject,setSubject] = useState("");
-  const [description,setDecription] = useState("");
-  const [area,setArea] = useState("");
-  const [address,setAddress] = useState("");
-  const [pincode,setPincode] = useState("");
-  const [img_url,setImageurl] = useState("");
+  const [subject, setSubject] = useState("");
+  const [description, setDecription] = useState("");
+  const [area, setArea] = useState("");
+  const [address, setAddress] = useState("");
+  const [pincode, setPincode] = useState("");
+  const [img_url, setImageurl] = useState("");
   // const [creator_id,setCretor] = useState("");
 
   const navigate = useNavigate();
@@ -238,36 +237,35 @@ const RegisterComplaint = () => {
 
   // },[area1])
 
-  const onSubmitComplain = async (e)=>{
-      e.preventDefault();
-      const response = await fetch(`${baseURL}/complain/create`,{
-        method:"POST",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-        body:JSON.stringify({
-          subject:subject,
-          description : description,
-          // status :"Open",
-          // district:"",
-          address: address,
-          area : area,
-          pincode : 123322,
-          tags: [],
-          img_url : img_url,
-          creator_id :userData.user_id,
+  const onSubmitComplain = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`${baseURL}/complain/create`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        subject: subject,
+        description: description,
+        // status :"Open",
+        // district:"",
+        address: address,
+        area: area,
+        pincode: 123322,
+        tags: [],
+        img_url: img_url,
+        creator_id: userData.user_id,
       })
-      })
-      const data = await response.json();
-      if(data.success)
-      {
-          toast.success("Complaint Registerd");
-          navigate(`/user/dashboard`)
-      }
-      else{
-        toast.error("Fail To Register");
-      }
+    })
+    const data = await response.json();
+    if (data.success) {
+      toast.success("Complaint Registerd");
+      navigate(`/user/dashboard`)
+    }
+    else {
+      toast.error("Fail To Register");
+    }
   }
   return (
     <>
@@ -293,9 +291,10 @@ const RegisterComplaint = () => {
                 name="Problems"
                 id="ctl00_ContentPlaceHolder1_ddlProblem"
                 title="Please Select Problem"
-                onChange={(e) =>{
+                onChange={(e) => {
                   // console.log(e.target.options[e.target.selectedIndex].text)
-                  setSubject(e.target.options[e.target.selectedIndex].text)}}
+                  setSubject(e.target.options[e.target.selectedIndex].text)
+                }}
               >
                 <option value="0">Please Select Problem</option>
                 <option value="249">
@@ -794,6 +793,7 @@ const RegisterComplaint = () => {
               <input
                 type="text"
                 name="problem"
+                required
                 placeholder="Enter your problem description"
                 // className={form.description}
                 value={description}
@@ -814,64 +814,67 @@ const RegisterComplaint = () => {
             <label>
               <h4>Your Area :</h4>
               <input
+                required
                 type="text"
                 name="area"
                 placeholder="Your Area"
                 // className={form.description}
-                value = {area}
-                onChange = {e => setArea(e.target.value)}
+                value={area}
+                onChange={e => setArea(e.target.value)}
               />
             </label>
             <label>
-            <h4>Location of Complaint</h4>
+              <h4>Location of Complaint</h4>
               <input
+                required
                 type="text"
                 name="address"
                 placeholder="Your Address"
                 // className={form.description}
-                value = {address}
-                onChange = {e => setAddress(e.target.value)}
+                value={address}
+                onChange={e => setAddress(e.target.value)}
               />
             </label>
             <label>
-            <h4>Pincode</h4>
+              <h4>Pincode</h4>
               <input
+                required
                 type="number"
                 name="name"
                 placeholder="Pincode"
                 // className={form.description}
-                value = {pincode}
+                value={pincode}
                 maxLength={10}
-                onChange = {e=>
-                  {setPincode(e.target.value)}}
+                onChange={e => { setPincode(e.target.value) }}
               />
             </label>
             <label>
-            
-            <h4>Upload Image:</h4>
-            {/* <input type="file" id="file" aria-label="File browser example"/>
+
+              <h4>Upload Image:</h4>
+              {/* <input type="file" id="file" aria-label="File browser example"/>
   <span class="file-custom"/> */}
-            {/* <input type="file" name="file" className={form.file} /> */}
+              {/* <input type="file" name="file" className={form.file} /> */}
 
-            {/* </label> */}
-            {/* <div className={form.choose}> */}
+              {/* </label> */}
+              {/* <div className={form.choose}> */}
 
-            <input
-              name="file"
-              id="file"
-              type="button"
-              // disabled
-              // className={form.file}
-              style={{cursor:"pointer"}}
-              value={fileName}
-              onClick={(e) => {
-                e.preventDefault();
-                isPicker ? setIsPicker(false) : setIsPicker(true);
-              }}
-            />
-            {/* </div> */}
-            {/* <div></div> */}
-            {/* <label> */}
+              <input
+                required
+                name="file"
+                id="file"
+                type="button"
+                // disabled
+                // className={form.file}
+                style={{ cursor: "pointer" }}
+                value={fileName}
+                onClick={(e) => {
+                  e.preventDefault();
+                  isPicker ? setIsPicker(false) : setIsPicker(true);
+                }}
+              />
+              {/* </div> */}
+              {/* <div></div> */}
+              {/* <label> */}
               {/* <div></div>
             <Button
             text="Submit"
@@ -880,7 +883,14 @@ const RegisterComplaint = () => {
             className={form.submit}
           /> */}
             </label>
-          <button value="Submit"  onClick={e=>onSubmitComplain(e)} >Submit</button>
+            <button value="Submit" onClick={(e) => {
+              if (subject === "" || description === "" || area === "" || address === "" || pincode === "" || img_url === "") {
+                toast.error("failed to register");
+                return
+              }
+              onSubmitComplain(e)
+            }
+            } >Submit</button>
           </form>
 
           <div style={{ margin: "4px", position: "relative" }}>
@@ -889,14 +899,14 @@ const RegisterComplaint = () => {
                 apikey={"AJbGbxcJRbqofHCOKiyGJz"}
                 action="pick"
                 pickerOptions={{
-                  maxSize : 10 * 1024 * 1024,
+                  maxSize: 10 * 1024 * 1024,
                 }}
-                onSuccess={(resp)=>
-                { 
+                onSuccess={(resp) => {
                   setFilename(resp.filesUploaded[0].filename)
                   setImageurl(resp.filesUploaded[0].url)
                   setIsPicker(false)
-                  console.log(address)}
+                  console.log(address)
+                }
                 }
                 onUploadDone={(res) => console.log(res)}
               />
