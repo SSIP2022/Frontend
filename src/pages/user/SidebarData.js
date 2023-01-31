@@ -1,6 +1,12 @@
 // import {MdDashboard} from 'react-icons/md';
 export const sidebarData = [
   {
+    title: "Home",
+    path: "/user/temp",
+    icon: "🏠",
+    cName: "nav-text",
+  },
+  {
     title: "Register Complaint",
     path: "/user/home",
     icon: "🧾",

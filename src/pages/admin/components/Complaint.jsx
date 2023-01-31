@@ -29,7 +29,7 @@ const Complain = () => {
     },
     "in progress": {
       text: "Resolved",
-      color: "#F2A74B",
+      color: "rgb(255 146 13)",
     },
     resolved: {
       text: "No Action",
@@ -307,7 +307,7 @@ const Complain = () => {
                         <td
                           data-label="Token No"
                           style={{
-                            color: "rgb(232 15 45)",
+                            color: "#3a67e3",
                             textDecoration: "underline",
                             cursor: "pointer",
                           }}
@@ -333,7 +333,7 @@ const Complain = () => {
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              fontWeight: "bold",
+                              fontWeight: "500",
                             }}
                           >
                             <BsFillCircleFill
