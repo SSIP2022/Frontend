@@ -20,6 +20,7 @@ import UserProfile from "./pages/user/components/Profile";
 import RegisterComplaint from "./pages/user/components/RegisterComplaint";
 import UserDashboard from "./pages/user/components/UserDashboard";
 import { Toaster } from "react-hot-toast";
+import Home from "./pages/user/components/Home";
 
 import { baseURL } from "../src/config/config";
 import OfficerComplain from "./pages/department/components/Complaint";
@@ -66,6 +67,7 @@ function App() {
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="home" element={<RegisterComplaint />} />
+          <Route path="temp" element={<Home />} />
         </Route>
         <Route path="/officer" element={<Department />}>
           <Route path="home" element={<OfficerComplain />} />

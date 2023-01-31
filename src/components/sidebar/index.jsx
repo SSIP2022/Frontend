@@ -13,7 +13,6 @@ function Sidebar({ sidebarData, title }) {
   const showSidebar = () => setSidebar(!sidebar);
   const navigate = useNavigate();
   const {userData} = useSelector(user);
-
   if(sidebar){
     document.body.style.overflow = "hidden";
   }else{
@@ -72,11 +71,11 @@ function Sidebar({ sidebarData, title }) {
       {menuOpen && (
         <ul className="dropdown-menu">
           <li className="dropdown-menu-item"><Link to={`profile`} style={{fontWeight:"100"}}>Your Profile </Link></li>
-          <li className="dropdown-menu-item"><span
-              onClick={() => {
+          <li className="dropdown-menu-item" onClick={() => {
                 dispatch(setUserLogout());
                 navigate("/");
-              }}
+              }}><span
+              
             >
               Logout
             </span></li>

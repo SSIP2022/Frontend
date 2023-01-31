@@ -1,0 +1,81 @@
+.top {
+    display: flex;
+    padding: 50px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.register {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: white;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: larger;
+    font-weight: 600;
+}
+
+.greetings {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.greetings_name {
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.greetings_welcome {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.icon1 {
+    margin-right: 5px;
+}
+
+.feedback {
+    padding: 20px 50px;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.feedback_container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow-x: scroll;
+    margin: 50px;
+
+}
+.feedback_content_title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.feedback_content {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    
+    background-color: white;
+    padding: 20px;
+    margin: 0px 10px;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
+    font-size: 1.5rem;
+    font-weight: 400;
+    min-width: 500px;
+    height: 300px;
+}
+
+@media only screen and (max-width: 415px) {
+    .feedback_content{
+        min-width: 270px;
+    }
+}
