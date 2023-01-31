@@ -7,20 +7,21 @@ import { baseURL } from "../../../config/config";
 import Button from "../../../components/button";
 import toast from "react-hot-toast";
 import Span from "../../../components/span";
+import { BsFillCircleFill } from "react-icons/bs";
 
 const Complain = () => {
   const buttonText = {
     open: {
       text: "In Progress",
-      color: "rgba(255, 14, 14, 0.59)",
+      color: "#391DF2",
     },
     withdraw: {
       text: "In Progress",
-      color: "rgba(29, 255, 10, 0.68)",
+      color: "#acacac",
     },
     closed: {
       text: "In Progress",
-      color: "rgba(29, 255, 10, 0.68)",
+      color: "#aa4f4f",
     },
     assign: {
       text: "In Progress",
@@ -28,11 +29,11 @@ const Complain = () => {
     },
     "in progress": {
       text: "Resolved",
-      color: "rgba(255, 212, 14, 0.59)",
+      color: "#F2A74B",
     },
     resolved: {
       text: "No Action",
-      color: "rgba(39, 236, 128, 0.59)",
+      color: "#11BF7F",
     },
     "no action": {
       text: "No Action",
@@ -40,7 +41,7 @@ const Complain = () => {
     },
     rejected: {
       text: "No Action",
-      color: "rgba(110, 54, 54, 0.68)",
+      color: "red",
     },
   };
   function timeFormate(date) {
@@ -125,11 +126,9 @@ const Complain = () => {
   useEffect(() => {
     handleGetStatus();
   }, [openDetail]);
- 
 
   return (
     <>
-      
       {openDetail ? (
         <>
           <Modal title="Complaint Detail" close={() => setopenDetail(false)}>
@@ -187,7 +186,7 @@ const Complain = () => {
               {trace.length !== 0 ? (
                 <div style={{ display: "flex", margin: "5px" }}>
                   <Span text="Status Flow" bgcolor="#fed049" />
-                  
+
                   {trace.map((data) => {
                     return (
                       <div style={{ margin: "5px" }}>
@@ -205,9 +204,8 @@ const Complain = () => {
                   {" "}
                   <div style={{ display: "flex", margin: "5px" }}>
                     <Span text="Status Flow" bgcolor="#fed049" />
-                    <div  style={{ margin: "5px" }}>
-
-                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+                    <div style={{ margin: "5px" }}>
+                      <Span text="Open" bgcolor="#6a5c80" color="white" />
                     </div>
                   </div>
                 </div>
@@ -215,22 +213,65 @@ const Complain = () => {
             </div>
           </Modal>
         </>
-      ) 
-      : 
-      feedback ? (
+      ) : feedback ? (
         <Modal title="Feedback" close={() => setFeedback(false)}>
-           <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', margin: '23px' }}>
-      <h3 style={{ fontSize: '20px', marginBottom: '20px' }}>Please provide your feedback :</h3>
-      <input style={{ width: '350px', height: '40px', padding: '10px', marginBottom: '20px', fontSize: '18px', border: '1px solid #ccc', borderRadius: '10px' }} placeholder="Enter your feedback" type="text" />
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '19px' , marginTop:'10px' }}>
-        <input style={{ marginRight: '10px' , transform: 'scale(1.7)' }} type="checkbox" width="10px" />
-        <label style={{ fontSize: '18px' }}>Send feedback to all users</label>
-      </div>
-      <button style={{ width: '200px', height: '50px', backgroundColor: 'green', color: 'white', fontSize: '18px', borderRadius: '10px', marginTop: '12px' }}>Submit</button>
-    </div>
-            </Modal>
-      ):
-      (
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start",
+              margin: "23px",
+            }}
+          >
+            <h3 style={{ fontSize: "20px", marginBottom: "20px" }}>
+              Please provide your feedback :
+            </h3>
+            <input
+              style={{
+                width: "350px",
+                height: "40px",
+                padding: "10px",
+                marginBottom: "20px",
+                fontSize: "18px",
+                border: "1px solid #ccc",
+                borderRadius: "10px",
+              }}
+              placeholder="Enter your feedback"
+              type="text"
+            />
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "19px",
+                marginTop: "10px",
+              }}
+            >
+              <input
+                style={{ marginRight: "10px", transform: "scale(1.7)" }}
+                type="checkbox"
+                width="10px"
+              />
+              <label style={{ fontSize: "18px" }}>
+                Send feedback to all users
+              </label>
+            </div>
+            <button
+              style={{
+                width: "200px",
+                height: "50px",
+                backgroundColor: "green",
+                color: "white",
+                fontSize: "18px",
+                borderRadius: "10px",
+                marginTop: "12px",
+              }}
+            >
+              Submit
+            </button>
+          </div>
+        </Modal>
+      ) : (
         <>
           <div className={track.back}>
             <table className={track.table}>
@@ -254,31 +295,77 @@ const Complain = () => {
                   complaints.map((complain, i) => {
                     return (
                       <tr>
-                        <td data-label="S.No">{i + 1}</td>
-                        <td data-label="Name" >
+                        <td data-label="S.No" style={{ fontWeight: "bold" }}>
+                          {i + 1}
+                        </td>
+                        <td
+                          data-label="Name"
+                          style={{ textTransform: "uppercase" }}
+                        >
                           {complain.creator_id.slice(-6)}
                         </td>
-                        <td data-lable="Token No" onClick={() => {
-                              console.log(complain);
-                              setDetails(complain);
-                              setopenDetail(true);
-                            }}
-                            style={{color:"#3a67e3b6",textDecorationLine:"underline",cursor:"pointer"}}>{complain.complain_id.slice(-6)}</td>
-                        <td data-label="Area">
-                          {" "}
+                        <td
+                          data-label="Token No"
+                          style={{
+                            color: "rgb(232 15 45)",
+                            textDecoration: "underline",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            console.log(complain);
+                            setDetails(complain);
+                            setopenDetail(true);
+                          }}
+                        >
+                          {complain.complain_id.slice(-6)}
+                        </td>
+                        <td data-label="Area" style={{ fontStyle: "italic" }}>
                           {complain.area.length === 0
                             ? "Near Ahemdabad"
                             : complain.area}
                         </td>
-                        <td data-label="Dept">{complain.assign_department}</td>
+                        <td data-label="Dept" style={{ textAlign: "center" }}>
+                          {complain.assign_department}
+                        </td>
+
                         <td data-label="Staus" className="pass">
-                          <Button
+                          <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            <BsFillCircleFill
+                              style={{
+                                width: "15px",
+                                height: "20px",
+                                color:
+                                  buttonText[complain.status.toLowerCase()][
+                                    "color"
+                                  ],
+
+                                marginRight: "10px",
+                              }}
+                            />
+                            <div
+                              style={{
+                                fontSize: "14px",
+                                // fontWeight: "bold",
+                                cursor: "pointer",
+                              }}
+                            >
+                              {complain.status}
+                            </div>
+                          </div>
+
+                          {/* <Button
                             text={complain.status}
                             cursor="auto"
                             bgcolor={
                               buttonText[complain.status.toLowerCase()]["color"]
                             }
-                          />
+                          /> */}
                         </td>
                         <td data-label="Date">
                           {timeFormate(complain.create_at)}
@@ -299,7 +386,15 @@ const Complain = () => {
                         <td>
                           <Button
                             text="Close"
-                            bgcolor="rgba(3, 255, 16, 0.68)"
+                            style={{
+                              backgroundColor: "rgb(0 253 12 / 68%)",
+                              padding: "10px 20px",
+                              borderRadius: "5px",
+                              color: "rgb(14 7 7)",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+                            }}
                             onClick={() => {
                               if (
                                 complain.status.toLowerCase() === "resolved"
@@ -316,7 +411,15 @@ const Complain = () => {
                         <td>
                           <Button
                             text="Reject"
-                            bgcolor="rgba(255, 26, 3, 0.68)"
+                            style={{
+                              backgroundColor: "rgba(255, 26, 3, 0.68)",
+                              padding: "10px 20px",
+                              borderRadius: "5px",
+                              color: "rgb(14 7 7)",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+                            }}
                             onClick={() => {
                               console.log(complain.status.toLowerCase());
                               if (
@@ -333,12 +436,23 @@ const Complain = () => {
                             }}
                           />
                         </td>
+
                         <td>
-                          <Button text="feedback" onClick={() => {
-                              
-                              // setopenDetail(true);
+                          <Button
+                            text="feedback"
+                            style={{
+                              backgroundColor: "rgba(255, 255, 255, 0.68)",
+                              padding: "10px 20px",
+                              borderRadius: "5px",
+                              color: "#000",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+                            }}
+                            onClick={() => {
                               setFeedback(true);
-                            }}/>
+                            }}
+                          />
                         </td>
                       </tr>
                     );
