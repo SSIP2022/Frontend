@@ -34,27 +34,6 @@ const RegisterComplaint = () => {
 
   // },[area1])
 
-<<<<<<< HEAD
-  const onSubmitComplain = async (e) => {
-    e.preventDefault();
-    const response = await fetch(`${baseURL}/complain/create`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        subject: subject,
-        description: description,
-        // status :"Open",
-        // district:"",
-        address: address,
-        area: area,
-        pincode: 123322,
-        tags: [],
-        img_url: img_url,
-        creator_id: userData.user_id,
-=======
   const onSubmitComplain = async (e)=>{
       e.preventDefault();
       const response = await fetch(`${baseURL}/complain/create`,{
@@ -74,7 +53,6 @@ const RegisterComplaint = () => {
           tags: [],
           img_url : img_url,
           creator_id :userData.user_id,
->>>>>>> 85b6747fc29b6096ff2e2a2ff56722ee8daa23cc
       })
     })
     const data = await response.json();
