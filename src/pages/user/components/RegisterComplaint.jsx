@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect,useRef } from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
 import toast from "react-hot-toast";
 import { PickerOverlay } from "filestack-react";
@@ -64,6 +64,30 @@ const RegisterComplaint = () => {
       toast.error("Fail To Register");
     }
   }
+  //https://codesandbox.io/s/blue-thunder-71dvr3?file=/index.html:371-403
+  //https://apis.mapmyindia.com/advancedmaps/v1/<licence_key>/rev_geocode?lat=<latidude>&lng=<longitude>
+  const mapRef = useRef(null);
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apis.mappls.com/advancedmaps/api/f9be05de5758c2cae8a18a53e696b53e/map_sdk?layer=vector&v=3.0&callback=initMap1';
+    script.defer = true;
+    script.async = true;
+    document.head.appendChild(script);
+
+    window.initMap1 = () => {
+      const mappls = window.mappls;
+      mapRef.current = new mappls.Map("map", {});
+      mapRef.current.addListener("click", function (e) {
+        console.log("test");
+        let divId = document.getElementById("show-result");
+        divId.style.display = "block";
+        divId.innerHTML = `Map Click Event :   ${e.lngLat}`;
+      });
+      mapRef.current.addListener("load", function () {
+        mapRef.current.setCenter({ lat: 23.0222, lng: 72.5792 });
+      });
+    };
+  }, []);
   return (
     <>
       <div className={form.main}>
@@ -71,9 +95,10 @@ const RegisterComplaint = () => {
                 <img className={user.photo} src="/logo.jpg" alt="profile"/>
                 <div className={user.name}>Dojetobhai Limdiwala</div>
             </header> */}
-        <div className="formWrapper">
+        <div className="formWrapper" style={{height:"106vh"}}>
           <form >
             <h3 className="title">Register Complaint</h3>
+
             <label >
               {/* <h4>Enter Title Of Your Complaint:</h4>
             <input
@@ -620,6 +645,8 @@ const RegisterComplaint = () => {
                 onChange={e => setArea(e.target.value)}
               />
             </label>
+            <div id="map" style={{ width: '100%', height: '30vh' }} />
+            <div id="show-result" style={{ display: 'none' }} />
             <label>
               <h4>Location of Complaint</h4>
               <input
