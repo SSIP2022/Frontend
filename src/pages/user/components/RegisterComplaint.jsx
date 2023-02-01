@@ -79,11 +79,10 @@ const RegisterComplaint = () => {
       mapRef.current = new mappls.Map("map", {});
       mapRef.current.addListener("click", async function (e) {
         //https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${e.lngLat.lat}&longitude=${e.lngLat.lng}&localityLanguage=en
-        const response = await fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${e.lngLat.lat}&longitude=${e.lngLat.lng}&localityLanguage=en`,{
+        const response = await fetch(`https://apis.mapmyindia.com/advancedmaps/v1/9fbb146f6537122d1a763a595db1949e/rev_geocode?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`,{
           method : "GET",
         });
         const data = await response.json();
-        console.log(data)
         setArea(data['results'][0]['locality']);
         setAddress(data['results'][0]['street']);
         setPincode(data['results'][0]['pincode'])
