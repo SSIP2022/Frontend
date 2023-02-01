@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
 import toast from "react-hot-toast";
 import { PickerOverlay } from "filestack-react";
@@ -18,6 +18,7 @@ const RegisterComplaint = () => {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [img_url, setImageurl] = useState("");
+  const [localLocation, setLocation] = useState({});
   // const [creator_id,setCretor] = useState("");
 
   const navigate = useNavigate();
@@ -34,25 +35,25 @@ const RegisterComplaint = () => {
 
   // },[area1])
 
-  const onSubmitComplain = async (e)=>{
-      e.preventDefault();
-      const response = await fetch(`${baseURL}/complain/create`,{
-        method:"POST",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-        body:JSON.stringify({
-          subject:subject,
-          description : description,
-          // status :"Open",
-          // district:"",
-          address: address,
-          area : area,
-          pincode : pincode,
-          tags: [],
-          img_url : img_url,
-          creator_id :userData.user_id,
+  const onSubmitComplain = async (e) => {
+    e.preventDefault();
+    const response = await fetch(`${baseURL}/complain/create`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        subject: subject,
+        description: description,
+        // status :"Open",
+        // district:"",
+        address: address,
+        area: area,
+        pincode: pincode,
+        tags: [],
+        img_url: img_url,
+        creator_id: userData.user_id,
       })
     })
     const data = await response.json();
@@ -64,6 +65,23 @@ const RegisterComplaint = () => {
       toast.error("Fail To Register");
     }
   }
+
+  useEffect(() => {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          // window.location = "/user/home"
+          setLocation({
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          });
+        },
+        (error) => console.log(error)
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  }, []);
   //https://codesandbox.io/s/blue-thunder-71dvr3?file=/index.html:371-403
   //https://apis.mapmyindia.com/advancedmaps/v1/<licence_key>/rev_geocode?lat=<latidude>&lng=<longitude>
   const mapRef = useRef(null);
@@ -79,8 +97,8 @@ const RegisterComplaint = () => {
       mapRef.current = new mappls.Map("map", {});
       mapRef.current.addListener("click", async function (e) {
         //https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${e.lngLat.lat}&longitude=${e.lngLat.lng}&localityLanguage=en
-        const response = await fetch(`https://apis.mapmyindia.com/advancedmaps/v1/9fbb146f6537122d1a763a595db1949e/rev_geocode?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`,{
-          method : "GET",
+        const response = await fetch(`https://apis.mapmyindia.com/advancedmaps/v1/9fbb146f6537122d1a763a595db1949e/rev_geocode?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`, {
+          method: "GET",
         });
         const data = await response.json();
         setArea(data['results'][0]['locality']);
@@ -90,10 +108,11 @@ const RegisterComplaint = () => {
         divId.style.display = "block";
       });
       mapRef.current.addListener("load", function () {
-        mapRef.current.setCenter({ lat: 23.0222, lng: 72.5792 });
+        console.log(localLocation)
+        mapRef.current.setCenter({ lat: localLocation.lat, lng: localLocation.lng });
       });
     };
-  }, []);
+  }, [localLocation]);
   return (
     <>
       <div className={form.main}>
@@ -101,7 +120,7 @@ const RegisterComplaint = () => {
                 <img className={user.photo} src="/logo.jpg" alt="profile"/>
                 <div className={user.name}>Dojetobhai Limdiwala</div>
             </header> */}
-        <div className="formWrapper" style={{height:"106vh"}}>
+        <div className="formWrapper" style={{ height: "106vh" }}>
           <form >
             <h3 className="title">Register Complaint</h3>
 
@@ -651,8 +670,8 @@ const RegisterComplaint = () => {
                 onChange={e => setArea(e.target.value)}
               />
             </label>
-            <div style={{display:'flex', justifyContent:'center', alignItems:'center' }}>      
-              <div id="map" style={{width: '90%', height: '30vh' }} />
+            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+              <div id="map" style={{ width: '90%', height: '30vh' }} />
             </div>
             <div id="show-result" style={{ display: 'none' }} />
             <label>
