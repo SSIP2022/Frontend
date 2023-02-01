@@ -77,11 +77,14 @@ const RegisterComplaint = () => {
     window.initMap1 = () => {
       const mappls = window.mappls;
       mapRef.current = new mappls.Map("map", {});
-      mapRef.current.addListener("click", function (e) {
-        console.log("test");
+      mapRef.current.addListener("click", async function (e) {
+        const response = await fetch(`https://apis.mapmyindia.com/advancedmaps/v1/f9be05de5758c2cae8a18a53e696b53e/rev_geocode?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`);
+        const data = await response.json();
+        setArea(data['results'][0]['locality']);
+        setAddress(data['results'][0]['street']);
+        setPincode(data['results'][0]['pincode'])
         let divId = document.getElementById("show-result");
         divId.style.display = "block";
-        divId.innerHTML = `Map Click Event :   ${e.lngLat}`;
       });
       mapRef.current.addListener("load", function () {
         mapRef.current.setCenter({ lat: 23.0222, lng: 72.5792 });
@@ -645,7 +648,9 @@ const RegisterComplaint = () => {
                 onChange={e => setArea(e.target.value)}
               />
             </label>
-            <div id="map" style={{ width: '100%', height: '30vh' }} />
+            <div style={{display:'flex', justifyContent:'center', alignItems:'center' }}>      
+              <div id="map" style={{width: '90%', height: '30vh' }} />
+            </div>
             <div id="show-result" style={{ display: 'none' }} />
             <label>
               <h4>Location of Complaint</h4>
