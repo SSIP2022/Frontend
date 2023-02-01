@@ -6,7 +6,8 @@ import { baseURL } from "../../../config/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-
+import {GoLocation} from "react-icons/go";
+import {MdMyLocation} from "react-icons/md";
 const RegisterComplaint = () => {
   const [isPicker, setIsPicker] = useState(false);
   const [fileName, setFilename] = useState("Choose File");
@@ -660,6 +661,9 @@ const RegisterComplaint = () => {
               </label> */}
             <label>
               <h4>Your Area :</h4>
+              <div style={{display:"flex",position:"relative"}}>
+
+                <GoLocation className={form.locIcon}/><MdMyLocation className={form.locIcon} style={{right:"18px"}}/>
               <input
                 required
                 type="text"
@@ -668,7 +672,9 @@ const RegisterComplaint = () => {
                 // className={form.description}
                 value={area}
                 onChange={e => setArea(e.target.value)}
-              />
+                />
+              
+                </div>
             </label>
             <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <div id="map" style={{ width: '90%', height: '30vh' }} />

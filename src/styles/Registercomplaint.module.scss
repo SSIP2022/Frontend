@@ -67,7 +67,14 @@ h4{
     cursor: pointer;
     padding: 5px 0px;
 }
-
+.locIcon{
+    position: absolute;
+    right: 45px;
+    top: 13px;
+    font-size: 20px;
+    color: gray;
+    cursor:pointer;
+}
 // .main{
 //     // display: flex;
 //     // flex-direction: column;
@@ -88,5 +95,12 @@ h4{
     .file + label {
         width: 309px;
     }
-    
+    // .locIcon{
+    //     color: gray;
+    //     position: relative;
+    //     left: 217px;
+    //     top: 41px;
+    //     font-size: 20px;
+    //     cursor: pointer;
+    // }
   }
