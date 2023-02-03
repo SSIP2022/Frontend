@@ -121,7 +121,7 @@ const RegisterComplaint = () => {
                 <img className={user.photo} src="/logo.jpg" alt="profile"/>
                 <div className={user.name}>Dojetobhai Limdiwala</div>
             </header> */}
-        <div className="formWrapper" style={{ height: "106vh" }}>
+        <div className="formWrapper" style={{ height: "130vh" }}>
           <form >
             <h3 className="title">Register Complaint</h3>
 
