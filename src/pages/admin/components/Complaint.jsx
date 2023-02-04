@@ -46,8 +46,9 @@ const Complain = () => {
   };
   function timeFormate(date) {
     const newDate = new Date(date);
-    return `${newDate.getDate()}/${newDate.getMonth() + 1
-      }/${newDate.getFullYear()}`;
+    return `${newDate.getDate()}/${
+      newDate.getMonth() + 1
+    }/${newDate.getFullYear()}`;
   }
   const { userData } = useSelector(user);
   const [complaints, setComplaints] = useState([]);
@@ -60,7 +61,7 @@ const Complain = () => {
   const [trace, setTrace] = useState([]);
   const [feedBackMsg, setfeedBackmsg] = useState("");
   const [getComplaintid, setComplaintid] = useState("");
-  
+
   const onFeedBackSubmit = async (id, msg, visibility = false) => {
     const response = await fetch(baseURL + `/complain/addfeedback`, {
       method: "POST",
@@ -70,19 +71,18 @@ const Complain = () => {
       },
       body: JSON.stringify({
         feedback_msg: msg,
-        visibility : visibility,
-        complain_id: id
-      })
-    })
+        visibility: visibility,
+        complain_id: id,
+      }),
+    });
     const data = await response.json();
-    if(data.response == false)
-    {
-      toast.error("Error")
+    if (data.response == false) {
+      toast.error("Error");
       return;
     }
-    toast.success("Done")
-    setFeedback(false)
-  }
+    toast.success("Done");
+    setFeedback(false);
+  };
 
   async function handleChangeStatus(id, newStatus, index) {
     const response = await fetch(baseURL + `/complain/update-status`, {
@@ -127,19 +127,23 @@ const Complain = () => {
     }
   }
 
-  async function getUserComplaints() {
-    const response = await fetch(baseURL + `/complain/get-all`, {
+  async function getUserComplaints(filter = "") {
+    const endpoint = filter
+      ? `/complain/get-all?filter=${filter}`
+      : "/complain/get-all";
+
+    const response = await fetch(baseURL + endpoint, {
       method: "GET",
       credentials: "include",
       headers: {
         "Content-type": "application/json;charset=UTF-8",
       },
     });
+
     const data = await response.json();
     console.log("data:", data);
     if (data.success) {
       setComplaints(data.complains);
-    } else {
     }
   }
 
@@ -264,7 +268,6 @@ const Complain = () => {
               type="text"
               onChange={(e) => {
                 setfeedBackmsg(e.target.value);
-                console.log(feedBackMsg)
               }}
             />
             <div
@@ -295,7 +298,7 @@ const Complain = () => {
                 marginTop: "12px",
               }}
               onClick={() => {
-                onFeedBackSubmit(getComplaintid, feedBackMsg)
+                onFeedBackSubmit(getComplaintid, feedBackMsg);
               }}
             >
               Submit
@@ -304,13 +307,55 @@ const Complain = () => {
         </Modal>
       ) : (
         <>
-       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
-  <button className={track.btn}>Withdraw</button>
-  <button className={track.btn}>Open</button>
-  <button className={track.btn}>In progress</button>
-  <button className={track.btn}>Resolved</button>
-  <button className={track.btn}>Close</button>
-</div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <button
+              className={track.btn}
+              onClick={(e) => {
+                getUserComplaints("withdraw");
+              }}
+            >
+              Withdraw
+            </button>
+            <button
+              className={track.btn}
+              onClick={(e) => {
+                getUserComplaints("open");
+              }}
+            >
+              Open
+            </button>
+            <button
+              className={track.btn}
+              onClick={(e) => {
+                getUserComplaints("In Progress");
+              }}
+            >
+              In progress
+            </button>
+            <button
+              className={track.btn}
+              onClick={(e) => {
+                getUserComplaints("Resolved");
+              }}
+            >
+              Resolved
+            </button>
+            <button
+              className={track.btn}
+              onClick={(e) => {
+                getUserComplaints("closed");
+              }}
+            >
+              Closed
+            </button>
+          </div>
 
           <div className={track.back}>
             <table className={track.table}>
@@ -381,7 +426,7 @@ const Complain = () => {
                                 height: "20px",
                                 color:
                                   buttonText[complain.status.toLowerCase()][
-                                  "color"
+                                    "color"
                                   ],
 
                                 marginRight: "10px",
@@ -490,7 +535,7 @@ const Complain = () => {
                             }}
                             onClick={() => {
                               setFeedback(true);
-                              setComplaintid(complain.complain_id)
+                              setComplaintid(complain.complain_id);
                             }}
                           />
                         </td>
