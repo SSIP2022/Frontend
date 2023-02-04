@@ -52,6 +52,11 @@ const UserProfile = () => {
             >
               Logout
             </button>
+            <button
+              
+            >
+              Update Profile
+            </button>
           </p>
         </div>
       </div>

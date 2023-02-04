@@ -304,6 +304,14 @@ const Complain = () => {
         </Modal>
       ) : (
         <>
+       <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+  <button className={track.btn}>Withdraw</button>
+  <button className={track.btn}>Open</button>
+  <button className={track.btn}>In progress</button>
+  <button className={track.btn}>Resolved</button>
+  <button className={track.btn}>Close</button>
+</div>
+
           <div className={track.back}>
             <table className={track.table}>
               <thead>

@@ -7,20 +7,22 @@ import { baseURL } from "../../../config/config";
 import toast from "react-hot-toast";
 import Button from "../../../components/button";
 import Span from "../../../components/span";
+import { BsFillCircleFill } from "react-icons/bs";
+
 
 const OfficerComplain = () => {
   const buttonText = {
     open: {
-      text: "In Progress",
-      color: "rgba(255, 14, 14, 0.59)",
+      text: "Assign",
+      color: "#391DF2",
     },
     withdraw: {
       text: "No Action",
-      color: "rgba(255, 14, 14, 0.59)",
+      color: "#acacac",
     },
     closed: {
       text: "No Action",
-      color: "rgba(29, 255, 10, 0.68)",
+      color: "#aa4f4f",
     },
     assign: {
       text: "In Progress",
@@ -28,11 +30,11 @@ const OfficerComplain = () => {
     },
     "in progress": {
       text: "Resolved",
-      color: "rgba(255, 212, 14, 0.59)",
+      color: "rgb(255 146 13)",
     },
     resolved: {
       text: "No Action",
-      color: "rgba(39, 236, 128, 0.59)",
+      color: "#11BF7F",
     },
     "no action": {
       text: "No Action",
@@ -40,7 +42,7 @@ const OfficerComplain = () => {
     },
     rejected: {
       text: "No Action",
-      color: "rgba(110, 54, 54, 0.68)",
+      color: "red",
     },
   };
   function timeFormate(date) {
@@ -233,6 +235,13 @@ const OfficerComplain = () => {
         </>
       ) : (
         <>
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
+  <button className={track.btn}>Withdraw</button>
+  <button className={track.btn}>Open</button>
+  <button className={track.btn}>In progress</button>
+  <button className={track.btn}>Resolved</button>
+  <button className={track.btn}>Close</button>
+</div>
           <div className={track.back}>
             <table className={track.table}>
               <thead>
@@ -243,7 +252,7 @@ const OfficerComplain = () => {
                   <th>Dept</th>
                   <th>Status</th>
                   <th>Date</th>
-                  <th>Details</th>
+                 
                   <th>Update</th>
                 </tr>
               </thead>
@@ -253,8 +262,20 @@ const OfficerComplain = () => {
                     return (
                       <tr>
                         <td data-label="S.No">{i + 1}</td>
-                        <td data-label="Name">
-                          {complain.creator_id.slice(-6)}
+                        <td
+                          data-label="Token No"
+                          style={{
+                            color: "#3a67e3",
+                            textDecoration: "underline",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            console.log(complain);
+                            setDetails(complain);
+                            setopenDetail(true);
+                          }}
+                        >
+                          {complain.complain_id.slice(-6)}
                         </td>
                         <td data-label="Area">
                           {" "}
@@ -264,32 +285,54 @@ const OfficerComplain = () => {
                         </td>
                         <td data-label="Dept">{complain.assign_department}</td>
                         <td data-label="Staus" className="pass">
-                          <Button
-                            text={complain.status}
-                            bgcolor={
-                              buttonText[complain.status.toLowerCase()]["color"]
-                            }
-                          />
+                           <div
+                            style={{
+                              display: "flex",
+                              alignItems: "center",
+                              fontWeight: "500",
+                            }}
+                          >
+                            <BsFillCircleFill
+                              style={{
+                                width: "15px",
+                                height: "20px",
+                                color:
+                                  buttonText[complain.status.toLowerCase()][
+                                  "color"
+                                  ],
+
+                                marginRight: "10px",
+                              }}
+                            />
+                            <div
+                              style={{
+                                fontSize: "14px",
+                                // fontWeight: "bold",
+                                cursor: "pointer",
+                              }}
+                            >
+                              {complain.status}
+                            </div>
+                            </div>
                         </td>
                         <td data-label="Date">
                           {timeFormate(complain.create_at)}
                         </td>
-                        <td>
-                          <button
-                            type="button"
-                            onClick={() => {
-                              setDetails(complain);
-                              setopenDetail(true);
-                            }}
-                          >
-                            Details
-                          </button>
-                        </td>
+                       
                         <td style={{ display: "flex" }}>
                           <Button
-                            type="button"
-                            className={track.button}
-                            bgcolor="#23322b"
+                            // type="button"
+                            // className={track.button}
+                            // bgcolor="#23322b"
+                            style={{
+                              backgroundColor: "rgb(48 53 48 / 68%)",
+                              padding: "10px 20px",
+                              borderRadius: "5px",
+                              color: "black",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+                            }}
                             onClick={() => {
                               console.log(
                                 buttonText[complain.status.toLowerCase()]
