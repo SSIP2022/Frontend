@@ -9,7 +9,6 @@ import Button from "../../../components/button";
 import Span from "../../../components/span";
 import { BsFillCircleFill } from "react-icons/bs";
 
-
 const OfficerComplain = () => {
   const buttonText = {
     open: {
@@ -65,18 +64,17 @@ const OfficerComplain = () => {
   const onclose = () => {
     setDetails(false);
   };
-  async function getUserComplaints() {
-    const response = await fetch(
-      baseURL +
-        `/user/department-complains?department=${userData.alloted_dept}`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
+  async function getUserComplaints(filter = "") {
+    const endpoint = filter
+      ? `/user/department-complains?department=${userData.alloted_dept}&filter=${filter}`
+      : `/user/department-complains?department=${userData.alloted_dept}`;
+    const response = await fetch(baseURL + endpoint, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+    });
     const data = await response.json();
     console.log("data:", data);
     if (data.success) {
@@ -107,7 +105,7 @@ const OfficerComplain = () => {
     if (data.success) {
       toast.success("Status Updated Successfully");
       setConfirm(false);
-      window.location.href = "/officer/home"
+      window.location.href = "/officer/home";
     } else {
       toast.error("Fail To Update Status");
     }
@@ -205,7 +203,7 @@ const OfficerComplain = () => {
               {trace.length !== 0 ? (
                 <div style={{ display: "flex", margin: "5px" }}>
                   <Span text="Status Flow" bgcolor="#fed049" />
-                  
+
                   {trace.map((data) => {
                     return (
                       <div style={{ margin: "5px" }}>
@@ -223,9 +221,8 @@ const OfficerComplain = () => {
                   {" "}
                   <div style={{ display: "flex", margin: "5px" }}>
                     <Span text="Status Flow" bgcolor="#fed049" />
-                    <div  style={{ margin: "5px" }}>
-
-                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+                    <div style={{ margin: "5px" }}>
+                      <Span text="Open" bgcolor="#6a5c80" color="white" />
                     </div>
                   </div>
                 </div>
@@ -235,13 +232,55 @@ const OfficerComplain = () => {
         </>
       ) : (
         <>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "100%" }}>
-  <button className={track.btn}>Withdraw</button>
-  <button className={track.btn}>Open</button>
-  <button className={track.btn}>In progress</button>
-  <button className={track.btn}>Resolved</button>
-  <button className={track.btn}>Close</button>
-</div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            }}
+          >
+            <button
+              onClick={(e) => {
+                getUserComplaints("withdraw");
+              }}
+              className={track.btn}
+            >
+              Withdraw
+            </button>
+            <button
+              onClick={(e) => {
+                getUserComplaints("open");
+              }}
+              className={track.btn}
+            >
+              Open
+            </button>
+            <button
+              onClick={(e) => {
+                getUserComplaints("In Progress");
+              }}
+              className={track.btn}
+            >
+              In progress
+            </button>
+            <button
+              onClick={(e) => {
+                getUserComplaints("Resolved");
+              }}
+              className={track.btn}
+            >
+              Resolved
+            </button>
+            <button
+              onClick={(e) => {
+                getUserComplaints("closed");
+              }}
+              className={track.btn}
+            >
+              Close
+            </button>
+          </div>
           <div className={track.back}>
             <table className={track.table}>
               <thead>
@@ -252,7 +291,7 @@ const OfficerComplain = () => {
                   <th>Dept</th>
                   <th>Status</th>
                   <th>Date</th>
-                 
+
                   <th>Update</th>
                 </tr>
               </thead>
@@ -285,7 +324,7 @@ const OfficerComplain = () => {
                         </td>
                         <td data-label="Dept">{complain.assign_department}</td>
                         <td data-label="Staus" className="pass">
-                           <div
+                          <div
                             style={{
                               display: "flex",
                               alignItems: "center",
@@ -298,7 +337,7 @@ const OfficerComplain = () => {
                                 height: "20px",
                                 color:
                                   buttonText[complain.status.toLowerCase()][
-                                  "color"
+                                    "color"
                                   ],
 
                                 marginRight: "10px",
@@ -313,12 +352,12 @@ const OfficerComplain = () => {
                             >
                               {complain.status}
                             </div>
-                            </div>
+                          </div>
                         </td>
                         <td data-label="Date">
                           {timeFormate(complain.create_at)}
                         </td>
-                       
+
                         <td style={{ display: "flex" }}>
                           <Button
                             // type="button"
@@ -344,8 +383,8 @@ const OfficerComplain = () => {
                               ) {
                                 setDetails(complain);
                                 setConfirm(true);
-                              }else{
-                                toast.error("You can't perform this action")
+                              } else {
+                                toast.error("You can't perform this action");
                               }
                             }}
                             id={i}
@@ -366,7 +405,7 @@ const OfficerComplain = () => {
               <Modal title="Confirm Status" close={() => setConfirm(false)}>
                 <h4>
                   Now the status for this complain will become {details.status}{" "}
-                 -- &gt; {buttonText[details.status.toLowerCase()]["text"]}
+                  -- &gt; {buttonText[details.status.toLowerCase()]["text"]}
                 </h4>
                 <Button
                   onClick={() =>
