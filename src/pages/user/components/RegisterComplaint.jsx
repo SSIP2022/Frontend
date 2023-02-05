@@ -6,8 +6,8 @@ import { baseURL } from "../../../config/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-import {GoLocation} from "react-icons/go";
-import {MdMyLocation} from "react-icons/md";
+import { GoLocation } from "react-icons/go";
+import { MdMyLocation } from "react-icons/md";
 const RegisterComplaint = () => {
   const [isPicker, setIsPicker] = useState(false);
   const [fileName, setFilename] = useState("Choose File");
@@ -19,6 +19,7 @@ const RegisterComplaint = () => {
   const [address, setAddress] = useState("");
   const [pincode, setPincode] = useState("");
   const [img_url, setImageurl] = useState("");
+  const [file_data, setFileData] = useState({});
   const [localLocation, setLocation] = useState({});
   // const [creator_id,setCretor] = useState("");
 
@@ -47,92 +48,34 @@ const RegisterComplaint = () => {
       body: JSON.stringify({
         subject: subject,
         description: description,
-        // status :"Open",
-        // district:"",
         address: address,
         area: area,
         pincode: pincode,
         tags: [],
-        img_url: img_url,
         creator_id: userData.user_id,
-      })
-    })
+        file_data: file_data,
+      }),
+    });
     const data = await response.json();
     if (data.success) {
       toast.success("Complaint Registerd");
-      navigate(`/user/dashboard`)
-    }
-    else {
-      toast.error("Fail To Register");
-    }
-  }
-
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          // window.location = "/user/home"
-          setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          });
-        },
-        (error) => console.log(error)
-      );
+      navigate(`/user/dashboard`);
     } else {
-      console.log("Geolocation is not supported by this browser.");
+      toast.error("Fail To Register");
+      e.preventDefault();
+      console.log(data);
     }
-  }, []);
+  };
   //https://codesandbox.io/s/blue-thunder-71dvr3?file=/index.html:371-403
   //https://apis.mapmyindia.com/advancedmaps/v1/<licence_key>/rev_geocode?lat=<latidude>&lng=<longitude>
-  const mapRef = useRef(null);
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://apis.mappls.com/advancedmaps/api/f9be05de5758c2cae8a18a53e696b53e/map_sdk?layer=vector&v=3.0&callback=initMap1';
-    script.defer = true;
-    script.async = true;
-    document.head.appendChild(script);
 
-    window.initMap1 = () => {
-      const mappls = window.mappls;
-      mapRef.current = new mappls.Map("map", {});
-      mapRef.current.addListener("click", async function (e) {
-        //https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${e.lngLat.lat}&longitude=${e.lngLat.lng}&localityLanguage=en
-        const response = await fetch(`https://apis.mapmyindia.com/advancedmaps/v1/9fbb146f6537122d1a763a595db1949e/rev_geocode?lat=${e.lngLat.lat}&lng=${e.lngLat.lng}`, {
-          method: "GET",
-        });
-        const data = await response.json();
-        setArea(data['results'][0]['locality']);
-        setAddress(data['results'][0]['street']);
-        setPincode(data['results'][0]['pincode'])
-        let divId = document.getElementById("show-result");
-        divId.style.display = "block";
-      });
-      mapRef.current.addListener("load", function () {
-        console.log(localLocation)
-        mapRef.current.setCenter({ lat: localLocation.lat, lng: localLocation.lng });
-      });
-    };
-  }, [localLocation]);
   return (
     <>
       <div className={form.main}>
-        {/* <header className={user.header}>
-                <img className={user.photo} src="/logo.jpg" alt="profile"/>
-                <div className={user.name}>Dojetobhai Limdiwala</div>
-            </header> */}
         <div className="formWrapper" style={{ height: "130vh" }}>
-          <form >
+          <form>
             <h3 className="title">Register Complaint</h3>
-
-            <label >
-              {/* <h4>Enter Title Of Your Complaint:</h4>
-            <input
-              type="text"
-              name="problem"
-              placeholder=" Enter description"
-              className={form.description}
-            /> */}
+            <label>
               <h4>Problem :</h4>
               <select
                 // className={form.select}
@@ -141,7 +84,7 @@ const RegisterComplaint = () => {
                 title="Please Select Problem"
                 onChange={(e) => {
                   // console.log(e.target.options[e.target.selectedIndex].text)
-                  setSubject(e.target.options[e.target.selectedIndex].text)
+                  setSubject(e.target.options[e.target.selectedIndex].text);
                 }}
               >
                 <option value="0">Please Select Problem</option>
@@ -645,7 +588,7 @@ const RegisterComplaint = () => {
                 placeholder="Enter your problem description"
                 // className={form.description}
                 value={description}
-                onChange={e => setDecription(e.target.value)}
+                onChange={(e) => setDecription(e.target.value)}
               />
             </label>
             {/* <label>
@@ -661,25 +604,23 @@ const RegisterComplaint = () => {
               </label> */}
             <label>
               <h4>Your Area :</h4>
-              <div style={{display:"flex",position:"relative"}}>
-
-                <GoLocation className={form.locIcon}/><MdMyLocation className={form.locIcon} style={{right:"18px"}}/>
-              <input
-                required
-                type="text"
-                name="area"
-                placeholder="Your Area"
-                // className={form.description}
-                value={area}
-                onChange={e => setArea(e.target.value)}
+              <div style={{ display: "flex", position: "relative" }}>
+                <GoLocation className={form.locIcon} />
+                <MdMyLocation
+                  className={form.locIcon}
+                  style={{ right: "18px" }}
                 />
-              
-                </div>
+                <input
+                  required
+                  type="text"
+                  name="area"
+                  placeholder="Your Area"
+                  // className={form.description}
+                  value={area}
+                  onChange={(e) => setArea(e.target.value)}
+                />
+              </div>
             </label>
-            <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-              <div id="map" style={{ width: '90%', height: '30vh' }} />
-            </div>
-            <div id="show-result" style={{ display: 'none' }} />
             <label>
               <h4>Location of Complaint</h4>
               <input
@@ -689,7 +630,7 @@ const RegisterComplaint = () => {
                 placeholder="Your Address"
                 // className={form.description}
                 value={address}
-                onChange={e => setAddress(e.target.value)}
+                onChange={(e) => setAddress(e.target.value)}
               />
             </label>
             <label>
@@ -702,11 +643,12 @@ const RegisterComplaint = () => {
                 // className={form.description}
                 value={pincode}
                 maxLength={10}
-                onChange={e => { setPincode(e.target.value) }}
+                onChange={(e) => {
+                  setPincode(e.target.value);
+                }}
               />
             </label>
             <label>
-
               <h4>Upload Image:</h4>
               {/* <input type="file" id="file" aria-label="File browser example"/>
   <span class="file-custom"/> */}
@@ -740,14 +682,26 @@ const RegisterComplaint = () => {
             className={form.submit}
           /> */}
             </label>
-            <button value="Submit" onClick={(e) => {
-              if (subject === "" || description === "" || area === "" || address === "" || pincode === "" || img_url === "") {
-                toast.error("failed to register");
-                return
-              }
-              onSubmitComplain(e)
-            }
-            } >Submit</button>
+            <button
+              value="Submit"
+              onClick={(e) => {
+                e.preventDefault();
+                if (
+                  subject === "" ||
+                  description === "" ||
+                  area === "" ||
+                  address === "" ||
+                  pincode === "" ||
+                  Object.keys(file_data).length === 0
+                ) {
+                  toast.error("Emepy Field Spotted");
+                  return;
+                }
+                onSubmitComplain(e);
+              }}
+            >
+              Submit
+            </button>
           </form>
 
           <div style={{ margin: "4px", position: "relative" }}>
@@ -758,14 +712,18 @@ const RegisterComplaint = () => {
                 pickerOptions={{
                   maxSize: 10 * 1024 * 1024,
                 }}
-                onSuccess={(resp) => {
-                  setFilename(resp.filesUploaded[0].filename)
-                  setImageurl(resp.filesUploaded[0].url)
-                  setIsPicker(false)
-                  console.log(address)
-                }
-                }
-                onUploadDone={(res) => console.log(res)}
+                onSuccess={(resp) => {}}
+                onUploadDone={(resp) => {
+                  console.log(resp);
+                  setFilename(resp.filesUploaded[0].filename);
+                  setIsPicker(false);
+                  setFileData({
+                    role: userData.role,
+                    id: userData.user_id,
+                    url: resp.filesUploaded[0].url,
+                    filename: resp.filesUploaded[0].filename,
+                  });
+                }}
               />
             )}
           </div>

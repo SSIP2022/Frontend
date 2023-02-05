@@ -7,7 +7,7 @@ import { baseURL } from "../../../config/config";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 import Span from "../../../components/span";
 import track from "../../../styles/Complain.module.scss";
 
@@ -18,28 +18,31 @@ const UserDashboard = () => {
   const [openModel, setOpenModel] = useState(false);
 
   const [complaints, setComplaints] = useState([]);
-  const [complain,setComplaint] = useState({});
+  const [complain, setComplaint] = useState({});
 
-  const [withdraw , setWithdraw] = useState(false);
+  const [withdraw, setWithdraw] = useState(false);
   const [trace, setTrace] = useState([]);
 
-  const withdrawComplaint = async ()=>{
-      const response = await fetch('https://wild-lime-prawn.cyclic.app/complain/withdraw',{
-        method:"PUT",
+  const withdrawComplaint = async () => {
+    const response = await fetch(
+      "https://wild-lime-prawn.cyclic.app/complain/withdraw",
+      {
+        method: "PUT",
         credentials: "include",
         headers: {
           "Content-type": "application/json;charset=UTF-8",
         },
-        body:JSON.stringify({
-          creator_id:  userData.user_id,
-          complain_id : complain.complain_id
-        })
-      })
-      const data = await response.json();
-      console.log(data);
-      setWithdraw(false);
-      window.location.href = '/user/dashboard'
-  }
+        body: JSON.stringify({
+          creator_id: userData.user_id,
+          complain_id: complain.complain_id,
+        }),
+      }
+    );
+    const data = await response.json();
+    console.log(data);
+    setWithdraw(false);
+    window.location.href = "/user/dashboard";
+  };
   async function getUserComplaints() {
     const response = await fetch(
       baseURL + `/complain/user-complains?creator_id=${userData.user_id}`,
@@ -112,19 +115,23 @@ const UserDashboard = () => {
               </span>
               <img
                 src={
-                  complaint.img_url
-                    ? complaint.img_url
+                  JSON.parse(complaint.file_data[0]).url
+                    ? JSON.parse(complaint.file_data[0]).url
                     : "/istockphoto-1074493878-612x612.png"
                 }
                 className={styles.cImage}
                 alt=""
               />
-              <span className={styles.text2} type="button" onClick={() => {
+              <span
+                className={styles.text2}
+                type="button"
+                onClick={() => {
                   setDetails(complaint);
                   setOpenModel(true);
-                }}>
+                }}
+              >
                 {complaint.subject.slice(0, 25) + ".."}{" "}
-                <AiOutlineInfoCircle  fontSize="1em" />
+                <AiOutlineInfoCircle fontSize="1em" />
               </span>
 
               <span className={styles.text3}>
@@ -146,122 +153,129 @@ const UserDashboard = () => {
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-               <span className={styles.detailsbtn} onClick={()=>{
-                if(complaint.status != "open")
-                {
-                  toast.error("Complaint is in progress")
-                  return;
-                }
-               setWithdraw(true)
-               setComplaint(complaint);
-              }}>Withdraw</span>
+              <span
+                className={styles.detailsbtn}
+                onClick={() => {
+                  if (complaint.status != "open") {
+                    toast.error("Complaint is in progress");
+                    return;
+                  }
+                  setWithdraw(true);
+                  setComplaint(complaint);
+                }}
+              >
+                Withdraw
+              </span>
             </div>
           );
         })
       ) : (
         <div>No Complain Found</div>
-
       )}
 
-  {   withdraw &&
-              (<Modal title="Confirm To Withdraw" close={() => setWithdraw(false)}>
-                <h4>
-                  Now the status for this complain will become {complain.status} to Withdraw 
-                </h4>
-                <Button
-                  onClick={() => 
-                    withdrawComplaint()
-                  }
-                  bgcolor="green"
-                  color="white"
-                  text="Confirm"
-                />
-              </Modal>)
-              }
+      {withdraw && (
+        <Modal title="Confirm To Withdraw" close={() => setWithdraw(false)}>
+          <h4>
+            Now the status for this complain will become {complain.status} to
+            Withdraw
+          </h4>
+          <Button
+            onClick={() => withdrawComplaint()}
+            bgcolor="green"
+            color="white"
+            text="Confirm"
+          />
+        </Modal>
+      )}
 
       {openModel && (
         <Modal title="Complaint Detail" close={() => setOpenModel(false)}>
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ margin: "10px auto" }}>
-            <img
-              className={track.modalimg}
-              src={
-                details.img_url
-                  ? details.img_url
-                  : "/istockphoto-1074493878-612x612.png"
-              }
-              alt=""
-            />
-          </div>
-          <div className={track.details}>
-            <h4>
-              <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-              {details.creator_id.slice(-6)}
-            </h4>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ margin: "10px auto" }}>
+              <img
+                className={track.modalimg}
+                src={
+                  JSON.parse(details.file_data[0]).url
+                    ? JSON.parse(details.file_data[0]).url
+                    : "/istockphoto-1074493878-612x612.png"
+                }
+                alt=""
+              />
+            </div>
+            <div className={track.details}>
+              <h4>
+                <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.creator_id.slice(-6)}
+              </h4>
 
-            <h4>
-              <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-              {details.subject}
-            </h4>
-            <h4 className={track.decs}>
-              <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
-              : {details.description}
-            </h4>
-            <h4>
-              <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-              {details.address}
-            </h4>
-            <h4>
-              <Span text="Area" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-              {details.area ? details.area : "Near Ahemdabad"}
-            </h4>
-            <h4>
-              <Span text="Pincode" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-              {details.pincode}
-            </h4>
-            <h4>
-              <Span text="District" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-              {details.district}
-            </h4>
-            <h4>
-              <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-              {details.status}
-            </h4>
-            <h4>
-              <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
-              : {details.assign_department}
-            </h4>
-          </div>
-          {trace.length !== 0 ? (
-                <div style={{ display: "flex", margin: "5px",padding: "0px 0px 0px 30px" }}>
-                  <Span text="Status Flow" bgcolor="#fed049" />
-                  
-                  {trace.map((data) => {
-                    return (
-                      <div style={{ margin: "5px" }}>
-                        <Span
-                          bgcolor="#6a5c80"
-                          color="white"
-                          text={data.status}
-                        />{" "}
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div>
-                  {" "}
-                  <div style={{ display: "flex", margin: "5px" }}>
-                    <Span text="Status Flow" bgcolor="#fed049" />
-                    <div  style={{ margin: "5px" }}>
+              <h4>
+                <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.subject}
+              </h4>
+              <h4 className={track.decs}>
+                <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.description}
+              </h4>
+              <h4>
+                <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.address}
+              </h4>
+              <h4>
+                <Span text="Area" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.area ? details.area : "Near Ahemdabad"}
+              </h4>
+              <h4>
+                <Span text="Pincode" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.pincode}
+              </h4>
+              <h4>
+                <Span text="District" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.district}
+              </h4>
+              <h4>
+                <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.status}
+              </h4>
+              <h4>
+                <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.assign_department}
+              </h4>
+            </div>
+            {trace.length !== 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  margin: "5px",
+                  padding: "0px 0px 0px 30px",
+                }}
+              >
+                <Span text="Status Flow" bgcolor="#fed049" />
 
-                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+                {trace.map((data) => {
+                  return (
+                    <div style={{ margin: "5px" }}>
+                      <Span
+                        bgcolor="#6a5c80"
+                        color="white"
+                        text={data.status}
+                      />{" "}
                     </div>
+                  );
+                })}
+              </div>
+            ) : (
+              <div>
+                {" "}
+                <div style={{ display: "flex", margin: "5px" }}>
+                  <Span text="Status Flow" bgcolor="#fed049" />
+                  <div style={{ margin: "5px" }}>
+                    <Span text="Open" bgcolor="#6a5c80" color="white" />
                   </div>
                 </div>
-              )}
-        </div>
-      </Modal>
+              </div>
+            )}
+          </div>
+        </Modal>
       )}
     </div>
     // <>
