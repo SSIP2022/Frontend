@@ -26,6 +26,9 @@ import { baseURL } from "../src/config/config";
 import OfficerComplain from "./pages/department/components/Complaint";
 import AdminProfile from "./pages/department/components/Profile";
 
+import Worker from "./pages/worker/index";
+import Showcomplaint from "./pages/worker/components/showcomplaint";
+import WorkerProfile from "./pages/worker/components/Profile";
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -78,6 +81,10 @@ function App() {
           <Route path="analytics" element={<Adminanalytics />} />
           <Route path="home" element={<Complaints />} />
           <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route path="/worker" element={<Worker />}>
+          <Route path="home" element={<Showcomplaint />} />
+          <Route path="profile" element={<WorkerProfile />} />
         </Route>
       </Routes>
       <Toaster />

@@ -369,9 +369,9 @@ const Complain = () => {
                   <th>Status</th>
                   <th>Date</th>
                   {/* <th>Details</th> */}
-                  <th>Close</th>
+                  {/* <th>Close</th>
                   <th>Reject</th>
-                  <th>FeedBack</th>
+                  <th>FeedBack</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -467,7 +467,7 @@ const Complain = () => {
                             Details
                           </button>
                         </td> */}
-                        <td>
+                        {/* <td>
                           <Button
                             text="Close"
                             style={{
@@ -538,8 +538,8 @@ const Complain = () => {
                               setComplaintid(complain.complain_id);
                             }}
                           />
-                        </td>
-                      </tr>
+                        </td>*/}
+                      </tr> 
                     );
                   })
                 ) : (
