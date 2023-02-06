@@ -46,7 +46,7 @@ const Home = () => {
             </div>
             <div
               className={home.register}
-              onClick={() => navigate("/user/home")}
+              onClick={() => navigate("/user/registercomplaint")}
             >
               <AiFillFileAdd className={home.icon1} />
               <div className={home.register_title}>Register</div>
@@ -57,7 +57,7 @@ const Home = () => {
             <div
               className={home.icon}
               onClick={() => {
-                navigate("/user/home?department=electricity");
+                navigate("/user/registercomplaint?department=electricity");
               }}
             >
               <GiElectric />
@@ -65,7 +65,7 @@ const Home = () => {
             </div>
             <div
               onClick={() => {
-                navigate("/user/home?department=water");
+                navigate("/user/registercomplaint?department=water");
               }}
               className={home.icon}
             >
@@ -74,7 +74,7 @@ const Home = () => {
             </div>
             <div
               onClick={() => {
-                navigate("/user/home?department=cleaning");
+                navigate("/user/registercomplaint?department=cleaning");
               }}
               className={home.icon}
             >
@@ -83,7 +83,7 @@ const Home = () => {
             </div>
             <div
               onClick={() => {
-                navigate("/user/home?department=health");
+                navigate("/user/registercomplaint?department=health");
               }}
               className={home.icon}
             >
@@ -92,7 +92,7 @@ const Home = () => {
             </div>
             <div
               onClick={() => {
-                navigate("/user/home?department=others");
+                navigate("/user/registercomplaint?department=others");
               }}
               className={home.icon}
             >

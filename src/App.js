@@ -27,8 +27,8 @@ import OfficerComplain from "./pages/department/components/Complaint";
 import AdminProfile from "./pages/department/components/Profile";
 
 import Worker from "./pages/worker/index";
-import Showcomplaint from "./pages/worker/components/showcomplaint";
 import WorkerProfile from "./pages/worker/components/Profile";
+import Tasks from "./pages/worker/components/Tasks";
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -69,8 +69,8 @@ function App() {
         <Route path="/user" element={<User />}>
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="profile" element={<UserProfile />} />
-          <Route path="home" element={<RegisterComplaint />} />
-          <Route path="temp" element={<Home />} />
+          <Route path="registercomplaint" element={<RegisterComplaint />} />
+          <Route path="home" element={<Home />} />
         </Route>
         <Route path="/officer" element={<Department />}>
           <Route path="home" element={<OfficerComplain />} />
@@ -83,8 +83,8 @@ function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="/worker" element={<Worker />}>
-          <Route path="home" element={<Showcomplaint />} />
           <Route path="profile" element={<WorkerProfile />} />
+          <Route path="home" element={<Tasks />} />
         </Route>
       </Routes>
       <Toaster />
