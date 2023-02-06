@@ -66,8 +66,8 @@ const OfficerComplain = () => {
   };
   async function getUserComplaints(filter = "") {
     const endpoint = filter
-      ? `/user/department-complains?department=${userData.alloted_dept}&filter=${filter}`
-      : `/user/department-complains?department=${userData.alloted_dept}`;
+      ? `/user/department-complains?department=${userData.department}&filter=${filter}`
+      : `/user/department-complains?department=${userData.department}`;
     const response = await fetch(baseURL + endpoint, {
       method: "GET",
       credentials: "include",
