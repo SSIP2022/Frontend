@@ -113,6 +113,9 @@ const Home = () => {
                   
                 </label>
               </div>
+              <button
+              style={{}} 
+               >Submit</button>
             </div>
           </Modal>
         </>
