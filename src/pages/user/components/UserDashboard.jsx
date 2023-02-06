@@ -133,12 +133,6 @@ const UserDashboard = () => {
                 {complaint.subject.slice(0, 25) + ".."}{" "}
                 <AiOutlineInfoCircle fontSize="1em" />
               </span>
-
-              <span className={styles.text3}>
-                {complaint.area.length === 0
-                  ? "Near Ahemdabad"
-                  : "Near " + complaint.area}
-              </span>
               <span
                 className={styles.withdraw}
                 style={{ cursor: "pointer" }}
@@ -221,16 +215,12 @@ const UserDashboard = () => {
                 {details.address}
               </h4>
               <h4>
-                <Span text="Area" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.area ? details.area : "Near Ahemdabad"}
+                <Span text="Zone" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.zone_name ? details.zone_name : "Near Ahemdabad"}
               </h4>
               <h4>
-                <Span text="Pincode" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.pincode}
-              </h4>
-              <h4>
-                <Span text="District" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.district}
+                <Span text="Ward" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.ward_name}
               </h4>
               <h4>
                 <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
