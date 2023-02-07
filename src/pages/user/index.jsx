@@ -6,7 +6,7 @@ import { sidebarData } from "./SidebarData";
 const UserDashboard= (props) =>{
   return (
     <>
-                <Sidebar title="Admin" sidebarData={sidebarData} />
+        <Sidebar title="Admin" sidebarData={sidebarData} />
         <Outlet/>
     </>
   );

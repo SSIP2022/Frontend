@@ -460,7 +460,6 @@ const RegisterComplaint = () => {
                 pickerOptions={{
                   maxSize: 10 * 1024 * 1024,
                 }}
-                onSuccess={(resp) => {}}
                 onUploadDone={(resp) => {
                   console.log(resp);
                   setFilename(resp.filesUploaded[0].filename);
