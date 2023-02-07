@@ -1,7 +1,7 @@
 export const sidebarData = [
     {
       title: "Tasks",
-      path: "/worker/tasks",
+      path: "/worker/home",
       icon: "📝",
       cName: "nav-text",
     },

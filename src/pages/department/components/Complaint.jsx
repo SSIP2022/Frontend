@@ -25,7 +25,7 @@ const OfficerComplain = () => {
     },
     assign: {
       text: "In Progress",
-      color: "blue",
+      color: "rgb(255 146 13)",
     },
     "in progress": {
       text: "Resolved",
@@ -143,92 +143,88 @@ const OfficerComplain = () => {
       {openDetail ? (
         <>
           <Modal title="Complaint Detail" close={() => setopenDetail(false)}>
-            <div style={{ display: "flex", flexDirection: "column" }}>
-              <div style={{ margin: "10px auto" }}>
-                <img
-                  className={track.modalimg}
-                  src={
-                    details.img_url
-                      ? details.img_url
-                      : "/istockphoto-1074493878-612x612.png"
-                  }
-                  alt=""
-                />
-              </div>
-              <div className={track.details}>
-                <h4>
-                  <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.creator_id.slice(-6)}
-                </h4>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <div style={{ margin: "10px auto" }}>
+              <img
+                className={track.modalimg}
+                src={
+                  JSON.parse(details.file_data[0]).url
+                    ? JSON.parse(details.file_data[0]).url
+                    : "/istockphoto-1074493878-612x612.png"
+                }
+                alt=""
+              />
+            </div>
+            <div className={track.details}>
+              <h4>
+                <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.creator_id.slice(-6)}
+              </h4>
 
-                <h4>
-                  <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.subject}
-                </h4>
-                <h4 className={track.decs}>
-                  <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
-                  : {details.description}
-                </h4>
-                <h4 className={track.decs}>
-                  <span>Problem</span> : {details.subject}
-                </h4>
-                <h4 className={track.decs}>
-                  <span>Address</span> : {details.address}
-                </h4>
-                <h4>
-                  <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.address}
-                </h4>
-                <h4>
-                  <Span text="Area" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.area ? details.area : "Near Ahemdabad"}
-                </h4>
-                <h4>
-                  <Span text="Pincode" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.pincode}
-                </h4>
-                <h4>
-                  <Span text="District" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.district}
-                </h4>
-                <h4>
-                  <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.status}
-                </h4>
-                <h4>
-                  <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
-                  : {details.assign_department}
-                </h4>
+              <h4>
+                <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.subject}
+              </h4>
+              <h4 className={track.decs}>
+                <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.description}
+              </h4>
+              <h4>
+                <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.address}
+              </h4>
+              <h4>
+                <Span text="Zone" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.zone_name ? details.zone_name : "Near Ahemdabad"}
+              </h4>
+              <h4>
+                <Span text="Ward" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.ward_name}
+              </h4>
+              <h4>
+                <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.status}
+              </h4>
+              <h4>
+                <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                {details.assign_department}
+              </h4>
+            </div>
+            {trace.length !== 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  margin: "5px",
+                  padding: "0px 0px 0px 30px",
+                }}
+              >
+                <Span text="Status Flow" bgcolor="#fed049" />
+
+                {trace.map((data) => {
+                  return (
+                    <div style={{ margin: "5px" }}>
+                      <Span
+                        bgcolor="#6a5c80"
+                        color="white"
+                        text={data.status}
+                      />{" "}
+                    </div>
+                  );
+                })}
               </div>
-              {trace.length !== 0 ? (
+            ) : (
+              <div>
+                {" "}
                 <div style={{ display: "flex", margin: "5px" }}>
                   <Span text="Status Flow" bgcolor="#fed049" />
-
-                  {trace.map((data) => {
-                    return (
-                      <div style={{ margin: "5px" }}>
-                        <Span
-                          bgcolor="#6a5c80"
-                          color="white"
-                          text={data.status}
-                        />{" "}
-                      </div>
-                    );
-                  })}
-                </div>
-              ) : (
-                <div>
-                  {" "}
-                  <div style={{ display: "flex", margin: "5px" }}>
-                    <Span text="Status Flow" bgcolor="#fed049" />
-                    <div style={{ margin: "5px" }}>
-                      <Span text="Open" bgcolor="#6a5c80" color="white" />
-                    </div>
+                  <div style={{ margin: "5px" }}>
+                    <Span text="Open" bgcolor="#6a5c80" color="white" />
                   </div>
                 </div>
-              )}
-            </div>
-          </Modal>
+              </div>
+            )}
+          </div>
+        </Modal>
         </>
       ) : (
         <>
@@ -240,6 +236,14 @@ const OfficerComplain = () => {
               width: "100%",
             }}
           >
+            <button 
+              onClick={(e) => {
+                getUserComplaints("");
+              }}
+              className={track.btn}
+            >
+              All
+            </button>
             <button
               onClick={(e) => {
                 getUserComplaints("withdraw");
@@ -258,11 +262,11 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("In Progress");
+                getUserComplaints("Assign");
               }}
               className={track.btn}
             >
-              In progress
+              Assigned
             </button>
             <button
               onClick={(e) => {
@@ -287,7 +291,9 @@ const OfficerComplain = () => {
                 <tr>
                   <th>S.No</th>
                   <th>User ID</th>
-                  <th>Area</th>
+                  {/* <th>Area</th> */}
+                  <th>Zone</th>
+                  <th>Ward</th>
                   <th>Dept</th>
                   <th>Status</th>
                   <th>Date</th>
@@ -316,12 +322,14 @@ const OfficerComplain = () => {
                         >
                           {complain.complain_id.slice(-6)}
                         </td>
-                        <td data-label="Area">
+                        <td data-label="Zone">{complain.zone_name}</td>
+                        <td data-label="Ward">{complain.ward_name}</td>
+                        {/* <td data-label="Area">
                           {" "}
                           {complain.area.length === 0
                             ? "Near Ahemdabad"
-                            : complain.area}
-                        </td>
+                            : complain.ward_name}
+                        </td> */}
                         <td data-label="Dept">{complain.assign_department}</td>
                         <td data-label="Staus" className="pass">
                           <div

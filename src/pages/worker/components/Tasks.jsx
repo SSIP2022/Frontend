@@ -105,7 +105,7 @@ const Home = () => {
                   value="not defined"
                   name="fooby[1][]"
                 />
-                Not understandable
+                Already resolved
               </label>
               <label
                 style={{
