@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "../../../styles/Userdashboard.module.scss";
 import Button from "../../../components/button";
-import { AiOutlineStar, AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 import Modal from "../../../components/model";
 import { baseURL } from "../../../config/config";
 import { useEffect } from "react";
@@ -89,12 +89,6 @@ const UserDashboard = () => {
     getUserComplaints();
   }, []);
 
-  const onclick = () => {
-    setDetails(true);
-  };
-  const onclose = () => {
-    setDetails(false);
-  };
   return (
     <div className={styles.allcomplaints}>
       {complaints.length !== 0 ? (
