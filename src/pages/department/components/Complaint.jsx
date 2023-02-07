@@ -24,11 +24,7 @@ const OfficerComplain = () => {
       color: "#aa4f4f",
     },
     assign: {
-      text: "In Progress",
-      color: "rgb(255 146 13)",
-    },
-    "in progress": {
-      text: "Resolved",
+      text: "Closed",
       color: "rgb(255 146 13)",
     },
     resolved: {
@@ -98,6 +94,7 @@ const OfficerComplain = () => {
       body: JSON.stringify({
         status: newStatus,
         complain_id: id,
+        worker_id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
       }),
     });
     const data = await response.json();
@@ -143,88 +140,88 @@ const OfficerComplain = () => {
       {openDetail ? (
         <>
           <Modal title="Complaint Detail" close={() => setopenDetail(false)}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ margin: "10px auto" }}>
-              <img
-                className={track.modalimg}
-                src={
-                  JSON.parse(details.file_data[0]).url
-                    ? JSON.parse(details.file_data[0]).url
-                    : "/istockphoto-1074493878-612x612.png"
-                }
-                alt=""
-              />
-            </div>
-            <div className={track.details}>
-              <h4>
-                <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.creator_id.slice(-6)}
-              </h4>
-
-              <h4>
-                <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.subject}
-              </h4>
-              <h4 className={track.decs}>
-                <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.description}
-              </h4>
-              <h4>
-                <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.address}
-              </h4>
-              <h4>
-                <Span text="Zone" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.zone_name ? details.zone_name : "Near Ahemdabad"}
-              </h4>
-              <h4>
-                <Span text="Ward" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.ward_name}
-              </h4>
-              <h4>
-                <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.status}
-              </h4>
-              <h4>
-                <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.assign_department}
-              </h4>
-            </div>
-            {trace.length !== 0 ? (
-              <div
-                style={{
-                  display: "flex",
-                  margin: "5px",
-                  padding: "0px 0px 0px 30px",
-                }}
-              >
-                <Span text="Status Flow" bgcolor="#fed049" />
-
-                {trace.map((data) => {
-                  return (
-                    <div style={{ margin: "5px" }}>
-                      <Span
-                        bgcolor="#6a5c80"
-                        color="white"
-                        text={data.status}
-                      />{" "}
-                    </div>
-                  );
-                })}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ margin: "10px auto" }}>
+                <img
+                  className={track.modalimg}
+                  src={
+                    JSON.parse(details.file_data[0]).url
+                      ? JSON.parse(details.file_data[0]).url
+                      : "/istockphoto-1074493878-612x612.png"
+                  }
+                  alt=""
+                />
               </div>
-            ) : (
-              <div>
-                {" "}
-                <div style={{ display: "flex", margin: "5px" }}>
+              <div className={track.details}>
+                <h4>
+                  <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.creator_id.slice(-6)}
+                </h4>
+
+                <h4>
+                  <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.subject}
+                </h4>
+                <h4 className={track.decs}>
+                  <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.description}
+                </h4>
+                <h4>
+                  <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.address}
+                </h4>
+                <h4>
+                  <Span text="Zone" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.zone_name ? details.zone_name : "Near Ahemdabad"}
+                </h4>
+                <h4>
+                  <Span text="Ward" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.ward_name}
+                </h4>
+                <h4>
+                  <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.status}
+                </h4>
+                <h4>
+                  <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.assign_department}
+                </h4>
+              </div>
+              {trace.length !== 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    margin: "5px",
+                    padding: "0px 0px 0px 30px",
+                  }}
+                >
                   <Span text="Status Flow" bgcolor="#fed049" />
-                  <div style={{ margin: "5px" }}>
-                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+
+                  {trace.map((data) => {
+                    return (
+                      <div style={{ margin: "5px" }}>
+                        <Span
+                          bgcolor="#6a5c80"
+                          color="white"
+                          text={data.status}
+                        />{" "}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {" "}
+                  <div style={{ display: "flex", margin: "5px" }}>
+                    <Span text="Status Flow" bgcolor="#fed049" />
+                    <div style={{ margin: "5px" }}>
+                      <Span text="Open" bgcolor="#6a5c80" color="white" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </Modal>
+              )}
+            </div>
+          </Modal>
         </>
       ) : (
         <>
@@ -236,7 +233,7 @@ const OfficerComplain = () => {
               width: "100%",
             }}
           >
-            <button 
+            <button
               onClick={(e) => {
                 getUserComplaints("");
               }}
@@ -262,7 +259,7 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("Assign");
+                getUserComplaints("assign");
               }}
               className={track.btn}
             >
@@ -270,7 +267,7 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("Resolved");
+                getUserComplaints("resolved");
               }}
               className={track.btn}
             >
@@ -413,13 +410,13 @@ const OfficerComplain = () => {
               <Modal title="Confirm Status" close={() => setConfirm(false)}>
                 <h4>
                   Now the status for this complain will become {details.status}{" "}
-                  -- &gt; {buttonText[details.status.toLowerCase()]["text"]}
+                  -- &gt; {buttonText[details.status]["text"].toLowerCase()}
                 </h4>
                 <Button
                   onClick={() =>
                     handleChangeStatus(
                       details.complain_id,
-                      buttonText[details.status.toLowerCase()]["text"]
+                      buttonText[details.status]["text"].toLowerCase()
                     )
                   }
                   bgcolor="green"

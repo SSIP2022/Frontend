@@ -342,7 +342,7 @@ const Complain = () => {
             <button
               className={track.btn}
               onClick={(e) => {
-                getUserComplaints("Resolved");
+                getUserComplaints("resolved");
               }}
             >
               Resolved
@@ -364,7 +364,7 @@ const Complain = () => {
                   <th>S.No</th>
                   <th>User ID</th>
                   <th>Token No</th>
-                  {/* <th>Area</th> */} 
+                  {/* <th>Area</th> */}
                   <th>Dept</th>
                   <th>Status</th>
                   <th>Date</th>
@@ -539,7 +539,7 @@ const Complain = () => {
                             }}
                           />
                         </td>*/}
-                      </tr> 
+                      </tr>
                     );
                   })
                 ) : (

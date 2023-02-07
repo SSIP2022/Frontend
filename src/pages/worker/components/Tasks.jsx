@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
 import { useNavigate } from "react-router-dom";
@@ -6,6 +6,7 @@ import tasks from "../../../styles/Home.module.scss";
 import styles from "../../../styles/Userdashboard.module.scss";
 import Modal from "../../../components/model";
 import { PickerOverlay } from "filestack-react";
+import { baseURL } from "../../../config/config";
 const Home = () => {
   const { userData } = useSelector(user);
   const navigate = useNavigate();
@@ -14,6 +15,70 @@ const Home = () => {
   const [isPicker, setIsPicker] = useState(false);
   const [fileName, setFilename] = useState("Choose File");
   const [file_data, setFileData] = useState({});
+  const [selectedValue, setSelectedValue] = useState("");
+  const [complains, setComplains] = useState([]);
+  const [details, setDetails] = useState({});
+  const [trace, setTrace] = useState([]);
+
+  const getWorkerComplain = async () => {
+    const response = await fetch(
+      baseURL + `/user/worker-complains?worker_id=${userData.user_id}`
+    );
+    const data = await response.json();
+    console.log(data);
+    setComplains(data["complains"]);
+  };
+
+  async function handleGetStatus() {
+    const response = await fetch(baseURL + `/complain/trace-complain`, {
+      method: "POST",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        complain_id: details.complain_id,
+      }),
+    });
+    const data = await response.json();
+    console.log("data:", data);
+    if (data.success) {
+      setTrace(data.trace);
+    } else {
+    }
+  }
+
+  useEffect(() => {
+    handleGetStatus();
+    console.log(details);
+  }, [openDetails, openResolve]);
+
+  useEffect(() => {
+    getWorkerComplain();
+    console.log(complains);
+  }, []);
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const OnSubmitResolved = async () => {
+    const response = await fetch(baseURL + `/complain/update-status`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        complain_id: "b696211f-31ea-4ebe-b1eb-b0cccedfcb0c",
+        status: "resolved",
+        feedback: "test kar raha hun bhai",
+        file_data: file_data,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+  };
   return (
     <>
       {openResolve ? (
@@ -43,9 +108,10 @@ const Home = () => {
               >
                 <input
                   type="radio"
-                  value="1"
+                  value="resolved"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
                   name="fooby[1][]"
+                  onChange={handleChange}
                 />
                 Resolve
               </label>
@@ -60,8 +126,9 @@ const Home = () => {
                 <input
                   type="radio"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
-                  value="1"
+                  value="fake"
                   name="fooby[1][]"
+                  onChange={handleChange}
                 />
                 Fake
               </label>
@@ -76,7 +143,7 @@ const Home = () => {
                 <input
                   type="radio"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
-                  value="1"
+                  value="not defined"
                   name="fooby[1][]"
                 />
                 Already resolved
@@ -146,14 +213,22 @@ const Home = () => {
                   />
                 </label>
               </div>
-              <button style={{}}>Submit</button>
+              <button
+                onClick={() => {
+                  OnSubmitResolved();
+                  setOpenResolve(false);
+                }}
+                style={{}}
+              >
+                Submit
+              </button>
             </div>
           </Modal>
         </>
       ) : openDetails ? (
         <>
           <Modal close={() => setOpenDetails(false)}>
-            <h3>બંધ થવાનું કારણ</h3>
+            <h3>{details.subject}</h3>
           </Modal>
         </>
       ) : (
@@ -167,69 +242,77 @@ const Home = () => {
               <div className={tasks.greetings_welcome}>Your today's tasks</div>
             </div>
           </div>
-          <div className={styles.allcomplaints}>
-            <div
-              className={styles.complaints}
-              // onClick={() => {
-              //   setDetails(complaint);
-              //   setOpenModel(true);
-              // }}
-              // style={{ cursor: "pointer" }}
-            >
-              <div className={styles.progresscircle}></div>
-              <span className={styles.text1}>Open</span>
-              <span className={styles.token}>Token No</span>
-              {/* <img
-                    src={
-                        JSON.parse(complaint.file_data[0]).url
-                            ? JSON.parse(complaint.file_data[0]).url
-                            : "/istockphoto-1074493878-612x612.png"
-                    }
-                    className={styles.cImage}
-                    alt=""
-                /> */}
-              <span
-                className={styles.text2}
-                type="button"
-                onClick={() => {
-                  // setDetails(complaint);
-                  // setOpenModel(true);
-                }}
-              >
-                chgjdghj
-                {/* <AiOutlineInfoCircle fontSize="1em" /> */}
-              </span>
-              <span
-                className={styles.withdraw}
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  // setDetails(complaint);
-                  setOpenDetails(true);
-                }}
-              >
-                Details
-              </span>
-              {/* <span className={styles.withdraw} onClick={()=>{
-               setDetails(complaint);
-               setOpenModel(true);
-              }}>Withdraw</span> */}
-              <span
-                style={{ cursor: "pointer" }}
-                className={styles.detailsbtn}
-                onClick={() => {
-                  // if (complaint.status != "open") {
-                  //     // toast.error("Complaint is in progress");
-                  //     return;
-                  // }
-                  // setWithdraw(true);
-                  // setComplaint(complaint);
-                  setOpenResolve(true);
-                }}
-              >
-                Resolve
-              </span>
-            </div>
-          </div>
+          {complains &&
+            complains.map((ele, ind) => {
+              return (
+                <div key={ind} className={styles.allcomplaints}>
+                  <div
+                    className={styles.complaints}
+                    // onClick={() => {
+                    //   setDetails(complaint);
+                    //   setOpenModel(true);
+                    // }}
+                    // style={{ cursor: "pointer" }}
+                  >
+                    <div className={styles.progresscircle}></div>
+                    <span className={styles.text1}>{ele.status}</span>
+                    <span className={styles.token}>
+                      {ele.complain_id.slice(-6)}
+                    </span>
+                    <img
+                      src={
+                        JSON.parse(ele.file_data[0]).url
+                          ? JSON.parse(ele.file_data[0]).url
+                          : "/istockphoto-1074493878-612x612.png"
+                      }
+                      className={styles.cImage}
+                      alt=""
+                    />
+                    <span
+                      className={styles.text2}
+                      type="button"
+                      onClick={() => {
+                        // setDetails(complaint);
+                        // setOpenModel(true);
+                      }}
+                    >
+                      {ele.subject.slice(0, 25) + ".."}{" "}
+                      {/* <AiOutlineInfoCircle fontSize="1em" /> */}
+                    </span>
+                    <span
+                      className={styles.withdraw}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        setDetails(ele);
+                        setOpenDetails(true);
+                      }}
+                    >
+                      Details
+                    </span>
+                    {/* <span className={styles.withdraw} onClick={()=>{
+                         setDetails(complaint);
+                         setOpenModel(true);
+                        }}>Withdraw</span> */}
+                    <span
+                      style={{ cursor: "pointer" }}
+                      className={styles.detailsbtn}
+                      onClick={() => {
+                        // if (complaint.status != "open") {
+                        //     // toast.error("Complaint is in progress");
+                        //     return;
+                        // }
+                        // setWithdraw(true);
+                        // setComplaint(complaint);
+                        setDetails(ele);
+                        setOpenResolve(true);
+                      }}
+                    >
+                      Resolve
+                    </span>
+                  </div>
+                </div>
+              );
+            })}
         </>
       )}
     </>
