@@ -364,7 +364,7 @@ const Complain = () => {
                   <th>S.No</th>
                   <th>User ID</th>
                   <th>Token No</th>
-                  <th>Area</th>
+                  {/* <th>Area</th> */} 
                   <th>Dept</th>
                   <th>Status</th>
                   <th>Date</th>
@@ -403,11 +403,11 @@ const Complain = () => {
                         >
                           {complain.complain_id.slice(-6)}
                         </td>
-                        <td data-label="Area" style={{ fontStyle: "italic" }}>
+                        {/* <td data-label="Area" style={{ fontStyle: "italic" }}>
                           {complain.area.length === 0
                             ? "Near Ahemdabad"
                             : complain.area}
-                        </td>
+                        </td> */}
                         <td data-label="Dept" style={{ textAlign: "center" }}>
                           {complain.assign_department}
                         </td>
