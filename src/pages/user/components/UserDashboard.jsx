@@ -127,6 +127,9 @@ const UserDashboard = () => {
                 {complaint.subject.slice(0, 25) + ".."}{" "}
                 <AiOutlineInfoCircle fontSize="1em" />
               </span>
+              <span className={styles.text3}>
+                {"Near " + complaint.ward_name}
+              </span>
               <span
                 className={styles.withdraw}
                 style={{ cursor: "pointer" }}

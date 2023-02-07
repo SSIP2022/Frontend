@@ -56,6 +56,7 @@ const Home = () => {
           <div className={home.iconcontainer}>
             <div
               className={home.icon}
+              id={home.electricity}
               onClick={() => {
                 navigate("/user/registercomplaint?department=electricity");
               }}
@@ -68,6 +69,7 @@ const Home = () => {
                 navigate("/user/registercomplaint?department=water");
               }}
               className={home.icon}
+              id={home.water}
             >
               <IoWater />
               Water
@@ -77,6 +79,7 @@ const Home = () => {
                 navigate("/user/registercomplaint?department=cleaning");
               }}
               className={home.icon}
+              id={home.cleaning}
             >
               <FaTrashAlt />
               Cleaning
@@ -86,6 +89,7 @@ const Home = () => {
                 navigate("/user/registercomplaint?department=health");
               }}
               className={home.icon}
+              id={home.health}
             >
               <GiHealthNormal />
               Health
@@ -95,6 +99,7 @@ const Home = () => {
                 navigate("/user/registercomplaint?department=others");
               }}
               className={home.icon}
+              id={home.others}
             >
               <BiDotsHorizontalRounded />
               Others
