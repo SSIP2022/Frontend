@@ -5,15 +5,25 @@ import { useNavigate } from "react-router-dom";
 import tasks from "../../../styles/Home.module.scss";
 import styles from "../../../styles/Userdashboard.module.scss";
 import Modal from "../../../components/model";
+import { PickerOverlay } from "filestack-react";
 const Home = () => {
   const { userData } = useSelector(user);
   const navigate = useNavigate();
   const [openResolve, setOpenResolve] = useState(false);
+  const [openDetails, setOpenDetails] = useState(false);
+  const [isPicker, setIsPicker] = useState(false);
+  const [fileName, setFilename] = useState("Choose File");
+  const [file_data, setFileData] = useState({});
   return (
     <>
       {openResolve ? (
         <>
-          <Modal close={() => setOpenResolve(false)}>
+          <Modal
+            close={() => {
+              setIsPicker(false);
+              setOpenResolve(false);
+            }}
+          >
             <h3>બંધ થવાનું કારણ</h3>
             <div
               style={{
@@ -32,7 +42,7 @@ const Home = () => {
                 }}
               >
                 <input
-                  type="checkbox"
+                  type="radio"
                   value="1"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
                   name="fooby[1][]"
@@ -48,7 +58,7 @@ const Home = () => {
                 }}
               >
                 <input
-                  type="checkbox"
+                  type="radio"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
                   value="1"
                   name="fooby[1][]"
@@ -64,7 +74,7 @@ const Home = () => {
                 }}
               >
                 <input
-                  type="checkbox"
+                  type="radio"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
                   value="1"
                   name="fooby[1][]"
@@ -80,7 +90,7 @@ const Home = () => {
                 }}
               >
                 <input
-                  type="checkbox"
+                  type="radio"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
                   value="1"
                   name="fooby[1][]"
@@ -97,26 +107,53 @@ const Home = () => {
                 <h4 style={{ margin: "0 20px 10px 0", fontWeight: "bold" }}>
                   Upload Image:
                 </h4>
+                <div style={{ margin: "4px", position: "relative" }}>
+                  {isPicker && (
+                    <PickerOverlay
+                      apikey={"AJbGbxcJRbqofHCOKiyGJz"}
+                      action="pick"
+                      pickerOptions={{
+                        maxSize: 10 * 1024 * 1024,
+                      }}
+                      onUploadDone={(resp) => {
+                        console.log(resp);
+                        setFilename(resp.filesUploaded[0].filename);
+                        setIsPicker(false);
+                        setFileData({
+                          role: userData.role,
+                          id: userData.user_id,
+                          url: resp.filesUploaded[0].url,
+                          filename: resp.filesUploaded[0].filename,
+                        });
+                      }}
+                    />
+                  )}
+                </div>
                 <label style={{ display: "flex", alignItems: "center" }}>
                   <input
                     required
                     name="file"
                     id="file"
-                    type="file"
-                    style={{
-                      cursor: "pointer",
-                      padding: "10px",
-                      border: "1px solid #ccc",
-                      backgroundColor: "#fff",
+                    type="button"
+                    // disabled
+                    // className={form.file}
+                    style={{ cursor: "pointer" }}
+                    value={fileName}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      isPicker ? setIsPicker(false) : setIsPicker(true);
                     }}
                   />
-                  
                 </label>
               </div>
-              <button
-              style={{}} 
-               >Submit</button>
+              <button style={{}}>Submit</button>
             </div>
+          </Modal>
+        </>
+      ) : openDetails ? (
+        <>
+          <Modal close={() => setOpenDetails(false)}>
+            <h3>બંધ થવાનું કારણ</h3>
           </Modal>
         </>
       ) : (
@@ -167,7 +204,7 @@ const Home = () => {
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   // setDetails(complaint);
-                  // setOpenModel(true);
+                  setOpenDetails(true);
                 }}
               >
                 Details

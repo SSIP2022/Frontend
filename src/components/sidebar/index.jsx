@@ -75,7 +75,7 @@ function Sidebar({ sidebarData, title }) {
                 dispatch(setUserLogout());
                 navigate("/");
               }}><span
-              
+              style={{cursor:"pointer"}}
             >
               Logout
             </span></li>
