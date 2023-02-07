@@ -6,6 +6,7 @@ import tasks from "../../../styles/Home.module.scss";
 import styles from "../../../styles/Userdashboard.module.scss";
 import Modal from "../../../components/model";
 import { PickerOverlay } from "filestack-react";
+import { baseURL } from "../../../config/config";
 const Home = () => {
   const { userData } = useSelector(user);
   const navigate = useNavigate();
@@ -14,6 +15,29 @@ const Home = () => {
   const [isPicker, setIsPicker] = useState(false);
   const [fileName, setFilename] = useState("Choose File");
   const [file_data, setFileData] = useState({});
+  const [selectedValue, setSelectedValue] = useState("");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const OnSubmitResolved = async () => {
+    const response = await fetch(baseURL + `/complain/update-status`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        complain_id: "b696211f-31ea-4ebe-b1eb-b0cccedfcb0c",
+        status: "resolved",
+        feedback: "test kar raha hun bhai",
+        file_data: file_data,
+      }),
+    });
+    const data = await response.json();
+    console.log(data);
+  };
   return (
     <>
       {openResolve ? (
@@ -43,9 +67,10 @@ const Home = () => {
               >
                 <input
                   type="radio"
-                  value="1"
+                  value="resolved"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
                   name="fooby[1][]"
+                  onChange={handleChange}
                 />
                 Resolve
               </label>
@@ -60,8 +85,9 @@ const Home = () => {
                 <input
                   type="radio"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
-                  value="1"
+                  value="fake"
                   name="fooby[1][]"
+                  onChange={handleChange}
                 />
                 Fake
               </label>
@@ -76,7 +102,7 @@ const Home = () => {
                 <input
                   type="radio"
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
-                  value="1"
+                  value="not defined"
                   name="fooby[1][]"
                 />
                 Not understandable
@@ -146,7 +172,15 @@ const Home = () => {
                   />
                 </label>
               </div>
-              <button style={{}}>Submit</button>
+              <button
+                onClick={() => {
+                  OnSubmitResolved();
+                  setOpenResolve(false);
+                }}
+                style={{}}
+              >
+                Submit
+              </button>
             </div>
           </Modal>
         </>
