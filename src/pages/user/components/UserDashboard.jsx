@@ -22,7 +22,7 @@ const UserDashboard = () => {
 
   const [withdraw, setWithdraw] = useState(false);
   const [trace, setTrace] = useState([]);
-
+  const [feedback, setFeedback] = useState(false);
   const withdrawComplaint = async () => {
     const response = await fetch(
       "https://wild-lime-prawn.cyclic.app/complain/withdraw",
@@ -130,8 +130,12 @@ const UserDashboard = () => {
               <span className={styles.text3}>
                 {"Near " + complaint.ward_name}
               </span>
+              <div
+                className={styles.detailsbtn}
+              >
+
               <span
-                className={styles.withdraw}
+                // className={styles.detailsbtn}
                 style={{ cursor: "pointer" }}
                 onClick={() => {
                   setDetails(complaint);
@@ -145,7 +149,7 @@ const UserDashboard = () => {
                setOpenModel(true);
               }}>Withdraw</span> */}
               <span
-                className={styles.detailsbtn}
+                style={{ cursor: "pointer" }}
                 onClick={() => {
                   if (complaint.status != "open") {
                     toast.error("Complaint is in progress");
@@ -157,6 +161,17 @@ const UserDashboard = () => {
               >
                 Withdraw
               </span>
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setFeedback(true);
+                  setComplaint(complaint);
+                }}
+                >
+                Feedback
+              </span>
+              </div>
+
             </div>
           );
         })
@@ -176,6 +191,20 @@ const UserDashboard = () => {
             color="white"
             text="Confirm"
           />
+        </Modal>
+      )}
+      {feedback && (
+        <Modal title="Feedback from department" close={() => setFeedback(false)}>
+          <div><Span text="Feedback" bgcolor="rgba(167, 164, 165, 0.4)" />:   <span style={{fontWeight:"bold"}}>Fake</span></div>
+          <div 
+          style={{display:"flex",alignItems:"center",marginTop:"10px"}}
+          >
+          <Span text="Feedback image" bgcolor="rgba(167, 164, 165, 0.4)" />:
+          
+          <img
+            style={{ width: "100px", height: "100px", marginLeft: "10px" }}
+            src={"/istockphoto-1074493878-612x612.png"}
+            ></img></div>
         </Modal>
       )}
 
