@@ -24,11 +24,11 @@ const OfficerComplain = () => {
       color: "#aa4f4f",
     },
     assign: {
-      text: "Closed",
+      text: "No Action",
       color: "rgb(255 146 13)",
     },
     resolved: {
-      text: "No Action",
+      text: "Closed",
       color: "#11BF7F",
     },
     "no action": {
@@ -82,7 +82,6 @@ const OfficerComplain = () => {
   async function handleChangeStatus(id, newStatus, index) {
     console.log("newStatus:", newStatus);
     if (newStatus == "no action") {
-      toast.error("Can not perform this action");
       return;
     }
     const response = await fetch(baseURL + `/complain/update-status`, {
@@ -388,9 +387,7 @@ const OfficerComplain = () => {
                               ) {
                                 setDetails(complain);
                                 setConfirm(true);
-                              } else {
-                                toast.error("You can't perform this action");
-                              }
+                              } 
                             }}
                             id={i}
                             text={
