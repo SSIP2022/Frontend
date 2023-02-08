@@ -207,13 +207,8 @@ const UserDashboard = () => {
                 <span
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    if (
-                      complaint.status !== "resolved" ||
-                      complaint.status !== "closed"
-                    ) {
-                      toast.error(
-                        "complain is still open you can't perform this task"
-                      );
+                    if (complaint.status !== "resolved") {
+                      console.log(complaint.status);
                       return;
                     }
                     setFeedback(true);
