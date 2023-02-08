@@ -10,7 +10,7 @@ import { user } from "../../../store/userReducer";
 import toast from "react-hot-toast";
 import Span from "../../../components/span";
 import track from "../../../styles/Complain.module.scss";
-
+import { BsFillCircleFill } from 'react-icons/bs'
 const UserDashboard = () => {
   const { userData } = useSelector(user);
   console.log("userData:", userData);
@@ -23,6 +23,36 @@ const UserDashboard = () => {
   const [withdraw, setWithdraw] = useState(false);
   const [trace, setTrace] = useState([]);
   const [feedback, setFeedback] = useState(false);
+  const buttonText = {
+    open: {
+      text: "Assign",
+      color: "#391DF2",
+    },
+    withdraw: {
+      text: "No Action",
+      color: "#acacac",
+    },
+    closed: {
+      text: "No Action",
+      color: "#aa4f4f",
+    },
+    assign: {
+      text: "Closed",
+      color: "rgb(255 146 13)",
+    },
+    resolved: {
+      text: "No Action",
+      color: "#11BF7F",
+    },
+    "no action": {
+      text: "No Action",
+      color: "rgba(39, 236, 128, 0.59)",
+    },
+    rejected: {
+      text: "No Action",
+      color: "red",
+    },
+  };
   const withdrawComplaint = async () => {
     const response = await fetch(
       "https://wild-lime-prawn.cyclic.app/complain/withdraw",
@@ -102,7 +132,22 @@ const UserDashboard = () => {
               // }}
               // style={{ cursor: "pointer" }}
             >
-              <div className={styles.progresscircle}></div>
+              <div style={{
+                      position: "relative",
+                      top: "20px",
+                      left: "15px",
+                    }}><BsFillCircleFill
+                        style={{
+                          // width: "15px",
+                          // height: "20px",
+                          color:
+                            buttonText[complaint.status.toLowerCase()][
+                            "color"
+                            ],
+
+                          // marginRight: "10px",
+                        }}
+                      /></div>
               <span className={styles.text1}>{complaint.status}</span>
               <span className={styles.token}>
                 Token No {complaint.complain_id.slice(-6)}
