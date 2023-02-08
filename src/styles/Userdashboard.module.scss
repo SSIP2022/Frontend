@@ -103,7 +103,7 @@
     position: absolute;
   width: 44px;
   height: 46px;
-  left: 41px;
+  left: 30px;
   top: 50px;
   
   border-radius: 7px;
@@ -113,16 +113,18 @@
     color: #3A67E3;
     position: absolute;
     top: 120px;
-    left: 120px;
-    display: inline;  
+    // left: 120px;
+    display: flex;
+    justify-content: space-evenly;
+    width: 334px; 
   } 
-  .withdraw{
-    color: #3A67E3;
-    position: absolute;
-    top: 120px;
-    left: 40px;
-    display: inline;  
-  }
+  // .withdraw{
+  //   color: #3A67E3;
+  //   position: absolute;
+  //   top: 120px;
+  //   // left: 40px;
+  //   display: inline;  
+  // }
   .reopen{
     color: #3A67E3;
     position: absolute;
