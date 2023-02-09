@@ -44,6 +44,10 @@ const UserDashboard = () => {
       text: "No Action",
       color: "#11BF7F",
     },
+    reassign:{
+      text: "No Action",
+      color: "#11BF7F",
+    },
     "no action": {
       text: "No Action",
       color: "rgba(39, 236, 128, 0.59)",
@@ -191,10 +195,26 @@ const UserDashboard = () => {
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
+              {complaint.status === "closed" ? (
+
+                <span
+                style={{ cursor: "pointer" }}
+                // onClick={() => {
+                //   if (complaint.status !== "open") {
+                //     toast.error("Complaint is in progress");
+                //     return;
+                //   }
+                //   setWithdraw(true);
+                //   setComplaint(complaint);
+                // }}
+                >
+                Reopen
+                </span>
+              ) : (
                 <span
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    if (complaint.status != "open") {
+                    if (complaint.status !== "open") {
                       toast.error("Complaint is in progress");
                       return;
                     }
@@ -204,16 +224,14 @@ const UserDashboard = () => {
                 >
                   Withdraw
                 </span>
-                <span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    if (complaint.status !== "resolved") {
-                      console.log(complaint.status);
-                      return;
-                    }
-                    setFeedback(true);
-                    setDetails(complaint);
-                  }}
+              )}
+              
+              <span
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  setFeedback(true);
+                  setComplaint(complaint);
+                }}
                 >
                   Feedback
                 </span>
