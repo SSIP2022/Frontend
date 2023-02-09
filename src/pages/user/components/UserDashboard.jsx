@@ -195,19 +195,37 @@ const UserDashboard = () => {
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-              <span
+              {complaint.status === "closed" ? (
+
+                <span
                 style={{ cursor: "pointer" }}
-                onClick={() => {
-                  if (complaint.status != "open") {
-                    toast.error("Complaint is in progress");
-                    return;
-                  }
-                  setWithdraw(true);
-                  setComplaint(complaint);
-                }}
-              >
-                Withdraw
-              </span>
+                // onClick={() => {
+                //   if (complaint.status !== "open") {
+                //     toast.error("Complaint is in progress");
+                //     return;
+                //   }
+                //   setWithdraw(true);
+                //   setComplaint(complaint);
+                // }}
+                >
+                Reopen
+                </span>
+              ) : (
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    if (complaint.status !== "open") {
+                      toast.error("Complaint is in progress");
+                      return;
+                    }
+                    setWithdraw(true);
+                    setComplaint(complaint);
+                  }}
+                >
+                  Withdraw
+                </span>
+              )}
+              
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => {

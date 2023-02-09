@@ -27,12 +27,12 @@ const OfficerComplain = () => {
       text: "No Action",
       color: "rgb(255 146 13)",
     },
-    resolved: {
+    reassign:{
       text: "No Action",
       color: "#11BF7F",
     },
     resolved: {
-      text: "Reassign",
+      text: "Closed",
       color: "#11BF7F",
     },
     "no action": {
