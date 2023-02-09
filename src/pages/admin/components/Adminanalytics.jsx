@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Analytics = () => {
 
-    const [analyticsData,setAnalyticsData] = useState("");
+    const [analyticsData,setAnalyticsData] = useState({});
 
     const getAnalytics = async () => {
         const response = await fetch(
@@ -20,17 +20,18 @@ const Analytics = () => {
           }
     );
     const data = await response.json();
-    setAnalyticsData(data.complains[0].resolved);
+    setAnalyticsData(data);
     console.log(data);
 }
 
 useEffect(()=>{
     getAnalytics();
+    console.log(analyticsData);
 },[])
-console.log();
+  
   return (
     <>
-      <div className={Analyticscss.navbarContainer}>
+      <div className={Analyticscss.navbarContainer}>  
         <div className={Analyticscss.chartwrapper}>
           <div className={Analyticscss.chartbox}>
             <span className={Analyticscss.title}>Dashboard</span>
@@ -39,12 +40,12 @@ console.log();
             <h4 className={Analyticscss.title}>Statistics</h4>
             <div className={Analyticscss.statistics}>
             <div className={Analyticscss.innerbox}>
-              Total Analyticscss Solved
+              Total Compalints Solved
               <br />
-              {/* <span className={Analyticscss.solved}>{analyticsData.complains[0].resolved}</span> */}
+              {/* <span className={Analyticscss.solved}>{analyticsData.cxomplains[0].resolved}</span> */}
             </div>
             <div className={Analyticscss.innerbox}>
-              Total Analyticscss
+              Total Complaints
               <br />
               <br />
               {/* <span className={Analyticscss.unsolved}>{analyticsData.complains[0].total}</span> */}
