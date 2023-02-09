@@ -1,5 +1,6 @@
 import React, { Component, useEffect, useRef, useState } from "react";
 import Chart from "react-apexcharts";
+import { baseURL } from "../../../config/config";
 
 const AdminChart = () => {
   const [options, setOptions] = useState({
@@ -21,13 +22,13 @@ const AdminChart = () => {
 
   const screenWidth = window.screen.width;
 
-  let data ;
+  let data;
   // let options;
 
   // let series;
   const getAnalytics = async () => {
     const response = await fetch(
-      "https://wild-lime-prawn.cyclic.app/complain/analytics/department-wise",
+      baseURL + `/complain/analytics/department-wise`,
       {
         method: "GET",
         credentials: "include",
@@ -37,7 +38,7 @@ const AdminChart = () => {
       }
     );
     data = await response.json();
-    
+
     setOptions({
       chart: {
         id: "apexchart-example",
@@ -53,7 +54,7 @@ const AdminChart = () => {
       },
     ]);
   };
-  useEffect(()=>{
+  useEffect(() => {
     getAnalytics();
   }, []);
 

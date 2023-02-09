@@ -1,5 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import Chart from "react-apexcharts";
+import { baseURL } from "../../../config/config";
 
 let data;
 
@@ -13,18 +14,15 @@ const PieChart = () => {
   const screenWidth = window.screen.width;
 
   const getAnalytics = async () => {
-    const response = await fetch(
-      "https://wild-lime-prawn.cyclic.app/complain/analytics/status",
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
+    const response = await fetch(baseURL + `/complain/analytics/status`, {
+      method: "GET",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+    });
     data = await response.json();
-    console.log(screenWidth)
+    console.log(screenWidth);
 
     // console.log(data.forCharts);
     setOptions({
@@ -37,7 +35,14 @@ const PieChart = () => {
     getAnalytics();
   }, []);
 
-  return(<Chart options={options} series={series} type="donut" width={screenWidth == '412' ? "300px" : "360px"} />);
+  return (
+    <Chart
+      options={options}
+      series={series}
+      type="donut"
+      width={screenWidth == "412" ? "300px" : "360px"}
+    />
+  );
 };
 
 // class Donut extends Component {
