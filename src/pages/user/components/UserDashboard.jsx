@@ -10,7 +10,7 @@ import { user } from "../../../store/userReducer";
 import toast from "react-hot-toast";
 import Span from "../../../components/span";
 import track from "../../../styles/Complain.module.scss";
-import { BsFillCircleFill } from 'react-icons/bs'
+import { BsFillCircleFill } from "react-icons/bs";
 const UserDashboard = () => {
   const { userData } = useSelector(user);
   console.log("userData:", userData);
@@ -136,22 +136,23 @@ const UserDashboard = () => {
               // }}
               // style={{ cursor: "pointer" }}
             >
-              <div style={{
-                      position: "relative",
-                      top: "20px",
-                      left: "15px",
-                    }}><BsFillCircleFill
-                        style={{
-                          // width: "15px",
-                          // height: "20px",
-                          color:
-                            buttonText[complaint.status.toLowerCase()][
-                            "color"
-                            ],
+              <div
+                style={{
+                  position: "relative",
+                  top: "20px",
+                  left: "15px",
+                }}
+              >
+                <BsFillCircleFill
+                  style={{
+                    // width: "15px",
+                    // height: "20px",
+                    color: buttonText[complaint.status.toLowerCase()]["color"],
 
-                          // marginRight: "10px",
-                        }}
-                      /></div>
+                    // marginRight: "10px",
+                  }}
+                />
+              </div>
               <span className={styles.text1}>{complaint.status}</span>
               <span className={styles.token}>
                 Token No {complaint.complain_id.slice(-6)}
@@ -179,55 +180,34 @@ const UserDashboard = () => {
               <span className={styles.text3}>
                 {"Near " + complaint.ward_name}
               </span>
-              <div
-                className={styles.detailsbtn}
-              >
-
-              <span
-                // className={styles.detailsbtn}
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setDetails(complaint);
-                  setOpenModel(true);
-                }}
-              >
-                Details
-              </span>
-              {/* <span className={styles.withdraw} onClick={()=>{
+              <div className={styles.detailsbtn}>
+                <span
+                  // className={styles.detailsbtn}
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    setDetails(complaint);
+                    setOpenModel(true);
+                  }}
+                >
+                  Details
+                </span>
+                {/* <span className={styles.withdraw} onClick={()=>{
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-              {complaint.status === "closed" ? (
-
-                <span
+              <span
                 style={{ cursor: "pointer" }}
-                // onClick={() => {
-                //   if (complaint.status !== "open") {
-                //     toast.error("Complaint is in progress");
-                //     return;
-                //   }
-                //   setWithdraw(true);
-                //   setComplaint(complaint);
-                // }}
-                >
-                Reopen
-                </span>
-              ) : (
-                <span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    if (complaint.status !== "open") {
-                      toast.error("Complaint is in progress");
-                      return;
-                    }
-                    setWithdraw(true);
-                    setComplaint(complaint);
-                  }}
-                >
-                  Withdraw
-                </span>
-              )}
-              
+                onClick={() => {
+                  if (complaint.status != "open") {
+                    toast.error("Complaint is in progress");
+                    return;
+                  }
+                  setWithdraw(true);
+                  setComplaint(complaint);
+                }}
+              >
+                Withdraw
+              </span>
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => {
@@ -235,10 +215,9 @@ const UserDashboard = () => {
                   setComplaint(complaint);
                 }}
                 >
-                Feedback
-              </span>
+                  Feedback
+                </span>
               </div>
-
             </div>
           );
         })
@@ -261,17 +240,32 @@ const UserDashboard = () => {
         </Modal>
       )}
       {feedback && (
-        <Modal title="Feedback from department" close={() => setFeedback(false)}>
-          <div><Span text="Feedback" bgcolor="rgba(167, 164, 165, 0.4)" />:   <span style={{fontWeight:"bold"}}>Fake</span></div>
-          <div 
-          style={{display:"flex",alignItems:"center",marginTop:"10px"}}
+        <Modal
+          title="Feedback from department"
+          close={() => {
+            setFeedback(false);
+          }}
+        >
+          <div>
+            <Span text="Feedback" bgcolor="rgba(167, 164, 165, 0.4)" />:{" "}
+            <span style={{ fontWeight: "bold" }}>
+              {details.worker_feedback}
+            </span>
+          </div>
+          <div
+            style={{ display: "flex", alignItems: "center", marginTop: "10px" }}
           >
-          <Span text="Feedback image" bgcolor="rgba(167, 164, 165, 0.4)" />:
-          
-          <img
-            style={{ width: "100px", height: "100px", marginLeft: "10px" }}
-            src={"/istockphoto-1074493878-612x612.png"}
-            ></img></div>
+            <Span text="Feedback image" bgcolor="rgba(167, 164, 165, 0.4)" />:
+            <img
+              style={{ width: "100px", height: "100px", marginLeft: "10px" }}
+              alt=""
+              src={
+                JSON.parse(details.file_data[1]).url
+                  ? JSON.parse(details.file_data[1]).url
+                  : "/istockphoto-1074493878-612x612.png"
+              }
+            ></img>
+          </div>
         </Modal>
       )}
 

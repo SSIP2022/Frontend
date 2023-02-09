@@ -9,7 +9,8 @@ import { PickerOverlay } from "filestack-react";
 import { baseURL } from "../../../config/config";
 import track from "../../../styles/Complain.module.scss";
 import Span from "../../../components/span";
-import { BsFillCircleFill } from 'react-icons/bs'
+import { BsFillCircleFill } from "react-icons/bs";
+import { toast } from "react-hot-toast";
 const Home = () => {
   const { userData } = useSelector(user);
   const navigate = useNavigate();
@@ -106,9 +107,9 @@ const Home = () => {
         "Content-type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        complain_id: "b696211f-31ea-4ebe-b1eb-b0cccedfcb0c",
+        complain_id: details.complain_id,
         status: "resolved",
-        feedback: "test kar raha hun bhai",
+        feedback: selectedValue,
         file_data: file_data,
       }),
     });
@@ -123,6 +124,8 @@ const Home = () => {
             close={() => {
               setIsPicker(false);
               setOpenResolve(false);
+              setSelectedValue(false);
+              setFileData({});
             }}
           >
             <h3>બંધ થવાનું કારણ</h3>
@@ -251,8 +254,17 @@ const Home = () => {
               </div>
               <button
                 onClick={() => {
+                  if (
+                    selectedValue === "" ||
+                    Object.keys(file_data).length === 0
+                  ) {
+                    toast.error("Empty value");
+                    return;
+                  }
                   OnSubmitResolved();
                   setOpenResolve(false);
+                  toast.success("Complain has been Resolved");
+                  window.location.herf = "/worker/home";
                 }}
                 style={{}}
               >
@@ -290,8 +302,8 @@ const Home = () => {
                   {details.subject}
                 </h4>
                 <h4 className={track.decs}>
-                  <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.description}
+                  <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.description}
                 </h4>
                 <h4>
                   <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
@@ -310,8 +322,8 @@ const Home = () => {
                   {details.status}
                 </h4>
                 <h4>
-                  <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                  {details.assign_department}
+                  <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.assign_department}
                 </h4>
               </div>
               {trace.length !== 0 ? (
@@ -367,30 +379,32 @@ const Home = () => {
                 <div key={ind} className={styles.allcomplaints}>
                   <div
                     className={styles.complaints}
-                  // onClick={() => {
-                  //   setDetails(complaint);
-                  //   setOpenModel(true);
-                  // }}
-                  // style={{ cursor: "pointer" }}
+                    // onClick={() => {
+                    //   setDetails(complaint);
+                    //   setOpenModel(true);
+                    // }}
+                    // style={{ cursor: "pointer" }}
                   >
-                    <div style={{
-                      position: "relative",
-                      top: "20px",
-                      left: "15px",
-                    }}><BsFillCircleFill
+                    <div
+                      style={{
+                        position: "relative",
+                        top: "20px",
+                        left: "15px",
+                      }}
+                    >
+                      <BsFillCircleFill
                         style={{
                           // width: "15px",
                           // height: "20px",
-                          color:
-                            buttonText[ele.status.toLowerCase()][
-                            "color"
-                            ],
+                          color: buttonText[ele.status.toLowerCase()]["color"],
 
                           // marginRight: "10px",
                         }}
-                      /></div>
+                      />
+                    </div>
                     <span className={styles.text1}>{ele.status}</span>
-                    <span className={styles.token}><i>#Token No: </i>
+                    <span className={styles.token}>
+                      <i>#Token No: </i>
                       {ele.complain_id.slice(-6)}
                     </span>
                     <img
@@ -441,6 +455,10 @@ const Home = () => {
                           // }
                           // setWithdraw(true);
                           // setComplaint(complaint);
+                          if (ele.status === "resolved") {
+                            toast.error("You can't perform this task");
+                            return;
+                          }
                           setDetails(ele);
                           setOpenResolve(true);
                         }}
