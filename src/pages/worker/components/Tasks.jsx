@@ -193,6 +193,7 @@ const Home = () => {
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
                   value="not defined"
                   name="fooby[1][]"
+                  onChange={handleChange}
                 />
                 Already resolved
               </label>
@@ -209,6 +210,7 @@ const Home = () => {
                   style={{ height: "20px", width: "20px", marginRight: "10px" }}
                   value="1"
                   name="fooby[1][]"
+                  onChange={handleChange}
                 />
                 Other
               </label>

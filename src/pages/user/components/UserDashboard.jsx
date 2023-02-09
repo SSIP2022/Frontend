@@ -216,6 +216,7 @@ const UserDashboard = () => {
                       }
                       setWithdraw(true);
                       setComplaint(complaint);
+                      setDetails(complaint)
                     }}
                   >
                     Withdraw
@@ -225,8 +226,13 @@ const UserDashboard = () => {
                 <span
                   style={{ cursor: "pointer" }}
                   onClick={() => {
+                    if (complaint.status === "open") {
+                      toast.error("Complaint is in progress");
+                      return;
+                    }
                     setFeedback(true);
                     setComplaint(complaint);
+                    setDetails(complaint)
                   }}
                 >
                   Feedback
