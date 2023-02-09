@@ -27,7 +27,7 @@ const OfficerComplain = () => {
       text: "No Action",
       color: "rgb(255 146 13)",
     },
-    reassign:{
+    reassign: {
       text: "No Action",
       color: "#11BF7F",
     },
@@ -80,6 +80,7 @@ const OfficerComplain = () => {
     if (data.success) {
       setComplaints(data.complains);
     } else {
+      setComplaints([]);
     }
   }
 
@@ -97,7 +98,7 @@ const OfficerComplain = () => {
       body: JSON.stringify({
         status: newStatus,
         complain_id: id,
-        worker_id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
+        id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
       }),
     });
     const data = await response.json();
@@ -381,22 +382,24 @@ const OfficerComplain = () => {
                               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
                             }}
                             onClick={() => {
-                              console.log(buttonText[complain.status.toLowerCase()]);
+                              console.log(
+                                buttonText[complain.status.toLowerCase()]
+                              );
                               if (
-                                buttonText[complain.status.toLowerCase()]["text"] !== "No Action"
+                                buttonText[complain.status.toLowerCase()][
+                                  "text"
+                                ] !== "No Action"
                               ) {
                                 setDetails(complain);
                                 setConfirm(true);
-                              } 
+                              }
                             }}
                             id={i}
                             text={
                               buttonText[complain.status.toLowerCase()]["text"]
                             }
                           />
-                       
-                      </td>
-
+                        </td>
                       </tr>
                     );
                   })
