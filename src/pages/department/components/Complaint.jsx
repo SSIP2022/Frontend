@@ -98,7 +98,7 @@ const OfficerComplain = () => {
       body: JSON.stringify({
         status: newStatus,
         complain_id: id,
-        id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
+        worker_id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
       }),
     });
     const data = await response.json();
