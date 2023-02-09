@@ -284,6 +284,14 @@ const OfficerComplain = () => {
             >
               Close
             </button>
+            <button
+              onClick={(e) => {
+                getUserComplaints("closed");
+              }}
+              className={track.btn}
+            >
+              Reassign
+            </button>
           </div>
           <div className={track.back}>
             <table className={track.table}>
@@ -299,6 +307,8 @@ const OfficerComplain = () => {
                   <th>Date</th>
 
                   <th>Update</th>
+                  <th>Reassign</th>
+                    
                 </tr>
               </thead>
               <tbody>
@@ -396,6 +406,20 @@ const OfficerComplain = () => {
                           />
                        
                       </td>
+                      <td >
+                      <Button 
+                      style={{
+                        backgroundColor: "rgb(48 53 48 / 68%)",
+                        padding: "10px 20px",
+                        borderRadius: "5px",
+                        color: "black",
+                        fontWeight: "bold",
+                        cursor: "pointer",
+                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+                      }}
+                      text="Reassign"
+                      />
+                        </td>
 
                       </tr>
                     );
