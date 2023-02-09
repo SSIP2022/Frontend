@@ -1,4 +1,4 @@
 const production = true;
 export const baseURL = production
   ? "https://wild-lime-prawn.cyclic.app"
-  : "http://localhost:5500";
+  : "http://localhost:7000";

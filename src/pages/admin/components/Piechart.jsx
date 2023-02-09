@@ -30,7 +30,7 @@ const PieChart = () => {
     setOptions({
       labels: data.forCharts.status,
     }); 
-    setSeries([44, 55, 41, 17, 15]);
+    setSeries([data.forCharts.count[0], data.forCharts.count[1], data.forCharts.count[2], data.forCharts.count[3], data.forCharts.count[4]]);
   };
 
   useEffect(() => {

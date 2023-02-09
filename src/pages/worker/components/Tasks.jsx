@@ -373,11 +373,13 @@ const Home = () => {
               <div className={tasks.greetings_welcome}>Your today's tasks</div>
             </div>
           </div>
+          <div  className={styles.allcomplaints}>
           {complains &&
             complains.map((ele, ind) => {
               return (
-                <div key={ind} className={styles.allcomplaints}>
+                
                   <div
+                  key={ind}
                     className={styles.complaints}
                     // onClick={() => {
                     //   setDetails(complaint);
@@ -455,7 +457,7 @@ const Home = () => {
                           // }
                           // setWithdraw(true);
                           // setComplaint(complaint);
-                          if (ele.status === "resolved") {
+                          if (ele.status === "resolved" || ele.status === "closed") {
                             toast.error("You can't perform this task");
                             return;
                           }
@@ -467,9 +469,9 @@ const Home = () => {
                       </span>
                     </div>
                   </div>
-                </div>
               );
             })}
+            </div>
         </>
       )}
     </>
