@@ -107,7 +107,7 @@ const Home = () => {
         "Content-type": "application/json;charset=UTF-8",
       },
       body: JSON.stringify({
-        id: userData.user_id,
+        worker_id: userData.user_id,
         complain_id: details.complain_id,
         status: "resolved",
         feedback: selectedValue,
@@ -117,7 +117,7 @@ const Home = () => {
     const data = await response.json();
     console.log(
       JSON.stringify({
-        id: userData.user_id,
+        worker_id: userData.user_id,
         complain_id: details.complain_id,
         status: "resolved",
         feedback: selectedValue,
