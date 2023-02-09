@@ -27,8 +27,12 @@ const OfficerComplain = () => {
       text: "Closed",
       color: "rgb(255 146 13)",
     },
-    resolved: {
+    reassign:{
       text: "No Action",
+      color: "#11BF7F",
+    },
+    resolved: {
+      text: "Reassign",
       color: "#11BF7F",
     },
     "no action": {
@@ -317,7 +321,7 @@ const OfficerComplain = () => {
                             setopenDetail(true);
                           }}
                         >
-                          {complain.complain_id.slice(-6)}
+                          {complain.creator_id.slice(-6)}
                         </td>
                         <td data-label="Zone">{complain.zone_name}</td>
                         <td data-label="Ward">{complain.ward_name}</td>
@@ -378,13 +382,9 @@ const OfficerComplain = () => {
                               boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
                             }}
                             onClick={() => {
-                              console.log(
-                                buttonText[complain.status.toLowerCase()]
-                              );
+                              console.log(buttonText[complain.status.toLowerCase()]);
                               if (
-                                buttonText[complain.status.toLowerCase()][
-                                  "text"
-                                ] !== "No Action"
+                                buttonText[complain.status.toLowerCase()]["text"] !== "No Action"
                               ) {
                                 setDetails(complain);
                                 setConfirm(true);
@@ -397,7 +397,9 @@ const OfficerComplain = () => {
                               buttonText[complain.status.toLowerCase()]["text"]
                             }
                           />
-                        </td>
+                       
+                      </td>
+
                       </tr>
                     );
                   })

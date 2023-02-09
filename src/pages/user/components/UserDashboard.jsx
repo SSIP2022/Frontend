@@ -44,6 +44,10 @@ const UserDashboard = () => {
       text: "No Action",
       color: "#11BF7F",
     },
+    reassign:{
+      text: "No Action",
+      color: "#11BF7F",
+    },
     "no action": {
       text: "No Action",
       color: "rgba(39, 236, 128, 0.59)",
@@ -193,19 +197,37 @@ const UserDashboard = () => {
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-              <span
+              {complaint.status === "closed" ? (
+
+                <span
                 style={{ cursor: "pointer" }}
-                onClick={() => {
-                  if (complaint.status != "open") {
-                    toast.error("Complaint is in progress");
-                    return;
-                  }
-                  setWithdraw(true);
-                  setComplaint(complaint);
-                }}
-              >
-                Withdraw
-              </span>
+                // onClick={() => {
+                //   if (complaint.status !== "open") {
+                //     toast.error("Complaint is in progress");
+                //     return;
+                //   }
+                //   setWithdraw(true);
+                //   setComplaint(complaint);
+                // }}
+                >
+                Reopen
+                </span>
+              ) : (
+                <span
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    if (complaint.status !== "open") {
+                      toast.error("Complaint is in progress");
+                      return;
+                    }
+                    setWithdraw(true);
+                    setComplaint(complaint);
+                  }}
+                >
+                  Withdraw
+                </span>
+              )}
+              
               <span
                 style={{ cursor: "pointer" }}
                 onClick={() => {

@@ -71,11 +71,11 @@ function Sidebar({ sidebarData, title }) {
       {menuOpen && (
         <ul className="dropdown-menu">
           <li className="dropdown-menu-item"><Link to={`profile`} style={{fontWeight:"100"}}>Your Profile </Link></li>
-          <li className="dropdown-menu-item" onClick={() => {
+          <li className="dropdown-menu-item" style={{cursor:"pointer"}} onClick={() => {
                 dispatch(setUserLogout());
                 navigate("/");
               }}><span
-              style={{cursor:"pointer"}}
+              
             >
               Logout
             </span></li>
