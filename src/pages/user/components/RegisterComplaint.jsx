@@ -142,7 +142,7 @@ const RegisterComplaint = () => {
 
   const onSubmitComplain = async (e) => {
     e.preventDefault();
-    const response = await fetch(`${baseURL}/complain/create`, {
+    const response = await fetch(baseURL + `/complain/create`, {
       method: "POST",
       credentials: "include",
       headers: {

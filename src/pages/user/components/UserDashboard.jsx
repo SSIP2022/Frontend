@@ -44,7 +44,7 @@ const UserDashboard = () => {
       text: "No Action",
       color: "#11BF7F",
     },
-    reassign:{
+    reassign: {
       text: "No Action",
       color: "#11BF7F",
     },
@@ -58,20 +58,17 @@ const UserDashboard = () => {
     },
   };
   const withdrawComplaint = async () => {
-    const response = await fetch(
-      "https://wild-lime-prawn.cyclic.app/complain/withdraw",
-      {
-        method: "PUT",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-        body: JSON.stringify({
-          creator_id: userData.user_id,
-          complain_id: complain.complain_id,
-        }),
-      }
-    );
+    const response = await fetch(baseURL + `/complain/withdraw`, {
+      method: "PUT",
+      credentials: "include",
+      headers: {
+        "Content-type": "application/json;charset=UTF-8",
+      },
+      body: JSON.stringify({
+        creator_id: userData.user_id,
+        complain_id: complain.complain_id,
+      }),
+    });
     const data = await response.json();
     console.log(data);
     setWithdraw(false);
@@ -195,43 +192,42 @@ const UserDashboard = () => {
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-              {complaint.status === "closed" ? (
+                {complaint.status === "closed" ? (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    // onClick={() => {
+                    //   if (complaint.status !== "open") {
+                    //     toast.error("Complaint is in progress");
+                    //     return;
+                    //   }
+                    //   setWithdraw(true);
+                    //   setComplaint(complaint);
+                    // }}
+                  >
+                    Reopen
+                  </span>
+                ) : (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      if (complaint.status !== "open") {
+                        toast.error("Complaint is in progress");
+                        return;
+                      }
+                      setWithdraw(true);
+                      setComplaint(complaint);
+                    }}
+                  >
+                    Withdraw
+                  </span>
+                )}
 
-                <span
-                style={{ cursor: "pointer" }}
-                // onClick={() => {
-                //   if (complaint.status !== "open") {
-                //     toast.error("Complaint is in progress");
-                //     return;
-                //   }
-                //   setWithdraw(true);
-                //   setComplaint(complaint);
-                // }}
-                >
-                Reopen
-                </span>
-              ) : (
                 <span
                   style={{ cursor: "pointer" }}
                   onClick={() => {
-                    if (complaint.status !== "open") {
-                      toast.error("Complaint is in progress");
-                      return;
-                    }
-                    setWithdraw(true);
+                    setFeedback(true);
                     setComplaint(complaint);
                   }}
-                >
-                  Withdraw
-                </span>
-              )}
-              
-              <span
-                style={{ cursor: "pointer" }}
-                onClick={() => {
-                  setFeedback(true);
-                  setComplaint(complaint);
-                }}
                 >
                   Feedback
                 </span>

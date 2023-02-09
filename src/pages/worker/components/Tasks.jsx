@@ -115,7 +115,15 @@ const Home = () => {
       }),
     });
     const data = await response.json();
-    console.log(data);
+    console.log(
+      JSON.stringify({
+        id: userData.user_id,
+        complain_id: details.complain_id,
+        status: "resolved",
+        feedback: selectedValue,
+        file_data: file_data,
+      })
+    );
   };
   return (
     <>
