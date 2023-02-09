@@ -99,6 +99,7 @@ const OfficerComplain = () => {
         status: newStatus,
         complain_id: id,
         worker_id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
+        department_id: userData.user_id,
       }),
     });
     const data = await response.json();
@@ -309,7 +310,6 @@ const OfficerComplain = () => {
 
                   <th>Update</th>
                   <th>Reassign</th>
-                    
                 </tr>
               </thead>
               <tbody>
@@ -409,23 +409,21 @@ const OfficerComplain = () => {
                               buttonText[complain.status.toLowerCase()]["text"]
                             }
                           />
-                       
-                      </td>
-                      <td >
-                      <Button 
-                      style={{
-                        backgroundColor: "rgb(48 53 48 / 68%)",
-                        padding: "10px 20px",
-                        borderRadius: "5px",
-                        color: "black",
-                        fontWeight: "bold",
-                        cursor: "pointer",
-                        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
-                      }}
-                      text="Reassign"
-                      />
                         </td>
-
+                        <td>
+                          <Button
+                            style={{
+                              backgroundColor: "rgb(48 53 48 / 68%)",
+                              padding: "10px 20px",
+                              borderRadius: "5px",
+                              color: "black",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
+                            }}
+                            text="Reassign"
+                          />
+                        </td>
                       </tr>
                     );
                   })
