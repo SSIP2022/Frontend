@@ -382,6 +382,7 @@ const Home = () => {
               <div className={tasks.greetings_welcome}>Your today's tasks</div>
             </div>
           </div>
+          <div  className={styles.allcomplaints}>
           {complains &&
             complains.map((ele, ind) => {
               if (ele.status !== "closed") {
@@ -482,6 +483,7 @@ const Home = () => {
                 );
               }
             })}
+            </div>
         </>
       )}
     </>
