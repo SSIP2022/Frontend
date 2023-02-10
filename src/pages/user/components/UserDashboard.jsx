@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styles from "../../../styles/Userdashboard.module.scss";
 import Button from "../../../components/button";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import {Drawer} from "../../../components/drawer/Drawer";
+import { Drawer } from "../../../components/drawer/Drawer";
 import Modal from "../../../components/model";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
@@ -76,18 +76,13 @@ const UserDashboard = () => {
     window.location.href = "/user/dashboard";
   };
   async function getUserComplaints() {
-    const response = await fetch(
-      baseURL + `/complain/user-complains?creator_id=${userData.user_id}`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
-    const data = await response.json();
-    console.log("data:", data);
+    const data = await queryfn({
+      endpoint:
+        baseURL + `/complain/user-complains?creator_id=${userData.user_id}`,
+      reqMethod: "GET",
+      failMsg: "Error in getting data",
+    });
+    console.log("user all complaints:", data);
     if (data.success) {
       setComplaints(data.complains);
     } else {
@@ -95,18 +90,15 @@ const UserDashboard = () => {
   }
 
   async function handleGetStatus() {
-    const response = await fetch(baseURL + `/complain/trace-complain`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/trace-complain`,
+      reqMethod: "POST",
       body: JSON.stringify({
         complain_id: details.complain_id,
       }),
+      failMsg: "Error in trace complain",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Trace-complains:", data);
     if (data.success) {
       setTrace(data.trace);
     } else {
@@ -217,7 +209,7 @@ const UserDashboard = () => {
                       }
                       setWithdraw(true);
                       setComplaint(complaint);
-                      setDetails(complaint)
+                      setDetails(complaint);
                     }}
                   >
                     Withdraw
@@ -236,7 +228,7 @@ const UserDashboard = () => {
                     }
                     setFeedback(true);
                     setComplaint(complaint);
-                    setDetails(complaint)
+                    setDetails(complaint);
                   }}
                 >
                   Feedback
@@ -296,9 +288,15 @@ const UserDashboard = () => {
         </Modal>
       )}
 
-      {openModel && 
+      {openModel && (
         <Drawer isActive={openModel} close={() => setOpenModel(false)}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <div style={{ margin: "10px auto" }}>
               <img
                 className={track.modalimg}
@@ -380,7 +378,7 @@ const UserDashboard = () => {
             )}
           </div>
         </Drawer>
-}
+      )}
     </div>
     // <>
     //   {details ? (

@@ -3,7 +3,7 @@ import Analyticscss from "../../../styles/Analytics.module.scss";
 import LineChart from "./Linechart";
 import PieChart from "./Piechart";
 import { useState } from "react";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 // import { CiCircleList } from "react-icons/ci";
 import { BiListUl,BiListCheck } from "react-icons/bi";
 const Analytics = () => {
@@ -11,18 +11,12 @@ const Analytics = () => {
   const [resolved, setResolved] = useState("");
   const [total, setTotal] = useState("0")
   const getAnalytics = async () => {
-    const response = await fetch(
-      baseURL + `/complain/analytics/status`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
-    const data = await response.json();
-    // setAnalyticsData(data);
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/analytics/status`,
+      reqMethod: "GET",
+      failMsg: "Error in getting analytics",
+    });
+    // setAnalyticsData("Analytics", data);
     console.log(data);
     const firstcomplain = data.complains[0];
     setTotal(data.complains[0].total.toString());
