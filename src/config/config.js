@@ -5,7 +5,7 @@ import { setToken, setUserLogout } from "../store/userReducer";
 const production = false;
 export const baseURL = production
   ? "https://wild-lime-prawn.cyclic.app"
-  : "http://localhost:5500";
+  : "http://localhost:7000";
 
 // const dispatch= useDispatch();
 export const queryfn = async ({

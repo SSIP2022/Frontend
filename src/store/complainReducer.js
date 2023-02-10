@@ -27,14 +27,14 @@ export const complainsSlice = createSlice({
 });
 
 export const {
-  setcomplains,
+  setComplains,
   setCurrentComplain,
   //   assignLawyerToComplain,
   //   assignAgentToComplain,
   //   setTotalcomplains,
 } = complainsSlice.actions;
 
-export const selectcomplains = (state) => state.complains;
+export const selectComplains = (state) => state.complains;
 export const selectCurrentComplain = (state) => state.complains.currentComplain;
 // export const selectTotalcomplains = (state) => state.complains.Totalcomplains;
 
