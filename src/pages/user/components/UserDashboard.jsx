@@ -217,7 +217,7 @@ const UserDashboard = () => {
                       }
                       setWithdraw(true);
                       setComplaint(complaint);
-                      setDetails(complaint)
+                      setDetails(complaint);
                     }}
                   >
                     Withdraw
@@ -233,7 +233,7 @@ const UserDashboard = () => {
                     }
                     setFeedback(true);
                     setComplaint(complaint);
-                    setDetails(complaint)
+                    setDetails(complaint);
                   }}
                 >
                   Feedback
