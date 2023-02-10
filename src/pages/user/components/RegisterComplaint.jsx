@@ -325,7 +325,7 @@ const RegisterComplaint = () => {
                   );
                 })}
               </select>
-              <h4>Description</h4>
+              <h4>Description {`( <=500 character)`}</h4>
               <input
                 type="text"
                 name="problem"
@@ -396,7 +396,7 @@ const RegisterComplaint = () => {
               />
             </label> */}
             <label>
-              <h4>Upload Image:</h4>
+              <h4>Upload Image: {`( <= 5mb)`}</h4>
               {/* <input type="file" id="file" aria-label="File browser example"/>
   <span class="file-custom"/> */}
               {/* <input type="file" name="file" className={form.file} /> */}
@@ -455,10 +455,11 @@ const RegisterComplaint = () => {
           <div style={{ margin: "4px", position: "relative" }}>
             {isPicker && (
               <PickerOverlay
-                apikey={"AJbGbxcJRbqofHCOKiyGJz"}
+                apikey={"AUX9s9dBoTHKQqwFdHnmJz"}
                 action="pick"
                 pickerOptions={{
-                  maxSize: 10 * 1024 * 1024,
+                  accept: "image/*",
+                  maxSize: 5 * 1024 * 1024,
                 }}
                 onUploadDone={(resp) => {
                   console.log(resp);
