@@ -108,21 +108,18 @@ const OfficerComplain = () => {
     if (newStatus == "no action") {
       return;
     }
-    const response = await fetch(baseURL + `/complain/update-status`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/update-status`,
+      reqMethod: "PUT",
       body: JSON.stringify({
         status: newStatus,
         complain_id: id,
         worker_id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
         department_id: userData.user_id,
       }),
+      failMsg: "Error in updataing status",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Updated Status:", data);
     if (data.success) {
       toast.success("Status Updated Successfully");
       setConfirm(false);
@@ -133,18 +130,15 @@ const OfficerComplain = () => {
   }
 
   async function handleGetStatus() {
-    const response = await fetch(baseURL + `/complain/trace-complain`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/trace-complain`,
+      reqMethod: "POST",
       body: JSON.stringify({
         complain_id: details.complain_id,
       }),
+      failMsg: "Error in trace complain",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Trace complain:", data);
     if (data.success) {
       setTrace(data.trace);
     } else {
