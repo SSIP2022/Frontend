@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from "../../../styles/Userdashboard.module.scss";
 import Button from "../../../components/button";
 import { AiOutlineInfoCircle } from "react-icons/ai";
+import {Drawer} from "../../../components/drawer/Drawer";
 import Modal from "../../../components/model";
 import { baseURL } from "../../../config/config";
 import { useEffect } from "react";
@@ -289,8 +290,8 @@ const UserDashboard = () => {
         </Modal>
       )}
 
-      {openModel && (
-        <Modal title="Complaint Detail" close={() => setOpenModel(false)}>
+      {openModel && 
+        <Drawer isActive={openModel} close={() => setOpenModel(false)}>
           <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ margin: "10px auto" }}>
               <img
@@ -372,8 +373,8 @@ const UserDashboard = () => {
               </div>
             )}
           </div>
-        </Modal>
-      )}
+        </Drawer>
+}
     </div>
     // <>
     //   {details ? (
