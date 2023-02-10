@@ -293,7 +293,7 @@ const Home = () => {
           </Modal> */}
           <Drawer isActive={openDetails} close={() => setOpenDetails(false)}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ margin: "10px auto" }}>
+            <div style={{ margin: "auto"  }}>
               <img
                 className={track.modalimg}
                 src={

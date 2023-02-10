@@ -323,6 +323,14 @@ const Complain = () => {
             }}
           >
             <button
+              onClick={(e) => {
+                getUserComplaints("");
+              }}
+              className={track.btn}
+            >
+              All
+            </button>
+            <button
               className={track.btn}
               onClick={(e) => {
                 getUserComplaints("withdraw");
