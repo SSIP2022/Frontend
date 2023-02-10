@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import track from "../../../styles/Complain.module.scss";
 import Modal from "../../../components/model/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 import toast from "react-hot-toast";
 import Button from "../../../components/button";
 import Span from "../../../components/span";
 import { BsFillCircleFill } from "react-icons/bs";
 import { Drawer } from "../../../components/drawer/Drawer";
+import { selectComplains, setComplains } from "../../../store/complainReducer";
 
 const OfficerComplain = () => {
   const buttonText = {
@@ -52,9 +53,13 @@ const OfficerComplain = () => {
       newDate.getMonth() + 1
     }/${newDate.getFullYear()}`;
   }
+
+  const dispatch = useDispatch();
   const { userData } = useSelector(user);
+  const { complains } = useSelector(selectComplains);
+  console.log(complains);
   console.log("userData:", userData);
-  const [complaints, setComplaints] = useState([]);
+  // const [complains, setcomplains] = useState([]);
   const [details, setDetails] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [openDetail, setopenDetail] = useState(false);
@@ -66,23 +71,35 @@ const OfficerComplain = () => {
   const onclose = () => {
     setDetails(false);
   };
-  async function getUserComplaints(filter = "") {
+  async function getUsercomplains(filter = "") {
     const endpoint = filter
       ? `/user/department-complains?department=${userData.department}&filter=${filter}`
       : `/user/department-complains?department=${userData.department}`;
-    const response = await fetch(baseURL + endpoint, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    // const response = await fetch(baseURL + endpoint, {
+    //   method: "GET",
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-type": "application/json;charset=UTF-8",
+    //   },
+    // });
+    // const data = await response.json();
+    // console.log("data:", data);
+    // if (data.success) {
+    //   setcomplains(data.complains);
+    // } else {
+    //   setcomplains([]);
+    // }
+    const data = await queryfn({
+      endpoint: baseURL + endpoint,
+      reqMethod: "GET",
+      failMsg: "can not find complain",
     });
-    const data = await response.json();
-    console.log("data:", data);
+
+    console.log("Complain:: ", data);
     if (data.success) {
-      setComplaints(data.complains);
+      dispatch(setComplains(data.complains));
     } else {
-      setComplaints([]);
+      toast.error("can not find complain");
     }
   }
 
@@ -135,7 +152,7 @@ const OfficerComplain = () => {
   }
 
   useEffect(() => {
-    getUserComplaints();
+    getUsercomplains();
   }, []);
 
   useEffect(() => {
@@ -235,7 +252,7 @@ const OfficerComplain = () => {
           <div className={track.container}>
             <button
               onClick={(e) => {
-                getUserComplaints("");
+                getUsercomplains("");
               }}
               className={track.btn}
             >
@@ -243,7 +260,7 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("withdraw");
+                getUsercomplains("withdraw");
               }}
               className={track.btn}
             >
@@ -251,7 +268,7 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("open");
+                getUsercomplains("open");
               }}
               className={track.btn}
             >
@@ -259,7 +276,7 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("assign");
+                getUsercomplains("assign");
               }}
               className={track.btn}
             >
@@ -267,7 +284,7 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("resolved");
+                getUsercomplains("resolved");
               }}
               className={track.btn}
             >
@@ -275,7 +292,7 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("closed");
+                getUsercomplains("closed");
               }}
               className={track.btn}
             >
@@ -283,7 +300,7 @@ const OfficerComplain = () => {
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("closed");
+                getUsercomplains("closed");
               }}
               className={track.btn}
             >
@@ -308,8 +325,8 @@ const OfficerComplain = () => {
                 </tr>
               </thead>
               <tbody>
-                {complaints.length !== 0 ? (
-                  complaints.map((complain, i) => {
+                {complains.length !== 0 ? (
+                  complains.map((complain, i) => {
                     return (
                       <tr>
                         <td data-label="S.No">{i + 1}</td>
@@ -378,7 +395,7 @@ const OfficerComplain = () => {
                             // type="button"
                             className={track.update}
                             // bgcolor="#23322b"
-                            
+
                             onClick={() => {
                               console.log(
                                 buttonText[complain.status.toLowerCase()]
@@ -416,7 +433,7 @@ const OfficerComplain = () => {
                     );
                   })
                 ) : (
-                  <div>No Complaints Found</div>
+                  <div>No complains Found</div>
                 )}
               </tbody>
             </table>

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Model from "../../components/model";
 import { useDispatch } from "react-redux";
-import { baseURL } from "../../config/config";
+import { baseURL, queryfn } from "../../config/config";
 import firebase from "firebase/compat/app";
 import { useNavigate } from "react-router-dom";
 import { setUserLogin } from "../../store/userReducer";
@@ -75,8 +75,9 @@ function Register() {
   });
 
   async function setUserData(e) {
-    const response = await fetch(baseURL + "/user/register", {
-      method: "POST",
+    const data = await queryfn({
+      endpoint: baseURL + "/user/register",
+      reqMethod: "POST",
       body: JSON.stringify({
         first_name: first_name,
         last_name: last_name,
@@ -89,28 +90,24 @@ function Register() {
         mobile_number: mobile_number,
         gender: gender,
       }),
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+      failMsg: "User can not created",
     });
 
-    const data = await response.json();
-    console.log("data:", data);
+    // const data = await response.json();
+    console.log("Register data:", data);
   }
 
   async function getUserData() {
-    const response = await fetch(baseURL + "/user/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + "/user/login",
+      reqMethod: "POST",
       body: JSON.stringify({
         mobile_number: mobile_number,
       }),
+      failMsg: "User not found",
     });
-    const data = await response.json();
+    console.log("Login data:", data);
+    // const data = await response.json();
     if (data.success) {
       dispatch(setUserLogin(data));
     } else {
@@ -132,20 +129,16 @@ function Register() {
     mobile_number = e.target.phone.value;
     gender = e.target.gender.value;
 
-    const response = await fetch(baseURL + "/user/check-login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + "/user/check-login",
+      reqMethod: "POST",
       body: JSON.stringify({
         mobile_number: e.target.phone.value,
       }),
     });
-    const data = await response.json();
-    console.log(data);
+    console.log("Check user:: ", data);
     if (data.success) {
-      return alert("Already registered number");
+      return toast.error("Already registered number");
     }
 
     const appVerifier = window.recaptchaVerifier;
@@ -159,7 +152,7 @@ function Register() {
         // ...
       })
       .catch((error) => {
-        alert(error.message);
+        console.error(error.message);
       });
   };
 
@@ -170,14 +163,14 @@ function Register() {
 
     window.confirmationResult
       .confirm(opt_number)
-      .then((confirmationResult) => {
+      .then(async (confirmationResult) => {
         console.log(confirmationResult);
         console.log("success");
-        setUserData();
-        getUserData(e);
+        await setUserData();
+        await getUserData(e);
       })
       .catch((error) => {
-        alert(error.message);
+        console.error(error.message);
       });
   };
 
