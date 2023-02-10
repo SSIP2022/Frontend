@@ -79,6 +79,9 @@ const OfficerComplain = () => {
     const data = await response.json();
     console.log("data:", data);
     if (data.success) {
+      data.complains.map((complain)=>{
+
+      })
       setComplaints(data.complains);
     } else {
       setComplaints([]);
@@ -132,6 +135,44 @@ const OfficerComplain = () => {
     } else {
     }
   }
+
+  const mergeArray = {}
+
+  function addTicket(e,complain_id){
+    if(e.target.checked){
+      mergeArray[complain_id] = complain_id
+    }else{
+      delete mergeArray[complain_id]
+    }
+
+ }
+
+ async function mergeTicket(){
+  const merge_id = Date.now()
+console.log(mergeArray)
+  const response = await fetch(baseURL + `/complain/merge-complain`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      merge_id,
+      complain_id:Object.values(mergeArray),
+    }),
+  });
+  const data = await response.json();
+  console.log("data:", data);
+  if (data.success) {
+    setTrace(data.trace);
+  } else {
+  }
+  
+  
+  console.log(mergeArray)
+ }
+
+  
 
   useEffect(() => {
     getUserComplaints();
@@ -295,11 +336,20 @@ const OfficerComplain = () => {
             >
               Reassign
             </button>
+            <button
+              onClick={(e) => {
+                mergeTicket()
+              }}
+              className={track.btn}
+            >
+              Merge
+            </button>
           </div>
           <div className={track.back}>
             <table className={track.table}>
               <thead>
                 <tr>
+                  <th>Merge</th>
                   <th>S.No</th>
                   <th>User ID</th>
                   {/* <th>Area</th> */}
@@ -318,6 +368,7 @@ const OfficerComplain = () => {
                   complaints.map((complain, i) => {
                     return (
                       <tr>
+                        <td> {!complain.merged && <input type="checkbox" onChange={(e)=>addTicket(e,complain.complain_id)} />} </td>
                         <td data-label="S.No">{i + 1}</td>
                         <td
                           data-label="Token No"
