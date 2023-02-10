@@ -3,24 +3,18 @@ import Analyticscss from "../../../styles/Analytics.module.scss";
 import LineChart from "./Linechart";
 import PieChart from "./Piechart";
 import { useState } from "react";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 
 const Analytics = () => {
   const [analyticsData, setAnalyticsData] = useState({});
 
   const getAnalytics = async () => {
-    const response = await fetch(
-      baseURL + `/complain/analytics/status`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
-    const data = await response.json();
-    setAnalyticsData(data);
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/analytics/status`,
+      reqMethod: "GET",
+      failMsg: "Error in getting analytics",
+    });
+    setAnalyticsData("Analytics", data);
     console.log(data);
   };
 
