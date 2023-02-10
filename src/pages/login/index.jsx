@@ -151,7 +151,8 @@ const Login = () => {
         });
       })
       .catch((error) => {
-        alert(error.message);
+        // alert(error.message);
+        toast.error("Invalid Otp");
       });
   };
 

@@ -9,11 +9,7 @@ import Button from "../../../components/button";
 import Span from "../../../components/span";
 import { BsFillCircleFill } from "react-icons/bs";
 import { Drawer } from "../../../components/drawer/Drawer";
-import {
-  selectComplains,
-  setComplains,
-  setcomplains,
-} from "../../../store/complainReducer";
+import { selectComplains, setComplains } from "../../../store/complainReducer";
 
 const OfficerComplain = () => {
   const buttonText = {
@@ -50,6 +46,7 @@ const OfficerComplain = () => {
       color: "red",
     },
   };
+
   function timeFormate(date) {
     const newDate = new Date(date);
     return `${newDate.getDate()}/${
@@ -252,14 +249,7 @@ const OfficerComplain = () => {
         </>
       ) : (
         <>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
+          <div className={track.container}>
             <button
               onClick={(e) => {
                 getUsercomplains("");
@@ -331,7 +321,7 @@ const OfficerComplain = () => {
                   <th>Date</th>
 
                   <th>Update</th>
-                  <th>Reassign</th>
+                  {/* <th>Reassign</th> */}
                 </tr>
               </thead>
               <tbody>
@@ -370,6 +360,7 @@ const OfficerComplain = () => {
                               display: "flex",
                               alignItems: "center",
                               fontWeight: "500",
+                              justifyContent: "flex-end",
                             }}
                           >
                             <BsFillCircleFill
@@ -402,17 +393,9 @@ const OfficerComplain = () => {
                         <td style={{ display: "flex" }}>
                           <Button
                             // type="button"
-                            // className={track.button}
+                            className={track.update}
                             // bgcolor="#23322b"
-                            style={{
-                              backgroundColor: "rgb(48 53 48 / 68%)",
-                              padding: "10px 20px",
-                              borderRadius: "5px",
-                              color: "black",
-                              fontWeight: "bold",
-                              cursor: "pointer",
-                              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
-                            }}
+
                             onClick={() => {
                               console.log(
                                 buttonText[complain.status.toLowerCase()]
@@ -432,7 +415,7 @@ const OfficerComplain = () => {
                             }
                           />
                         </td>
-                        <td>
+                        {/* <td>
                           <Button
                             style={{
                               backgroundColor: "rgb(48 53 48 / 68%)",
@@ -445,7 +428,7 @@ const OfficerComplain = () => {
                             }}
                             text="Reassign"
                           />
-                        </td>
+                        </td> */}
                       </tr>
                     );
                   })
