@@ -292,7 +292,7 @@ const UserDashboard = () => {
 
       {openModel && 
         <Drawer isActive={openModel} close={() => setOpenModel(false)}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
+          <div style={{ display: "flex", flexDirection: "column",alignItems:"center" }}>
             <div style={{ margin: "10px auto" }}>
               <img
                 className={track.modalimg}
@@ -309,7 +309,7 @@ const UserDashboard = () => {
                 <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
                 {details.creator_id.slice(-6)}
               </h4>
-
+                   
               <h4>
                 <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
                 {details.subject}
