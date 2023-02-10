@@ -3,7 +3,7 @@ import track from "../../../styles/Complain.module.scss";
 import Modal from "../../../components/model/index";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 import toast from "react-hot-toast";
 import Button from "../../../components/button";
 import Span from "../../../components/span";
@@ -68,20 +68,28 @@ const OfficerComplain = () => {
     const endpoint = filter
       ? `/user/department-complains?department=${userData.department}&filter=${filter}`
       : `/user/department-complains?department=${userData.department}`;
-    const response = await fetch(baseURL + endpoint, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    // const response = await fetch(baseURL + endpoint, {
+    //   method: "GET",
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-type": "application/json;charset=UTF-8",
+    //   },
+    // });
+    // const data = await response.json();
+    // console.log("data:", data);
+    // if (data.success) {
+    //   setComplaints(data.complains);
+    // } else {
+    //   setComplaints([]);
+    // }
+    const data = await queryfn({
+      endpoint: baseURL + endpoint,
+      reqMethod: "GET",
+      failMsg: "can not find complain",
     });
-    const data = await response.json();
-    console.log("data:", data);
-    if (data.success) {
-      setComplaints(data.complains);
-    } else {
-      setComplaints([]);
-    }
+
+    console.log("Complain:: ",data);
+    
   }
 
   async function handleChangeStatus(id, newStatus, index) {
