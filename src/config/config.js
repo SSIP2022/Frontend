@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import store from "../store/index";
 import { setToken, setUserLogout } from "../store/userReducer";
 
-const production = false;
+const production = true;
 export const baseURL = production
   ? "https://web-production-64bbc.up.railway.app"
   : "http://localhost:7000";

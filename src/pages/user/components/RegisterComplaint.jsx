@@ -130,32 +130,55 @@ const RegisterComplaint = () => {
   const [ward, setWard] = useState("");
   const [department, setDepartment] = useState("NONE");
   const navigate = useNavigate();
-  const restrictedWords = ['<script>', '<', '{','('];
+
+  const restrictedWords = ["+", "-", "&&", "||", "!", "(", ")", "{", "}", "[", "]", "^",
+  "~", "*", "?", ":","<",">","</"];
 
   const handleChange = (event) => {
-    const description = event.target.value;
+   let description = event.target.value;
     const wordArray = description.split(' ');
     let valid = true;
   
-    wordArray.forEach((word) => {
-      if (restrictedWords.includes(word) && description.length <= 512) {
+    for (let i = 0; i < wordArray.length; i++) {
+      if (restrictedWords.includes(wordArray[i])) {
+        toast.error("Invalid characters")
         valid = false;
+        break;
       }
-    });
+    }
   
     if (valid && description.length <= 512) {
       setDecription(description);
+    } else {
+      // Filter out the restricted words from the description
+      restrictedWords.forEach((restrictedWord) => {
+        description = description.replace(restrictedWord, '');
+      });
+  
+      // Update the description state with the filtered description
+      setDecription(description);
     }
   };
-  useEffect(() => {
-    if (searchParams.get("department") !== null) {
-      setDepartment(
-        searchParams.get("department")[0].toUpperCase() +
-          searchParams.get("department").slice(1)
-      );
+  const handlePaste = (event) => {
+    event.preventDefault();
+    const pastedText = event.clipboardData.getData('text');
+    let filteredText = pastedText;
+    
+    // Filter out the restricted words from the pasted text
+    restrictedWords.forEach((restrictedWord) => {
+      filteredText = filteredText.replace(restrictedWord, '');
+    });
+  
+    // Check if the pasted text is too long
+    if (filteredText.length > 512) {
+      // Truncate the pasted text to 500 characters
+      
+      filteredText = filteredText.substring(0, 512);
     }
-  }, [searchParams]);
-
+    toast.error("Invalid characters")
+    // Update the input field with the filtered and truncated text
+    event.target.value = filteredText;
+  };
   const onSubmitComplain = async (e) => {
     e.preventDefault();
     const data = await queryfn({
@@ -181,7 +204,16 @@ const RegisterComplaint = () => {
     } else {
       toast.error("Fail To Register");
     }
+    
   };
+  useEffect(() => {
+    if (searchParams.get("department") !== null) {
+      setDepartment(
+        searchParams.get("department")[0].toUpperCase() +
+          searchParams.get("department").slice(1)
+      );
+    }
+  }, [searchParams]);
   return (
     <>
       <div className={form.main}>
@@ -248,6 +280,7 @@ const RegisterComplaint = () => {
                 onChange={(e) => {
                   setAddress(e.target.value);
                 }}
+               onPaste={handlePaste}
               />
             </label>
             <label>
@@ -348,6 +381,7 @@ const RegisterComplaint = () => {
               placeholder="Enter your problem description"
               value={description}
               onChange={handleChange}
+              onPaste={handlePaste}
             />
             </label>
             {/* <label>

@@ -8,8 +8,9 @@ import { baseURL, queryfn } from "../../../config/config";
 import { BiListUl,BiListCheck } from "react-icons/bi";
 const Analytics = () => {
   // const [analyticsData, setAnalyticsData] = useState({});
-  const [resolved, setResolved] = useState("");
+  const [resolved, setResolved] = useState("0");
   const [total, setTotal] = useState("0")
+  const [closed,setClosed]=useState("0")
   const getAnalytics = async () => {
     const data = await queryfn({
       endpoint: baseURL + `/complain/analytics/status`,
@@ -21,6 +22,7 @@ const Analytics = () => {
     const firstcomplain = data.complains[0];
     setTotal(data.complains[0].total.toString());
     setResolved(firstcomplain.resolved);
+    setClosed(firstcomplain.close)
     // console.log(data.complains[0].resolved)
     // console.log(data.complains[0].total.toString());
     // setTotal(data.compalins[0].total.toString());
@@ -48,6 +50,13 @@ const Analytics = () => {
           <div className={Analyticscss.boxtitle}>
             <span style={{color:"#6994b6"}}>Total Resolved</span>
             <span  className={Analyticscss.count}>{resolved}</span>
+            </div>
+          </div>
+          <div className={Analyticscss.box}>
+          <span style={{ backgroundColor: "rgb(211 254 219)", color: "rgb(76 114 26)", padding: "10px", borderRadius: "50%" }}><BiListCheck /></span>
+          <div className={Analyticscss.boxtitle}>
+            <span style={{color:"#6994b6"}}>Total Closed</span>
+            <span  className={Analyticscss.count}>{closed}</span>
             </div>
           </div>
         </div>

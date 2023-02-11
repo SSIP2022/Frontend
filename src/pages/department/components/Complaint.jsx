@@ -362,7 +362,6 @@ console.log(mergeArray)
                   <th>Date</th>
 
                   <th>Update</th>
-                  <th>Merge</th>
                   {/* <th>Reassign</th> */}
                 </tr>
               </thead>
@@ -459,7 +458,6 @@ console.log(mergeArray)
                             }
                           />
                         </td>
-                        <td><input type="checkbox" /></td>
                         {/* <td>
                           <Button
                             style={{

@@ -21,6 +21,9 @@ const AdminProfile = () => {
           <span className={userprofile.lastname}>{userData.last_name}</span>
         </h1>
         <div className={userprofile.details}>
+        <p className={userprofile.role}>
+              Role : <span>{userData.role}</span>
+            </p>
         <p className={userprofile.email}>
           Email : <span>{userData.email}</span>
         </p>

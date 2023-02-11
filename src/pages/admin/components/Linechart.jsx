@@ -1,6 +1,6 @@
 import React, { Component, useEffect, useRef, useState } from "react";
 import Chart from "react-apexcharts";
-import { baseURL } from "../../../config/config";
+import { baseURL,queryfn } from "../../../config/config";
 
 const AdminChart = () => {
   const [options, setOptions] = useState({
@@ -27,18 +27,22 @@ const AdminChart = () => {
 
   // let series;
   const getAnalytics = async () => {
-    const response = await fetch(
-      baseURL + `/complain/analytics/department-wise`,
-      {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          "Content-type": "application/json;charset=UTF-8",
-        },
-      }
-    );
-    data = await response.json();
-
+    // const response = await fetch(
+    //   baseURL + `/complain/analytics/department-wise`,
+    //   {
+    //     method: "GET",
+    //     credentials: "include",
+    //     headers: {
+    //       "Content-type": "application/json;charset=UTF-8",
+    //     },
+    //   }
+    // );
+    // data = await response.json();
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/analytics/department-wise`,
+      reqMethod: "GET",
+      failMsg: "Error in getting analytics",
+    });
     setOptions({
       chart: {
         id: "apexchart-example",
