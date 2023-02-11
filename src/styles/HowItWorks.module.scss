@@ -1,0 +1,48 @@
+.howItWorksWrapper {
+  // background: linear-gradient(90deg, white 21px, transparent 1%) center,
+  //   linear-gradient(white 21px, transparent 1%) center, black;
+  // background-size: 22px 22px;
+  background-color: var(--lightBlueColor);
+  text-align: center;
+  padding-bottom: 20px;
+  svg {
+    margin: 10px auto 10px;
+    display: block;
+    width: 10px;
+    overflow: visible;
+  }
+  path {
+    stroke: rgb(95, 95, 95);
+    stroke-width: 5px;
+    stroke-dasharray: 10px, 16px;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+    backface-visibility: hidden;
+  }
+  h4 {
+    font-size: 20px;
+    text-align: center;
+  }
+  h5 {
+    font-size: 16px;
+  }
+}
+.stepWrapper {
+  width: clamp(250px, 90%, 680px);
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  flex-direction: column;
+  line-height: 2;
+  margin: 0 auto;
+  > div {
+    border: 2px solid transparent;
+    background-image: var(--gradiantColor);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    border-radius: 10px;
+    margin: 10px 0;
+    padding: 10px;
+  }
+}
