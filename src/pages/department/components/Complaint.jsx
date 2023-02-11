@@ -98,8 +98,6 @@ const OfficerComplain = () => {
     console.log("Complain:: ", data);
     if (data.success) {
       dispatch(setComplains(data.complains));
-    } else {
-      toast.error("can not find complain");
     }
   }
 
@@ -445,7 +443,7 @@ console.log(mergeArray)
                             // type="button"
                             className={track.update}
                             // bgcolor="#23322b"
-
+                            
                             onClick={() => {
                               console.log(
                                 buttonText[complain.status.toLowerCase()]
@@ -455,6 +453,7 @@ console.log(mergeArray)
                                   "text"
                                 ] !== "No Action"
                               ) {
+                                
                                 setDetails(complain);
                                 setConfirm(true);
                               }

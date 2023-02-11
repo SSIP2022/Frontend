@@ -131,15 +131,54 @@ const RegisterComplaint = () => {
   const [department, setDepartment] = useState("NONE");
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (searchParams.get("department") !== null) {
-      setDepartment(
-        searchParams.get("department")[0].toUpperCase() +
-          searchParams.get("department").slice(1)
-      );
-    }
-  }, [searchParams]);
+  const restrictedWords = ["+", "-", "&&", "||", "!", "(", ")", "{", "}", "[", "]", "^",
+  "~", "*", "?", ":","<",">","</"];
 
+  const handleChange = (event) => {
+   let description = event.target.value;
+    const wordArray = description.split(' ');
+    let valid = true;
+  
+    for (let i = 0; i < wordArray.length; i++) {
+      if (restrictedWords.includes(wordArray[i])) {
+        toast.error("Invalid characters")
+        valid = false;
+        break;
+      }
+    }
+  
+    if (valid && description.length <= 512) {
+      setDecription(description);
+    } else {
+      // Filter out the restricted words from the description
+      restrictedWords.forEach((restrictedWord) => {
+        description = description.replace(restrictedWord, '');
+      });
+  
+      // Update the description state with the filtered description
+      setDecription(description);
+    }
+  };
+  const handlePaste = (event) => {
+    event.preventDefault();
+    const pastedText = event.clipboardData.getData('text');
+    let filteredText = pastedText;
+    
+    // Filter out the restricted words from the pasted text
+    restrictedWords.forEach((restrictedWord) => {
+      filteredText = filteredText.replace(restrictedWord, '');
+    });
+  
+    // Check if the pasted text is too long
+    if (filteredText.length > 512) {
+      // Truncate the pasted text to 500 characters
+      
+      filteredText = filteredText.substring(0, 512);
+    }
+    toast.error("Invalid characters")
+    // Update the input field with the filtered and truncated text
+    event.target.value = filteredText;
+  };
   const onSubmitComplain = async (e) => {
     e.preventDefault();
     const data = await queryfn({
@@ -165,7 +204,16 @@ const RegisterComplaint = () => {
     } else {
       toast.error("Fail To Register");
     }
+    
   };
+  useEffect(() => {
+    if (searchParams.get("department") !== null) {
+      setDepartment(
+        searchParams.get("department")[0].toUpperCase() +
+          searchParams.get("department").slice(1)
+      );
+    }
+  }, [searchParams]);
   return (
     <>
       <div className={form.main}>
@@ -232,6 +280,7 @@ const RegisterComplaint = () => {
                 onChange={(e) => {
                   setAddress(e.target.value);
                 }}
+               onPaste={handlePaste}
               />
             </label>
             <label>
@@ -323,16 +372,17 @@ const RegisterComplaint = () => {
                   );
                 })}
               </select>
-              <h4>Description {`( <=500 character)`}</h4>
-              <input
-                type="text"
-                name="problem"
-                required
-                placeholder="Enter your problem description"
-                // className={form.description}
-                value={description}
-                onChange={(e) => setDecription(e.target.value)}
-              />
+              <h4>Description {`( <=512 character)`}</h4>
+              
+            <input
+              type="text"
+              name="problem"
+              required
+              placeholder="Enter your problem description"
+              value={description}
+              onChange={handleChange}
+              onPaste={handlePaste}
+            />
             </label>
             {/* <label>
               <h4>Pincode</h4>
@@ -437,10 +487,10 @@ const RegisterComplaint = () => {
                   address === "" ||
                   ward === "NONE" ||
                   zone === "NONE" ||
-                  department === "NONE" ||
-                  Object.keys(file_data).length === 0
+                  department === "NONE"
+                  // || Object.keys(file_data).length === 0
                 ) {
-                  toast.error("Emepy Field Spotted");
+                  toast.error("Emtpy Field Spotted");
                   return;
                 }
                 onSubmitComplain(e);

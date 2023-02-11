@@ -12,8 +12,8 @@ function HowItWorks() {
           <h4>Step 1</h4>
           <h5>Step up your account </h5>
           <div>
-            Become a member and choose the package that suits you.{" "}
-            <Link to="/our-plans" style={{textDecoration:"underline"}}>Choose Plan</Link>{" "}
+          Fill in the required personal information, including your name, email address, and phone number,You will receive a confirmation message containing a OTP on your phone number.(તમારું નામ, ઇમેઇલ સરનામું અને ફોન નંબર સહિત જરૂરી વ્યક્તિગત માહિતી ભરો,તમને તમારા ફોન નંબર પર OTP ધરાવતો પુષ્ટિકરણ સંદેશ પ્રાપ્ત થશે.){" "}
+            {/* <Link to="/our-plans" style={{textDecoration:"underline"}}>Choose Plan</Link>{" "} */}
           </div>
         </div>
         <svg
@@ -32,11 +32,9 @@ function HowItWorks() {
         </svg>
         <div>
           <h4>Step 2</h4>
-          <h5>24*7 Lawyer Access.</h5>
+          <h5>User Interface</h5>
           <div>
-            Access your Legal Services 24*7. As your legal guardians, we shield
-            you from all your stress and worries even if it obligates our day
-            and night run for a resolution.
+            Now you will land to home page of user interface where you register complaint in diffrent categories and also able to see status of complaint(હવે તમે યુઝર ઇન્ટરફેસના હોમ પેજ પર ઉતરશો જ્યાં તમે અલગ-અલગ કેટેગરીમાં ફરિયાદ પસંદ કરશો અને ફરિયાદનું સ્ટેટસ પણ જોઈ શકશો.) .
           </div>
         </div>
         <svg
@@ -55,12 +53,10 @@ function HowItWorks() {
         </svg>
         <div>
           <h4>Step 3</h4>
-          <h5>Get Your Personalised Legal Solutions Plan </h5>
+          <h5>
+            Complaint register</h5>
           <div>
-            Sheriff Inc will bear 100% of the cost of your legal expenses
-            incurred during the process. From consultation to contesting your
-            claim in the apex court, a dedicated case manager would be assigned
-            to you who would take care of all your hurdles.
+          Please select your respective department . and register your complaint by filling in details of your ward no , address, and choose your particular problem with your proper image.(કૃપા કરીને તમારો સંબંધિત વિભાગ પસંદ કરો. અને તમારા વોર્ડ નંબર, સરનામાની વિગતો ભરીને તમારી ફરિયાદ નોંધો અને તમારી યોગ્ય છબી સાથે તમારી ચોક્કસ સમસ્યા પસંદ કરો.)
           </div>
         </div>
         <svg
