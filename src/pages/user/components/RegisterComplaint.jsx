@@ -487,10 +487,10 @@ const RegisterComplaint = () => {
                   address === "" ||
                   ward === "NONE" ||
                   zone === "NONE" ||
-                  department === "NONE" ||
-                  Object.keys(file_data).length === 0
+                  department === "NONE"
+                  // || Object.keys(file_data).length === 0
                 ) {
-                  toast.error("Emepy Field Spotted");
+                  toast.error("Emtpy Field Spotted");
                   return;
                 }
                 onSubmitComplain(e);

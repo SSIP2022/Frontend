@@ -25,9 +25,7 @@ export const queryfn = async ({
   // loading.id = "loadingSection";
   // loading.innerHTML = `<h3 class="loadingModelStyle"> <img alt="loading gif" class="loadingImgStyle" src="/other/loading.gif" /> Loading...</h3>`;
   // root.appendChild(loading);
-
-  console.log(body);
-
+  console.log(`${store.getState().user.token}`);
   let response = await fetch(endpoint, {
     method: reqMethod,
     credentials: "include",
@@ -41,7 +39,7 @@ export const queryfn = async ({
   // console.log("response:", response);
   let data = await response.json();
 
-  console.log("First" + JSON.stringify(data), response.status);
+  // console.log("First" + JSON.stringify(data), response.status);
   // root.removeChild(loading);
   if (!data.success && response.status !== 403) {
     toast.error(failMsg);
@@ -74,7 +72,7 @@ export const queryfn = async ({
       }
 
       //finally again send req
-      console.log("", store.getState().user.token);
+      console.log("user final Token", store.getState().user.token);
       // root.appendChild(loading);
       response = await fetch(endpoint, {
         method: reqMethod,
