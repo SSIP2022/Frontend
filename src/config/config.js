@@ -69,7 +69,7 @@ export const queryfn = async ({
       } else if (refreshResult.status === 403) {
         toast.error("session expired Login again!!");
         store.dispatch(setUserLogout());
-        window.location.href = window.location.origin + "/sign-in";
+        window.location.href = window.location.origin + "/";
 
         return;
       }
