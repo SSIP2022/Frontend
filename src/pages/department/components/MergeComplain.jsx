@@ -3,7 +3,7 @@ import track from "../../../styles/Complain.module.scss";
 import Modal from "../../../components/model/index";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 import toast from "react-hot-toast";
 import Button from "../../../components/button";
 import Span from "../../../components/span";
@@ -96,6 +96,34 @@ function MergeComplain() {
     }
   }
 
+
+  async function handleChangeStatus(id, newStatus, index) {
+    console.log("newStatus:", newStatus);
+    if (newStatus == "no action") {
+      return;
+    }
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/update-merge-status`,
+      reqMethod: "PUT",
+      body: JSON.stringify({
+        status: newStatus,
+        merged_id: id,
+        worker_id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
+        department_id: userData.user_id,
+      }),
+      failMsg: "Error in updataing status",
+    });
+    console.log("Updated Status:", data);
+    if (data.message==="Complain updated") {
+      toast.success("rows.forEach(...) is not a function");
+      setConfirm(false);
+      window.location.href = "/officer/merge-complain";
+    } else {
+      toast.error("Fail To Update Status");
+    }
+  }
+
+
   async function handleGetStatus() {
     const response = await fetch(baseURL + `/complain/trace-complain`, {
       method: "POST",
@@ -138,6 +166,7 @@ function MergeComplain() {
                   <th>Ward</th>
                   <th>Dept</th>
                   <th>Status</th>
+                  <th>Update</th>
                 </tr>
               </thead>
               <tbody>
@@ -185,6 +214,34 @@ function MergeComplain() {
                             </div>
                           </div>
                         </td>
+
+                        <td style={{ display: "flex" }}>
+                          <Button
+                            // type="button"
+                            className={track.update}
+                            // bgcolor="#23322b"
+                            
+                            onClick={() => {
+                              console.log(
+                                buttonText[complaints[keys].status.toLowerCase()]
+                              );
+                              if (
+                                buttonText[complaints[keys].status.toLowerCase()][
+                                  "text"
+                                ] !== "No Action"
+                              ) {
+                                
+                                setDetails(complaints[keys]);
+                                setConfirm(true);
+                              }
+                            }}
+                            // id={i}
+                            text={
+                              buttonText[complaints[keys].status.toLowerCase()]["text"]
+                            }
+                          />
+                        </td>
+
                       </tr>
                       {/* <tr>
                         {complaints[keys].complain_id.map((ele, ind) => {
@@ -194,9 +251,30 @@ function MergeComplain() {
                     </>
                   );
                 })}
-                <td></td>
+          
               </tbody>
             </table>
+
+            {confirm && (
+              <Modal title="Confirm Status" close={() => setConfirm(false)}>
+                <h4>
+                  Now the status for this complain will become {details.status}{" "}
+                  -- &gt; {buttonText[details.status]["text"].toLowerCase()}
+                </h4>
+                <Button
+                  onClick={() =>
+                    handleChangeStatus(
+                      details.merged_id,
+                      buttonText[details.status]["text"].toLowerCase()
+                    )
+                  }
+                  bgcolor="green"
+                  color="white"
+                  text="Confirm"
+                />
+              </Modal>
+            )}
+
           </div>
         </>
       ) : (

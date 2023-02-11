@@ -17,6 +17,10 @@ const OfficerComplain = () => {
       text: "Assign",
       color: "#391DF2",
     },
+    reopen:{
+      text:"Reopen",
+      color:"#391DF2",
+    },
     withdraw: {
       text: "No Action",
       color: "#acacac",
@@ -180,6 +184,7 @@ console.log(mergeArray)
   
     setComplains([...newCom])
     mergeArray = {}
+    window.location.href = "/officer/home";
   } else {
   }
   
