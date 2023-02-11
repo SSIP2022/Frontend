@@ -59,18 +59,16 @@ const UserDashboard = () => {
     },
   };
   const withdrawComplaint = async () => {
-    const response = await fetch(baseURL + `/complain/withdraw`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/withdraw`,
+      reqMethod: "PUT",
       body: JSON.stringify({
         creator_id: userData.user_id,
         complain_id: complain.complain_id,
       }),
+      failMsg: "con",
     });
-    const data = await response.json();
+    // const data = await response.json();
     console.log(data);
     setWithdraw(false);
     window.location.href = "/user/dashboard";
@@ -85,8 +83,7 @@ const UserDashboard = () => {
     console.log("user all complaints:", data);
     if (data.success) {
       setComplaints(data.complains);
-    } else {
-    }
+    } 
   }
 
   async function handleGetStatus() {
@@ -101,7 +98,6 @@ const UserDashboard = () => {
     console.log("Trace-complains:", data);
     if (data.success) {
       setTrace(data.trace);
-    } else {
     }
   }
 

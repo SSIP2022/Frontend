@@ -98,8 +98,6 @@ const OfficerComplain = () => {
     console.log("Complain:: ", data);
     if (data.success) {
       dispatch(setComplains(data.complains));
-    } else {
-      toast.error("can not find complain");
     }
   }
 
