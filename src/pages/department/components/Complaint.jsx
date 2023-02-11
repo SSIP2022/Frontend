@@ -452,7 +452,7 @@ const OfficerComplain = () => {
                             // type="button"
                             className={track.update}
                             // bgcolor="#23322b"
-
+                            
                             onClick={() => {
                               console.log(
                                 buttonText[complain.status.toLowerCase()]
@@ -462,6 +462,7 @@ const OfficerComplain = () => {
                                   "text"
                                 ] !== "No Action"
                               ) {
+                                
                                 setDetails(complain);
                                 setConfirm(true);
                               }

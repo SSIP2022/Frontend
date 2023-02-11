@@ -69,13 +69,14 @@ function App() {
         <Route path="/" element={<Root />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/faq" element={<Faqs />} />
-        <Route path="/how-it-works" element={<HowItWorks />} />
+        
         <Route path="/user" element={<User />}>
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="profile" element={<UserProfile />} />
           <Route path="registercomplaint" element={<RegisterComplaint />} />
           <Route path="home" element={<Home />} />
+          <Route path="faq" element={<Faqs />} />
+          <Route path="how-it-works" element={<HowItWorks />} />
         </Route>
         <Route path="/officer" element={<Department />}>
           <Route path="home" element={<OfficerComplain />} />

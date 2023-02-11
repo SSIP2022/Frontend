@@ -1,6 +1,6 @@
 import React, { Component, useState, useEffect } from "react";
 import Chart from "react-apexcharts";
-import { baseURL } from "../../../config/config";
+import { baseURL,queryfn } from "../../../config/config";
 
 let data;
 const PieChart = () => {
@@ -55,14 +55,12 @@ const PieChart = () => {
   const screenWidth = window.screen.width;
 
   const getAnalytics = async () => {
-    const response = await fetch(baseURL + `/complain/analytics/status`, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/analytics/status`,
+      reqMethod: "GET",
+      failMsg: "Error in getting analytics",
     });
-    data = await response.json();
+    // setAnalyticsData("Analytics", data);
     console.log(screenWidth);
 
     console.log(data.forCharts);
