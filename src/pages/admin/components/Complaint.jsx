@@ -311,16 +311,11 @@ const Complain = () => {
               Submit
             </button>
           </div>
-        </Modal>
+        </Modal>  
       ) : (
         <>
           <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
+            className={track.container}
           >
             <button
               className={track.btn}
@@ -423,8 +418,10 @@ const Complain = () => {
                           <div
                             style={{
                               display: "flex",
-                              alignItems: "center",
+                              alignItems: "end",
                               fontWeight: "500",
+                              justifyContent: "center",
+
                             }}
                           >
                             <BsFillCircleFill
@@ -436,7 +433,7 @@ const Complain = () => {
                                     "color"
                                   ],
 
-                                marginRight: "10px",
+                                marginRight: "10px",  
                               }}
                             />
                             <div
