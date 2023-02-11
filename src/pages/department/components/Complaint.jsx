@@ -145,7 +145,7 @@ const OfficerComplain = () => {
     }
   }
 
-  const mergeArray = {}
+  let mergeArray = {}
 
   function addTicket(e,complain_id){
     if(e.target.checked){
@@ -173,7 +173,15 @@ console.log(mergeArray)
   const data = await response.json();
   console.log("data:", data);
   if (data.success) {
-    setTrace(data.trace);
+
+    const newCom = complains.map((com)=>{
+      if(!com.merged){
+        return com
+      }
+    })
+  
+    setComplains([...newCom])
+    mergeArray = {}
   } else {
   }
   
