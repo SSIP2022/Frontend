@@ -4,59 +4,64 @@ import styles from "../../styles/Faqs.module.scss";
 
 const faqs = [
   {
-    title: "What are Prepaid Legal Services?",
+    title: "What is CCRS?",
     description:
-      "The concept of Pre-paid legal Service is first of its kind initiative which seeks to ensure protection against potential class legal expenses incurred in the course of litigation battles by qualified legal professionals.",
+      "CCRS is a web based enterprise solution that allows AMC to enhance citizen satisfaction through comprehensive service management and efficient service delivery. CCRS automates entire complaint process right from registration to closure. It also enforces service level policies to ensure the complaint gets attended within desired timeline or gets escalated to higher authorities for their attention and intervention.   A citizens can lodge complaints through a call center, website or by visiting a ward office. At call center or ward office, an operator registers a complaint in the system with all necessary details. A complainant can lodge single or multiple complaints during a single call. In all cases, the complainant is given complaint acknowledgment number.  Once a complaint is registered with the system, it is assigned to a concerned area officer dealing with the reported problem. The system automatically sends an SMS to officer alerting him on the complaint for taking required actions. The officer calls up the complainant, if necessary, to seek specific details.  The officer is expected to resolve the complaint within a specified period. Once a complaint is resolved, the officer marks the complaint closed in the system. The citizen receives an SMS confirming resolution of the complaint. If the citizen is not satisfied; he/she can request to re-open the complaint, which then escalates to the higher authority.  If the complaint is not resolved and closed within the specified period, the same gets escalated to higher authorities. On repeated failure to resolve it gets escalated to the Dy. Commissioner ",
   },
   {
     title:
-      "Am I eligible for benefits under this scheme immediately after subscribing to the plan?",
+      "Benefits of CCRS?",
     description:
-      "No, you are eligible for the benefits under the plan only after 1 month of subscription.",
+      "Citizens need not go to Ward offices to register complaintSystem available round the clock - Call Centre, Website, SMS, Email, IVR, Ward Offices, Mobile ApplicationImproved communication by way of SMS / Email alertsCCRS provides data of frequent complaints and average turnaround time for each kind of problem.It helps Municipality/Corporation to focus the areas to improve the services by enhancing the manpower and infrastructure. This also helps Municipality/Corporation to prioritize on their services.",
   },
   {
-    title: "How can I avail of these services?",
+    title: "How to register a complaint?",
     description:
-      "It’s quite simple, all you have to do is register yourself at our website portal, select a plan that suits you, and let’s get started.",
+      "A citizen can register complaint(s) at call center, ward office or through website.To register complaint online through website:Click on the “Online” option of Complaint Registration and enter detail of your complaint.To register complaint at call center:Contact our dedicated call center by dialing 155303 from landline or mobile 24*7 to raise complaint. Municipality/Corporation assures to provide a seamless support.To register complaint through E-Mail:Send your Email with “ Name, Mobile Number, Problem to resolve and Location where the problem is “ at “ccrs@ahmedabadcity.gov.in“ The call operator will check the email and register the complaint in the system. Operator may contact the citizen in case, information provided is insufficient or any clarification required.To register complaint through SMS: Send text “AMCCRS NEW” to 56767. A Call Centre operator will call back to take necessary details to register the complaint.",
   },
   {
-    title: "How is Individual Plan different from Family Plan?",
+    title: "How to register a complaint at Call center?",
     description:
-      "Most of the services offered by our Sheriffs are common to both the plans with the only exception that the family plan covers all the dependability of the subscriber including children and parents while the individual plan caters only to the needs of an individual Subscriber.",
-  },
-  {
-    title:
-      "Does this plan cover every legal dispute whether civil or criminal in nature?",
-    description:
-      "No, your plan covers only disputes which are civil in nature and does not cover disputes which are criminal in nature.",
+      "Citizen could contact our dedicated call center by dialing 155303 from landline or mobile to raise complaint. This service is available 24*7. Municipality/Corporation assures to provide a seamless support.",
   },
   {
     title:
-      "What if I need to engage the services of a lawyer who specializes and deals in Criminal cases?",
+      "How to register a complaint through Website?",
     description:
-      "All such services shall not be covered under your existing plan but we can surely make arrangements on requests depending upon your exigencies and the fees for the same shall be charged separately in accordance with standard industry practice.",
+      "Citizen can visit our website at ssip-2022.vercel.app Go to complaint registeration and click on Online for registering a complaint.",
   },
   {
     title:
-      "Is there any limit on the number of family members who can avail of benefits under the Family plan?",
+      "How to register a complaint through Email?",
     description:
-      "There is no such limit on the number of beneficiaries under the family plan as long as such a member is an Immediate dependable of the subscriber.",
+      "Citizen can send an Email with “ Name, Mobile Number, Problem to resolve and Location where the problem is  at “ccrs@ahmedabadcity.gov.in“. The call center operator will check the email and register the complaint in the system. Operator may contact the citizen in case, information provided is insufficient or any clarification required.",
   },
   {
     title:
-      "Do I need to renew my plan immediately at the time of expiry of my plan?",
+      "How to register a complaint through SMS?",
     description:
-      "Yes, we will send you a reminder for the same one month prior to such expiry and in addition to the same 1 month grace period after such expiry shall also be offered, failing which your plan shall stand terminated.",
+      "Citizen can send a text message  “AMCCRS NEW” to 56767. A Call Center operator will call back to take necessary details to register the complaint.",
   },
   {
-    title: "Is there any Limitation on access to services under my plan?",
+    title:
+      "How to register a complaint through Ward office?",
     description:
-      "The only restriction is that you are not eligible for availing benefits for your outstanding legal dispute or query.",
+      "Citizens need to go at Ward offices to register a complaint with the respective officer.",
+  },
+  {
+    title: "How to register a complaint through IVR?",
+    description:
+      "Citizen can register a complaint through IVR during non working hours or when all operators are busy attending complaints by calling 155303.Step – 1 : Select language – Press 1 for Gujarati, 2 for English or 3 for HindiStep – 2 : Press 1 to continue with IVR or press 2 for callbackStep – 3 : Tell your Name & press #Step – 4 : Tell your Mobile Number & press #Step – 5 : Tell your Problem to resolve & press # Step – 6 : Tell your Location address where the problem is & press # The call center operator will listen to the IVR recorded complaint and register the same in the system. He may contact the citizen in case information provided is insufficient or any clarification required.",
   },
   {
     title: "Do you offer any complimentary services?",
     description:
       "Yes, we offer complementary services in the nature of filing of annual Income Tax Returns or GST Returns.",
+  },
+  {
+    title: "Is there a Mobile app available?",
+    description:
+      "Yes, there is a mobile app available. You can download the app from Google play store and IOS store for Android and IOS respectively by searching for AMC CCRS. You need to register with your mobile number and then you can register a complaint.",
   },
 ];
 

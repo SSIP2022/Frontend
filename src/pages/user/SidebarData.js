@@ -16,6 +16,18 @@ export const sidebarData = [
     cName: "nav-text",
   },
   {
+    title:"Faq",
+    path:"/user/faq",
+    icon:"💬",
+    cName: "nav-text",
+  },
+  {
+    title:"How it work",
+    path:"/user/how-it-works",
+    icon:"❔",
+    cName: "nav-text",
+  },
+  {
     title: "Your Profile",
     path: "/user/profile",
     icon: "🧔🏻",
