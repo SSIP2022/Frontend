@@ -15,6 +15,7 @@
   --cardBackgroundColor: rgb(168, 208, 221);
   --cardBorderColor: rgb(123, 123, 161);
   --lightBlueColor: #f5f8fd;
+  --borderGradiant: linear-gradient(144deg, #af40ff, #5b42f3 50%, #00ddeb);
 
   /* global Variable */
   --headingFont: 2rem;
@@ -54,6 +55,26 @@
       color: #000;
     }
   }
+
+  .darkBlueHeading,
+.section-header h3 {
+  // font-size: clamp(25px,3vw,36px);
+  // color: #413e66;
+  // text-align: center;
+  // font-weight: 600;
+  // // position: relative;
+  // font-family: "Poppins", sans-serif;
+  // padding-bottom: 30px;
+  // padding-top: 20px;
+  //  border-bottom: 2px solid #c59c35;
+
+  background:var(--borderGradiant) ;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-align: center;
+  font-size: clamp(27px, 3vw, 33px);
+  padding: 15px 0;
+}
   
   button{
     padding: 8px 15px;
@@ -71,6 +92,15 @@
     padding: 10px ;
     margin: 10px ;
   }
+
+  
+*::-webkit-scrollbar {
+  width: 6px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #999797;
+  border-radius: 0.5rem;
+}
 
   .formWrapper {
     background-color: rgb(231, 236, 237);

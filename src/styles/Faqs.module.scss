@@ -1,0 +1,26 @@
+.faqsWrapper {
+  // background: linear-gradient(90deg, white 21px, transparent 1%) center,
+  //   linear-gradient(white 21px, transparent 1%) center, black;
+  // background-size: 22px 22px;
+  background-color: var(--lightBlueColor);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  // h3{
+  //   background: var(--gradiantColor);
+  //   -webkit-background-clip: text;
+  //   color: transparent;
+  //   text-align: center;
+  //   font-size: clamp(22px,3vw,30px);
+  //   padding: 15px 0;
+  // }
+}
+
+.faqsListWrapper {
+  width: clamp(250px, 90%, 1000px);
+  padding: 0 0 40px 0;
+  > div {
+    margin: 20px 0;
+  }
+}

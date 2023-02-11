@@ -211,12 +211,15 @@ const UserDashboard = () => {
                     Withdraw
                   </span>
                 )}
-
-                <span
+                {complaint.status==="withdraw" || complaint.status==="open" || complaint.status==="assign" ? null : (<span
                   style={{ cursor: "pointer" }}
                   onClick={() => {
                     if (complaint.status === "open") {
                       toast.error("Complaint is in progress");
+                      return;
+                    }
+                    if(complaint.status === "withdraw"){
+                      toast.error("Complaint is withdrawn");
                       return;
                     }
                     setFeedback(true);
@@ -225,7 +228,10 @@ const UserDashboard = () => {
                   }}
                 >
                   Feedback
-                </span>
+                </span>)
+
+                }
+                
               </div>
             </div>
           );
@@ -298,7 +304,7 @@ const UserDashboard = () => {
                 alt=""
               />
             </div>
-            <div className={track.details}>
+            <div className={track.details} style={{display:"flex", flexDirection:"column"}}>
               <h4>
                 <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
                 {details.creator_id.slice(-6)}

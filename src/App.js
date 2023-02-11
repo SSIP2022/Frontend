@@ -29,6 +29,9 @@ import AdminProfile from "./pages/department/components/Profile";
 import Worker from "./pages/worker/index";
 import WorkerProfile from "./pages/worker/components/Profile";
 import Tasks from "./pages/worker/components/Tasks";
+import MergeComplain from "./pages/department/components/MergeComplain";
+import Faqs from "./pages/faq/FAQ";
+import HowItWorks from "./pages/howItWorks";
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -66,6 +69,8 @@ function App() {
         <Route path="/" element={<Root />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/faq" element={<Faqs />} />
+        <Route path="/how-it-works" element={<HowItWorks />} />
         <Route path="/user" element={<User />}>
           <Route path="dashboard" element={<UserDashboard />} />
           <Route path="profile" element={<UserProfile />} />
@@ -75,6 +80,7 @@ function App() {
         <Route path="/officer" element={<Department />}>
           <Route path="home" element={<OfficerComplain />} />
           <Route path="profile" element={<AdminProfile />} />
+          <Route path="merge-complain" element={<MergeComplain />} />
         </Route>
 
         <Route path="/admin" element={<Admin />}>
