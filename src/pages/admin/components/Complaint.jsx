@@ -3,12 +3,12 @@ import track from "../../../styles/Complain.module.scss";
 import Modal from "../../../components/model/index";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 import Button from "../../../components/button";
 import toast from "react-hot-toast";
 import Span from "../../../components/span";
 import { BsFillCircleFill } from "react-icons/bs";
-import {Drawer} from "../../../components/drawer/Drawer";
+import { Drawer } from "../../../components/drawer/Drawer";
 
 const Complain = () => {
   const buttonText = {
@@ -32,7 +32,7 @@ const Complain = () => {
       text: "Resolved",
       color: "rgb(255 146 13)",
     },
-    reassign:{
+    reassign: {
       text: "No Action",
       color: "#11BF7F",
     },
@@ -68,19 +68,16 @@ const Complain = () => {
   const [getComplaintid, setComplaintid] = useState("");
 
   const onFeedBackSubmit = async (id, msg, visibility = false) => {
-    const response = await fetch(baseURL + `/complain/addfeedback`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/addfeedback`,
+      reqMethod: "POST",
       body: JSON.stringify({
         feedback_msg: msg,
         visibility: visibility,
         complain_id: id,
       }),
+      failMsg: "Add feedback",
     });
-    const data = await response.json();
     if (data.response == false) {
       toast.error("Error");
       return;
@@ -90,19 +87,16 @@ const Complain = () => {
   };
 
   async function handleChangeStatus(id, newStatus, index) {
-    const response = await fetch(baseURL + `/complain/update-status`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/update-status`,
+      reqMethod: "PUT",
       body: JSON.stringify({
         status: newStatus,
         complain_id: id,
       }),
+      failMsg: "Error in updating status",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Update Status:", data);
     if (data.success) {
       toast.success("Status Updated Successfully");
       setConfirm(false);
@@ -114,18 +108,15 @@ const Complain = () => {
   }
 
   async function handleGetStatus() {
-    const response = await fetch(baseURL + `/complain/trace-complain`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/trace-complain`,
+      reqMethod: "POST",
       body: JSON.stringify({
         complain_id: details.complain_id,
       }),
+      failMsg: "Error in trace complain ",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Trace Complains:", data);
     if (data.success) {
       setTrace(data.trace);
     } else {
@@ -137,16 +128,12 @@ const Complain = () => {
       ? `/complain/get-all?filter=${filter}`
       : "/complain/get-all";
 
-    const response = await fetch(baseURL + endpoint, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + endpoint,
+      reqMethod: "GET",
+      failMsg: "Error in get complains",
     });
-
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Error in get complains:", data);
     if (data.success) {
       setComplaints(data.complains);
     }
@@ -165,88 +152,88 @@ const Complain = () => {
       {openDetail ? (
         <>
           <Drawer isActive={openDetail} close={() => setopenDetail(false)}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ margin: "10px auto" }}>
-              <img
-                className={track.modalimg}
-                src={
-                  JSON.parse(details.file_data[0]).url
-                    ? JSON.parse(details.file_data[0]).url
-                    : "/istockphoto-1074493878-612x612.png"
-                }
-                alt=""
-              />
-            </div>
-            <div className={track.details}>
-              <h4>
-                <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.creator_id.slice(-6)}
-              </h4>
-
-              <h4>
-                <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.subject}
-              </h4>
-              <h4 className={track.decs}>
-                <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.description}
-              </h4>
-              <h4>
-                <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.address}
-              </h4>
-              <h4>
-                <Span text="Zone" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.zone_name ? details.zone_name : "Near Ahemdabad"}
-              </h4>
-              <h4>
-                <Span text="Ward" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.ward_name}
-              </h4>
-              <h4>
-                <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.status}
-              </h4>
-              <h4>
-                <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.assign_department}
-              </h4>
-            </div>
-            {trace.length !== 0 ? (
-              <div
-                style={{
-                  display: "flex",
-                  margin: "5px",
-                  padding: "0px 0px 0px 30px",
-                }}
-              >
-                <Span text="Status Flow" bgcolor="#fed049" />
-
-                {trace.map((data) => {
-                  return (
-                    <div style={{ margin: "5px" }}>
-                      <Span
-                        bgcolor="#6a5c80"
-                        color="white"
-                        text={data.status}
-                      />{" "}
-                    </div>
-                  );
-                })}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ margin: "10px auto" }}>
+                <img
+                  className={track.modalimg}
+                  src={
+                    JSON.parse(details.file_data[0]).url
+                      ? JSON.parse(details.file_data[0]).url
+                      : "/istockphoto-1074493878-612x612.png"
+                  }
+                  alt=""
+                />
               </div>
-            ) : (
-              <div>
-                {" "}
-                <div style={{ display: "flex", margin: "5px" }}>
+              <div className={track.details}>
+                <h4>
+                  <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.creator_id.slice(-6)}
+                </h4>
+
+                <h4>
+                  <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.subject}
+                </h4>
+                <h4 className={track.decs}>
+                  <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.description}
+                </h4>
+                <h4>
+                  <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.address}
+                </h4>
+                <h4>
+                  <Span text="Zone" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.zone_name ? details.zone_name : "Near Ahemdabad"}
+                </h4>
+                <h4>
+                  <Span text="Ward" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.ward_name}
+                </h4>
+                <h4>
+                  <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.status}
+                </h4>
+                <h4>
+                  <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.assign_department}
+                </h4>
+              </div>
+              {trace.length !== 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    margin: "5px",
+                    padding: "0px 0px 0px 30px",
+                  }}
+                >
                   <Span text="Status Flow" bgcolor="#fed049" />
-                  <div style={{ margin: "5px" }}>
-                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+
+                  {trace.map((data) => {
+                    return (
+                      <div style={{ margin: "5px" }}>
+                        <Span
+                          bgcolor="#6a5c80"
+                          color="white"
+                          text={data.status}
+                        />{" "}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {" "}
+                  <div style={{ display: "flex", margin: "5px" }}>
+                    <Span text="Status Flow" bgcolor="#fed049" />
+                    <div style={{ margin: "5px" }}>
+                      <Span text="Open" bgcolor="#6a5c80" color="white" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </Drawer>
+              )}
+            </div>
+          </Drawer>
         </>
       ) : feedback ? (
         <Modal title="Feedback" close={() => setFeedback(false)}>
@@ -322,6 +309,14 @@ const Complain = () => {
               width: "100%",
             }}
           >
+            <button
+              onClick={(e) => {
+                getUserComplaints("");
+              }}
+              className={track.btn}
+            >
+              All
+            </button>
             <button
               className={track.btn}
               onClick={(e) => {

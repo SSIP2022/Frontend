@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from "react";
 import track from "../../../styles/Complain.module.scss";
 import Modal from "../../../components/model/index";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 import toast from "react-hot-toast";
 import Button from "../../../components/button";
 import Span from "../../../components/span";
 import { BsFillCircleFill } from "react-icons/bs";
-import {Drawer} from "../../../components/drawer/Drawer";
+import { Drawer } from "../../../components/drawer/Drawer";
+import { selectComplains, setComplains } from "../../../store/complainReducer";
 
 const OfficerComplain = () => {
   const buttonText = {
@@ -45,15 +46,20 @@ const OfficerComplain = () => {
       color: "red",
     },
   };
+
   function timeFormate(date) {
     const newDate = new Date(date);
     return `${newDate.getDate()}/${
       newDate.getMonth() + 1
     }/${newDate.getFullYear()}`;
   }
+
+  const dispatch = useDispatch();
   const { userData } = useSelector(user);
+  const { complains } = useSelector(selectComplains);
+  console.log(complains);
   console.log("userData:", userData);
-  const [complaints, setComplaints] = useState([]);
+  // const [complains, setcomplains] = useState([]);
   const [details, setDetails] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [openDetail, setopenDetail] = useState(false);
@@ -65,26 +71,35 @@ const OfficerComplain = () => {
   const onclose = () => {
     setDetails(false);
   };
-  async function getUserComplaints(filter = "") {
+  async function getUsercomplains(filter = "") {
     const endpoint = filter
       ? `/user/department-complains?department=${userData.department}&filter=${filter}`
       : `/user/department-complains?department=${userData.department}`;
-    const response = await fetch(baseURL + endpoint, {
-      method: "GET",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    // const response = await fetch(baseURL + endpoint, {
+    //   method: "GET",
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-type": "application/json;charset=UTF-8",
+    //   },
+    // });
+    // const data = await response.json();
+    // console.log("data:", data);
+    // if (data.success) {
+    //   setcomplains(data.complains);
+    // } else {
+    //   setcomplains([]);
+    // }
+    const data = await queryfn({
+      endpoint: baseURL + endpoint,
+      reqMethod: "GET",
+      failMsg: "can not find complain",
     });
-    const data = await response.json();
-    console.log("data:", data);
-    if (data.success) {
-      data.complains.map((complain)=>{
 
-      })
-      setComplaints(data.complains);
+    console.log("Complain:: ", data);
+    if (data.success) {
+      dispatch(setComplains(data.complains));
     } else {
-      setComplaints([]);
+      toast.error("can not find complain");
     }
   }
 
@@ -93,21 +108,18 @@ const OfficerComplain = () => {
     if (newStatus == "no action") {
       return;
     }
-    const response = await fetch(baseURL + `/complain/update-status`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/update-status`,
+      reqMethod: "PUT",
       body: JSON.stringify({
         status: newStatus,
         complain_id: id,
         worker_id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
         department_id: userData.user_id,
       }),
+      failMsg: "Error in updataing status",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Updated Status:", data);
     if (data.success) {
       toast.success("Status Updated Successfully");
       setConfirm(false);
@@ -118,18 +130,15 @@ const OfficerComplain = () => {
   }
 
   async function handleGetStatus() {
-    const response = await fetch(baseURL + `/complain/trace-complain`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/trace-complain`,
+      reqMethod: "POST",
       body: JSON.stringify({
         complain_id: details.complain_id,
       }),
+      failMsg: "Error in trace complain",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Trace complain:", data);
     if (data.success) {
       setTrace(data.trace);
     } else {
@@ -175,7 +184,7 @@ console.log(mergeArray)
   
 
   useEffect(() => {
-    getUserComplaints();
+    getUsercomplains();
   }, []);
 
   useEffect(() => {
@@ -187,102 +196,95 @@ console.log(mergeArray)
       {openDetail ? (
         <>
           <Drawer isActive={openDetail} close={() => setopenDetail(false)}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ margin: "10px auto" }}>
-              <img
-                className={track.modalimg}
-                src={
-                  JSON.parse(details.file_data[0]).url
-                    ? JSON.parse(details.file_data[0]).url
-                    : "/istockphoto-1074493878-612x612.png"
-                }
-                alt=""
-              />
-            </div>
-            <div className={track.details}>
-              <h4>
-                <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.creator_id.slice(-6)}
-              </h4>
-
-              <h4>
-                <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.subject}
-              </h4>
-              <h4 className={track.decs}>
-                <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.description}
-              </h4>
-              <h4>
-                <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.address}
-              </h4>
-              <h4>
-                <Span text="Zone" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.zone_name ? details.zone_name : "Near Ahemdabad"}
-              </h4>
-              <h4>
-                <Span text="Ward" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.ward_name}
-              </h4>
-              <h4>
-                <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.status}
-              </h4>
-              <h4>
-                <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.assign_department}
-              </h4>
-            </div>
-            {trace.length !== 0 ? (
-              <div
-                style={{
-                  display: "flex",
-                  margin: "5px",
-                  padding: "0px 0px 0px 30px",
-                }}
-              >
-                <Span text="Status Flow" bgcolor="#fed049" />
-
-                {trace.map((data) => {
-                  return (
-                    <div style={{ margin: "5px" }}>
-                      <Span
-                        bgcolor="#6a5c80"
-                        color="white"
-                        text={data.status}
-                      />{" "}
-                    </div>
-                  );
-                })}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ margin: "10px auto" }}>
+                <img
+                  className={track.modalimg}
+                  src={
+                    JSON.parse(details.file_data[0]).url
+                      ? JSON.parse(details.file_data[0]).url
+                      : "/istockphoto-1074493878-612x612.png"
+                  }
+                  alt=""
+                />
               </div>
-            ) : (
-              <div>
-                {" "}
-                <div style={{ display: "flex", margin: "5px" }}>
+              <div className={track.details}>
+                <h4>
+                  <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.creator_id.slice(-6)}
+                </h4>
+
+                <h4>
+                  <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.subject}
+                </h4>
+                <h4 className={track.decs}>
+                  <Span text="Description" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.description}
+                </h4>
+                <h4>
+                  <Span text="Address" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.address}
+                </h4>
+                <h4>
+                  <Span text="Zone" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.zone_name ? details.zone_name : "Near Ahemdabad"}
+                </h4>
+                <h4>
+                  <Span text="Ward" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.ward_name}
+                </h4>
+                <h4>
+                  <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.status}
+                </h4>
+                <h4>
+                  <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
+                  : {details.assign_department}
+                </h4>
+              </div>
+              {trace.length !== 0 ? (
+                <div
+                  style={{
+                    display: "flex",
+                    margin: "5px",
+                    padding: "0px 0px 0px 30px",
+                  }}
+                >
                   <Span text="Status Flow" bgcolor="#fed049" />
-                  <div style={{ margin: "5px" }}>
-                    <Span text="Open" bgcolor="#6a5c80" color="white" />
+
+                  {trace.map((data) => {
+                    return (
+                      <div style={{ margin: "5px" }}>
+                        <Span
+                          bgcolor="#6a5c80"
+                          color="white"
+                          text={data.status}
+                        />{" "}
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <div>
+                  {" "}
+                  <div style={{ display: "flex", margin: "5px" }}>
+                    <Span text="Status Flow" bgcolor="#fed049" />
+                    <div style={{ margin: "5px" }}>
+                      <Span text="Open" bgcolor="#6a5c80" color="white" />
+                    </div>
                   </div>
                 </div>
-              </div>
-            )}
-          </div>
-        </Drawer>
+              )}
+            </div>
+          </Drawer>
         </>
       ) : (
         <>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
+          <div className={track.container}>
             <button
               onClick={(e) => {
-                getUserComplaints("");
+                getUsercomplains("");
               }}
               className={track.btn}
             >
@@ -290,7 +292,7 @@ console.log(mergeArray)
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("withdraw");
+                getUsercomplains("withdraw");
               }}
               className={track.btn}
             >
@@ -298,7 +300,7 @@ console.log(mergeArray)
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("open");
+                getUsercomplains("open");
               }}
               className={track.btn}
             >
@@ -306,7 +308,7 @@ console.log(mergeArray)
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("assign");
+                getUsercomplains("assign");
               }}
               className={track.btn}
             >
@@ -314,7 +316,7 @@ console.log(mergeArray)
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("resolved");
+                getUsercomplains("resolved");
               }}
               className={track.btn}
             >
@@ -322,7 +324,7 @@ console.log(mergeArray)
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("closed");
+                getUsercomplains("closed");
               }}
               className={track.btn}
             >
@@ -330,7 +332,7 @@ console.log(mergeArray)
             </button>
             <button
               onClick={(e) => {
-                getUserComplaints("closed");
+                getUsercomplains("closed");
               }}
               className={track.btn}
             >
@@ -360,12 +362,12 @@ console.log(mergeArray)
                   <th>Date</th>
 
                   <th>Update</th>
-                  <th>Reassign</th>
+                  {/* <th>Reassign</th> */}
                 </tr>
               </thead>
               <tbody>
-                {complaints.length !== 0 ? (
-                  complaints.map((complain, i) => {
+                {complains.length !== 0 ? (
+                  complains.map((complain, i) => {
                     return (
                       <tr>
                         <td> {!complain.merged && <input type="checkbox" onChange={(e)=>addTicket(e,complain.complain_id)} />} </td>
@@ -400,6 +402,7 @@ console.log(mergeArray)
                               display: "flex",
                               alignItems: "center",
                               fontWeight: "500",
+                              justifyContent: "flex-end",
                             }}
                           >
                             <BsFillCircleFill
@@ -432,17 +435,9 @@ console.log(mergeArray)
                         <td style={{ display: "flex" }}>
                           <Button
                             // type="button"
-                            // className={track.button}
+                            className={track.update}
                             // bgcolor="#23322b"
-                            style={{
-                              backgroundColor: "rgb(48 53 48 / 68%)",
-                              padding: "10px 20px",
-                              borderRadius: "5px",
-                              color: "black",
-                              fontWeight: "bold",
-                              cursor: "pointer",
-                              boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.25)",
-                            }}
+
                             onClick={() => {
                               console.log(
                                 buttonText[complain.status.toLowerCase()]
@@ -462,7 +457,7 @@ console.log(mergeArray)
                             }
                           />
                         </td>
-                        <td>
+                        {/* <td>
                           <Button
                             style={{
                               backgroundColor: "rgb(48 53 48 / 68%)",
@@ -475,12 +470,12 @@ console.log(mergeArray)
                             }}
                             text="Reassign"
                           />
-                        </td>
+                        </td> */}
                       </tr>
                     );
                   })
                 ) : (
-                  <div>No Complaints Found</div>
+                  <div>No complains Found</div>
                 )}
               </tbody>
             </table>

@@ -1,29 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import firebase from 'firebase/compat/app';
+import firebase from "firebase/compat/app";
 // import logincss from "../../styles/Login.module.scss";
-import 'firebase/compat/auth';
-import { baseURL } from "../../config/config";
+import "firebase/compat/auth";
+import { baseURL, queryfn } from "../../config/config";
 import { FiExternalLink } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { setUserLogin } from "../../store/userReducer";
 import toast from "react-hot-toast";
-import Model from "../../components/model"
+import Model from "../../components/model";
 import { useSelector } from "react-redux";
-import { user as userState} from "../../store/userReducer";
+import { user as userState } from "../../store/userReducer";
 let temp = "";
 
 const Login = () => {
   const [viewOtpForm, setViewOtpForm] = useState(false);
   const [user, setUser] = useState(false);
 
-  const {role , isLogin} = useSelector(userState);
-  
+  const { role, isLogin } = useSelector(userState);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  if(isLogin)
-  {
+  if (isLogin) {
     navigate(`/${role}/home`);
   }
 
@@ -65,24 +64,39 @@ const Login = () => {
   });
 
   async function getUserData() {
-    const response = await fetch(baseURL + "/user/login", {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
-      body: JSON.stringify({
-        mobile_number: temp,
-      }),
+    const data = await queryfn({
+      endpoint: baseURL + "/user/login",
+      reqMethod: "POST",
+      body: JSON.stringify({ mobile_number: temp }),
+      failMsg: "can not get data!! Please Try later",
     });
-    const data = await response.json();
+    console.log("data", data);
+    dispatch(setUserLogin(data));
+    toast.success("Login Successfully");
     if (data.success) {
-      dispatch(setUserLogin(data));
-      toast.success("Login Successfully");
       navigate(`/${data.user.role}/home`);
     } else {
       toast.error("Login Fail");
     }
+
+    // const response = await fetch(baseURL + "/user/login", {
+    //   method: "POST",
+    //   credentials: "include",
+    //   headers: {
+    //     "Content-type": "application/json;charset=UTF-8",
+    //   },
+    //   body: JSON.stringify({
+    //     mobile_number: temp,
+    //   }),
+    // });
+    // const data = await response.json();
+    // if (data.success) {
+    //   dispatch(setUserLogin(data));
+    //   toast.success("Login Successfully");
+    //   navigate(`/${data.user.role}/home`);
+    // } else {
+    //   toast.error("Login Fail");
+    // }
   }
 
   const loginSubmit = async (e) => {
@@ -90,7 +104,8 @@ const Login = () => {
 
     let phone_number = "+91" + e.target.phone.value;
     temp = e.target.phone.value;
-    console.log("baseURL:", baseURL);
+    console.log("baseURL:", baseURL, temp);
+    
     const response = await fetch(baseURL + "/user/check-login", {
       method: "POST",
       credentials: "include",
@@ -131,11 +146,14 @@ const Login = () => {
       .then((confirmationResult) => {
         console.log(confirmationResult);
         console.log("success");
-   
-        getUserData();
+
+        getUserData().then(() => {
+          console.log("done");
+        });
       })
       .catch((error) => {
-        alert(error.message);
+        // alert(error.message);
+        toast.error("Invalid Otp");
       });
   };
 
@@ -165,9 +183,14 @@ const Login = () => {
               </form>
             </>
           ) : (
-            <Model title="" close={()=>setViewOtpForm(false)}>
-              <form onSubmit={otpSubmit} style={{width:"100%"}}>
-                <h3 style={{textAlign:"center",margin:"10px"}} className="otptitle">Verify Otp</h3>
+            <Model title="" close={() => setViewOtpForm(false)}>
+              <form onSubmit={otpSubmit} style={{ width: "100%" }}>
+                <h3
+                  style={{ textAlign: "center", margin: "10px" }}
+                  className="otptitle"
+                >
+                  Verify Otp
+                </h3>
                 {/* <label htmlFor="username"></label> */}
                 <input
                   placeholder="Enter Your Otp"

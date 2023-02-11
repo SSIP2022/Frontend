@@ -229,10 +229,11 @@ const Home = () => {
                 <div style={{ margin: "4px", position: "relative" }}>
                   {isPicker && (
                     <PickerOverlay
-                      apikey={"AJbGbxcJRbqofHCOKiyGJz"}
+                      apikey={"AUX9s9dBoTHKQqwFdHnmJz"}
                       action="pick"
                       pickerOptions={{
-                        maxSize: 10 * 1024 * 1024,
+                        accept: "image/*",
+                        maxSize: 5 * 1024 * 1024,
                       }}
                       onUploadDone={(resp) => {
                         console.log(resp);
@@ -293,7 +294,7 @@ const Home = () => {
           </Modal> */}
           <Drawer isActive={openDetails} close={() => setOpenDetails(false)}>
           <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ margin: "10px auto" }}>
+            <div style={{ margin: "auto"  }}>
               <img
                 className={track.modalimg}
                 src={
@@ -386,108 +387,108 @@ const Home = () => {
               <div className={tasks.greetings_welcome}>Your today's tasks</div>
             </div>
           </div>
-          <div  className={styles.allcomplaints}>
-          {complains &&
-            complains.map((ele, ind) => {
-              if (ele.status !== "closed") {
-                return (
-                  <div key={ind} className={styles.allcomplaints}>
-                    <div
-                      className={styles.complaints}
-                      // onClick={() => {
-                      //   setDetails(complaint);
-                      //   setOpenModel(true);
-                      // }}
-                      // style={{ cursor: "pointer" }}
-                    >
+          <div className={styles.allcomplaints}>
+            {complains &&
+              complains.map((ele, ind) => {
+                if (ele.status !== "closed") {
+                  return (
+                    <div key={ind} className={styles.allcomplaints}>
                       <div
-                        style={{
-                          position: "relative",
-                          top: "20px",
-                          left: "15px",
-                        }}
+                        className={styles.complaints}
+                        // onClick={() => {
+                        //   setDetails(complaint);
+                        //   setOpenModel(true);
+                        // }}
+                        // style={{ cursor: "pointer" }}
                       >
-                        <BsFillCircleFill
+                        <div
                           style={{
-                            // width: "15px",
-                            // height: "20px",
-                            color:
-                              buttonText[ele.status.toLowerCase()]["color"],
-
-                            // marginRight: "10px",
-                          }}
-                        />
-                      </div>
-                      <span className={styles.text1}>{ele.status}</span>
-                      <span className={styles.token}>
-                        <i>#Token No: </i>
-                        {ele.complain_id.slice(-6)}
-                      </span>
-                      <img
-                        src={
-                          JSON.parse(ele.file_data[0]).url
-                            ? JSON.parse(ele.file_data[0]).url
-                            : "/istockphoto-1074493878-612x612.png"
-                        }
-                        className={styles.cImage}
-                        alt=""
-                      />
-                      <span
-                        className={styles.text2}
-                        type="button"
-                        onClick={() => {
-                          // setDetails(complaint);
-                          // setOpenModel(true);
-                        }}
-                      >
-                        {ele.subject.slice(0, 25) + ".."}{" "}
-                        {/* <AiOutlineInfoCircle fontSize="1em" /> */}
-                      </span>
-                      <span className={styles.text3}>
-                        {"Near " + ele.ward_name}
-                      </span>
-                      <div className={styles.detailsbtn}>
-                        <span
-                          // className={styles.withdraw}
-                          style={{ cursor: "pointer" }}
-                          onClick={() => {
-                            setDetails(ele);
-                            setOpenDetails(true);
+                            position: "relative",
+                            top: "20px",
+                            left: "15px",
                           }}
                         >
-                          Details
+                          <BsFillCircleFill
+                            style={{
+                              // width: "15px",
+                              // height: "20px",
+                              color:
+                                buttonText[ele.status.toLowerCase()]["color"],
+
+                              // marginRight: "10px",
+                            }}
+                          />
+                        </div>
+                        <span className={styles.text1}>{ele.status}</span>
+                        <span className={styles.token}>
+                          <i>#Token No: </i>
+                          {ele.complain_id.slice(-6)}
                         </span>
-                        {/* <span className={styles.withdraw} onClick={()=>{
+                        <img
+                          src={
+                            JSON.parse(ele.file_data[0]).url
+                              ? JSON.parse(ele.file_data[0]).url
+                              : "/istockphoto-1074493878-612x612.png"
+                          }
+                          className={styles.cImage}
+                          alt=""
+                        />
+                        <span
+                          className={styles.text2}
+                          type="button"
+                          onClick={() => {
+                            // setDetails(complaint);
+                            // setOpenModel(true);
+                          }}
+                        >
+                          {ele.subject.slice(0, 25) + ".."}{" "}
+                          {/* <AiOutlineInfoCircle fontSize="1em" /> */}
+                        </span>
+                        <span className={styles.text3}>
+                          {"Near " + ele.ward_name}
+                        </span>
+                        <div className={styles.detailsbtn}>
+                          <span
+                            // className={styles.withdraw}
+                            style={{ cursor: "pointer" }}
+                            onClick={() => {
+                              setDetails(ele);
+                              setOpenDetails(true);
+                            }}
+                          >
+                            Details
+                          </span>
+                          {/* <span className={styles.withdraw} onClick={()=>{
                          setDetails(complaint);
                          setOpenModel(true);
                         }}>Withdraw</span> */}
-                        <span
-                          style={{ cursor: "pointer" }}
-                          // className={styles.detailsbtn}
-                          onClick={() => {
-                            // if (complaint.status != "open") {
-                            //     // toast.error("Complaint is in progress");
-                            //     return;
-                            // }
-                            // setWithdraw(true);
-                            // setComplaint(complaint);
-                            if (ele.status === "resolved") {
-                              toast.error("You can't perform this task");
-                              return;
-                            }
-                            setDetails(ele);
-                            setOpenResolve(true);
-                          }}
-                        >
-                          Resolve
-                        </span>
+                          <span
+                            style={{ cursor: "pointer" }}
+                            // className={styles.detailsbtn}
+                            onClick={() => {
+                              // if (complaint.status != "open") {
+                              //     // toast.error("Complaint is in progress");
+                              //     return;
+                              // }
+                              // setWithdraw(true);
+                              // setComplaint(complaint);
+                              if (ele.status === "resolved") {
+                                toast.error("You can't perform this task");
+                                return;
+                              }
+                              setDetails(ele);
+                              setOpenResolve(true);
+                            }}
+                          >
+                            Resolve
+                          </span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                );
-              }
-            })}
-            </div>
+                  );
+                }
+              })}
+          </div>
         </>
       )}
     </>

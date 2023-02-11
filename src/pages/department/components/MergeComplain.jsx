@@ -190,11 +190,11 @@ function MergeComplain() {
     
       return (
         <>
-          {Object.keys(complaints) ? (<>
+          {Object.keys(complaints).length > 0 ? (<>
           
           {Object.keys(complaints).map((id)=>{
             return(
-                <div>{ complaints[ id][0].subject}</div>
+                <div>{ complaints[id][0]?.subject}</div>
             )
           })}
           

@@ -59,6 +59,7 @@
     cursor: pointer;
     width: 120px;
     height: 120px;
+    // margin-bottom: 10px;
 }
 .iconcontainer .icon:hover{
     background-color: #f5f5f5;
@@ -90,6 +91,19 @@
 @media only screen and (max-width: 415px) {
     .feedback_content{
         min-width: 270px;
+    }
+}
+@media only screen and (min-width:360px)
+{
+    .iconcontainer{
+        margin: 26px 18px;
+        padding-left: 20px;
+    }
+    .icon{
+        margin-bottom: 10px;
+    }
+    .greetings_welcome{
+        font-size: 1.3rem;
     }
 }
 

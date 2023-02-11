@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import form from "../../../styles/Registercomplaint.module.scss";
 import toast from "react-hot-toast";
 import { PickerOverlay } from "filestack-react";
-import { baseURL } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { user } from "../../../store/userReducer";
@@ -142,12 +142,9 @@ const RegisterComplaint = () => {
 
   const onSubmitComplain = async (e) => {
     e.preventDefault();
-    const response = await fetch(baseURL + `/complain/create`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/create`,
+      reqMethod: "POST",
       body: JSON.stringify({
         subject: subject,
         description: description,
@@ -159,8 +156,9 @@ const RegisterComplaint = () => {
         file_data: file_data,
         department: department,
       }),
+      failMsg: "Error During Register Complaint",
     });
-    const data = await response.json();
+    console.log("Register complaint data:", data);
     if (data.success) {
       toast.success("Complaint Registerd");
       navigate(`/user/dashboard`);
@@ -325,7 +323,7 @@ const RegisterComplaint = () => {
                   );
                 })}
               </select>
-              <h4>Description</h4>
+              <h4>Description {`( <=500 character)`}</h4>
               <input
                 type="text"
                 name="problem"
@@ -396,7 +394,7 @@ const RegisterComplaint = () => {
               />
             </label> */}
             <label>
-              <h4>Upload Image:</h4>
+              <h4>Upload Image: {`( <= 5mb)`}</h4>
               {/* <input type="file" id="file" aria-label="File browser example"/>
   <span class="file-custom"/> */}
               {/* <input type="file" name="file" className={form.file} /> */}
@@ -455,10 +453,11 @@ const RegisterComplaint = () => {
           <div style={{ margin: "4px", position: "relative" }}>
             {isPicker && (
               <PickerOverlay
-                apikey={"AJbGbxcJRbqofHCOKiyGJz"}
+                apikey={"AUX9s9dBoTHKQqwFdHnmJz"}
                 action="pick"
                 pickerOptions={{
-                  maxSize: 10 * 1024 * 1024,
+                  accept: "image/*",
+                  maxSize: 5 * 1024 * 1024,
                 }}
                 onUploadDone={(resp) => {
                   console.log(resp);
