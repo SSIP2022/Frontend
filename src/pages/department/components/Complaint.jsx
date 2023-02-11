@@ -315,6 +315,7 @@ const OfficerComplain = () => {
                   <th>Date</th>
 
                   <th>Update</th>
+                  <th>Merge</th>
                   {/* <th>Reassign</th> */}
                 </tr>
               </thead>
@@ -389,7 +390,7 @@ const OfficerComplain = () => {
                             // type="button"
                             className={track.update}
                             // bgcolor="#23322b"
-
+                            
                             onClick={() => {
                               console.log(
                                 buttonText[complain.status.toLowerCase()]
@@ -399,6 +400,7 @@ const OfficerComplain = () => {
                                   "text"
                                 ] !== "No Action"
                               ) {
+                                
                                 setDetails(complain);
                                 setConfirm(true);
                               }
@@ -409,6 +411,7 @@ const OfficerComplain = () => {
                             }
                           />
                         </td>
+                        <td><input type="checkbox" /></td>
                         {/* <td>
                           <Button
                             style={{

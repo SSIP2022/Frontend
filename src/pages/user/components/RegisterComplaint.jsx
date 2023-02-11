@@ -130,7 +130,23 @@ const RegisterComplaint = () => {
   const [ward, setWard] = useState("");
   const [department, setDepartment] = useState("NONE");
   const navigate = useNavigate();
+  const restrictedWords = ['<script>', '<', '{','('];
 
+  const handleChange = (event) => {
+    const description = event.target.value;
+    const wordArray = description.split(' ');
+    let valid = true;
+  
+    wordArray.forEach((word) => {
+      if (restrictedWords.includes(word) && description.length <= 512) {
+        valid = false;
+      }
+    });
+  
+    if (valid && description.length <= 512) {
+      setDecription(description);
+    }
+  };
   useEffect(() => {
     if (searchParams.get("department") !== null) {
       setDepartment(
@@ -323,16 +339,16 @@ const RegisterComplaint = () => {
                   );
                 })}
               </select>
-              <h4>Description {`( <=500 character)`}</h4>
-              <input
-                type="text"
-                name="problem"
-                required
-                placeholder="Enter your problem description"
-                // className={form.description}
-                value={description}
-                onChange={(e) => setDecription(e.target.value)}
-              />
+              <h4>Description {`( <=512 character)`}</h4>
+              
+            <input
+              type="text"
+              name="problem"
+              required
+              placeholder="Enter your problem description"
+              value={description}
+              onChange={handleChange}
+            />
             </label>
             {/* <label>
               <h4>Pincode</h4>
