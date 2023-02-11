@@ -70,7 +70,6 @@ export const queryfn = async ({
         toast.error("session expired Login again!!");
         store.dispatch(setUserLogout());
         window.location.href = window.location.origin + "/";
-
         return;
       }
 
