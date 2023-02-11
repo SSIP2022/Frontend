@@ -29,6 +29,7 @@ import AdminProfile from "./pages/department/components/Profile";
 import Worker from "./pages/worker/index";
 import WorkerProfile from "./pages/worker/components/Profile";
 import Tasks from "./pages/worker/components/Tasks";
+import MergeComplain from "./pages/department/components/MergeComplain";
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -75,6 +76,7 @@ function App() {
         <Route path="/officer" element={<Department />}>
           <Route path="home" element={<OfficerComplain />} />
           <Route path="profile" element={<AdminProfile />} />
+          <Route path="merge-complain" element={<MergeComplain />} />
         </Route>
 
         <Route path="/admin" element={<Admin />}>
