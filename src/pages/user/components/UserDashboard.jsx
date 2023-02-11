@@ -15,6 +15,7 @@ import { BsFillCircleFill } from "react-icons/bs";
 const UserDashboard = () => {
   const { userData } = useSelector(user);
   console.log("userData:", userData);
+  const [confirm, setConfirm] = useState(false);
   const [details, setDetails] = useState({});
   const [openModel, setOpenModel] = useState(false);
 
@@ -57,7 +58,31 @@ const UserDashboard = () => {
       text: "No Action",
       color: "red",
     },
+    reopen: {
+      text: "Assign",
+      color: "#391DF2",
+    },
   };
+
+  const UpdateStatus = async () => {
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/update-status`,
+      reqMethod: "PUT",
+      body: JSON.stringify({
+        status: "reopen",
+        complain_id: details.complain_id,
+      }),
+      failMsg: "Error in updataing status",
+    });
+    console.log("Update Status", data);
+    if (data.success) {
+      toast.success("Status Updated Successfully");
+      setConfirm(false);
+    } else {
+      toast.error("Fail To Update Status");
+    }
+  };
+
   const withdrawComplaint = async () => {
     const data = await queryfn({
       endpoint: baseURL + `/complain/withdraw`,
@@ -83,7 +108,7 @@ const UserDashboard = () => {
     console.log("user all complaints:", data);
     if (data.success) {
       setComplaints(data.complains);
-    } 
+    }
   }
 
   async function handleGetStatus() {
@@ -181,8 +206,12 @@ const UserDashboard = () => {
                setDetails(complaint);
                setOpenModel(true);
               }}>Withdraw</span> */}
-                {complaint.status === "closed" ? (
+                {complaint.status === "resolved" ? (
                   <span
+                    onClick={() => {
+                      setConfirm(true);
+                      setDetails(complaint);
+                    }}
                     style={{ cursor: "pointer" }}
                     // onClick={() => {
                     //   if (complaint.status !== "open") {
@@ -211,27 +240,28 @@ const UserDashboard = () => {
                     Withdraw
                   </span>
                 )}
-                {complaint.status==="withdraw" || complaint.status==="open" || complaint.status==="assign" ? null : (<span
-                  style={{ cursor: "pointer" }}
-                  onClick={() => {
-                    if (complaint.status === "open") {
-                      toast.error("Complaint is in progress");
-                      return;
-                    }
-                    if(complaint.status === "withdraw"){
-                      toast.error("Complaint is withdrawn");
-                      return;
-                    }
-                    setFeedback(true);
-                    setComplaint(complaint);
-                    setDetails(complaint);
-                  }}
-                >
-                  Feedback
-                </span>)
-
-                }
-                
+                {complaint.status === "withdraw" ||
+                complaint.status === "open" ||
+                complaint.status === "assign" ? null : (
+                  <span
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      if (complaint.status === "open") {
+                        toast.error("Complaint is in progress");
+                        return;
+                      }
+                      if (complaint.status === "withdraw") {
+                        toast.error("Complaint is withdrawn");
+                        return;
+                      }
+                      setFeedback(true);
+                      setComplaint(complaint);
+                      setDetails(complaint);
+                    }}
+                  >
+                    Feedback
+                  </span>
+                )}
               </div>
             </div>
           );
@@ -304,7 +334,10 @@ const UserDashboard = () => {
                 alt=""
               />
             </div>
-            <div className={track.details} style={{display:"flex", flexDirection:"column"}}>
+            <div
+              className={track.details}
+              style={{ display: "flex", flexDirection: "column" }}
+            >
               <h4>
                 <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
                 {details.creator_id.slice(-6)}
@@ -374,6 +407,22 @@ const UserDashboard = () => {
             )}
           </div>
         </Drawer>
+      )}
+      {confirm && (
+        <Modal title="Confirm Status" close={() => setConfirm(false)}>
+          <h4>
+            Now the status for this complain will become {details.status} to
+            reopen
+          </h4>
+          <Button
+            onClick={() => {
+              UpdateStatus();
+            }}
+            bgcolor="green"
+            color="white"
+            text="Confirm"
+          />
+        </Modal>
       )}
     </div>
     // <>
