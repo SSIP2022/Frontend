@@ -105,6 +105,7 @@ const Login = () => {
     let phone_number = "+91" + e.target.phone.value;
     temp = e.target.phone.value;
     console.log("baseURL:", baseURL, temp);
+    
     const response = await fetch(baseURL + "/user/check-login", {
       method: "POST",
       credentials: "include",

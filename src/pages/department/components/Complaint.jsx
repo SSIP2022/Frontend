@@ -108,21 +108,18 @@ const OfficerComplain = () => {
     if (newStatus == "no action") {
       return;
     }
-    const response = await fetch(baseURL + `/complain/update-status`, {
-      method: "PUT",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/update-status`,
+      reqMethod: "PUT",
       body: JSON.stringify({
         status: newStatus,
         complain_id: id,
         worker_id: "7d8d864b-8552-4633-aa65-9ceb2eff1a0e",
         department_id: userData.user_id,
       }),
+      failMsg: "Error in updataing status",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Updated Status:", data);
     if (data.success) {
       toast.success("Status Updated Successfully");
       setConfirm(false);
@@ -133,23 +130,58 @@ const OfficerComplain = () => {
   }
 
   async function handleGetStatus() {
-    const response = await fetch(baseURL + `/complain/trace-complain`, {
-      method: "POST",
-      credentials: "include",
-      headers: {
-        "Content-type": "application/json;charset=UTF-8",
-      },
+    const data = await queryfn({
+      endpoint: baseURL + `/complain/trace-complain`,
+      reqMethod: "POST",
       body: JSON.stringify({
         complain_id: details.complain_id,
       }),
+      failMsg: "Error in trace complain",
     });
-    const data = await response.json();
-    console.log("data:", data);
+    console.log("Trace complain:", data);
     if (data.success) {
       setTrace(data.trace);
     } else {
     }
   }
+
+  const mergeArray = {}
+
+  function addTicket(e,complain_id){
+    if(e.target.checked){
+      mergeArray[complain_id] = complain_id
+    }else{
+      delete mergeArray[complain_id]
+    }
+
+ }
+
+ async function mergeTicket(){
+  const merge_id = Date.now()
+console.log(mergeArray)
+  const response = await fetch(baseURL + `/complain/merge-complain`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-type": "application/json;charset=UTF-8",
+    },
+    body: JSON.stringify({
+      merge_id,
+      complain_id:Object.values(mergeArray),
+    }),
+  });
+  const data = await response.json();
+  console.log("data:", data);
+  if (data.success) {
+    setTrace(data.trace);
+  } else {
+  }
+  
+  
+  console.log(mergeArray)
+ }
+
+  
 
   useEffect(() => {
     getUsercomplains();
@@ -306,11 +338,20 @@ const OfficerComplain = () => {
             >
               Reassign
             </button>
+            <button
+              onClick={(e) => {
+                mergeTicket()
+              }}
+              className={track.btn}
+            >
+              Merge
+            </button>
           </div>
           <div className={track.back}>
             <table className={track.table}>
               <thead>
                 <tr>
+                  <th>Merge</th>
                   <th>S.No</th>
                   <th>User ID</th>
                   {/* <th>Area</th> */}
@@ -329,6 +370,7 @@ const OfficerComplain = () => {
                   complains.map((complain, i) => {
                     return (
                       <tr>
+                        <td> {!complain.merged && <input type="checkbox" onChange={(e)=>addTicket(e,complain.complain_id)} />} </td>
                         <td data-label="S.No">{i + 1}</td>
                         <td
                           data-label="Token No"

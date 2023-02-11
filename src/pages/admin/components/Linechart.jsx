@@ -65,7 +65,7 @@ const AdminChart = () => {
       options={options}
       series={series}
       type="bar"
-      width={screenWidth * 0.65}
+      width={screenWidth * 0.5}
       height={320}
     />
   );

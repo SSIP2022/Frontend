@@ -2,9 +2,9 @@ import toast from "react-hot-toast";
 import store from "../store/index";
 import { setToken, setUserLogout } from "../store/userReducer";
 
-const production = true;
+const production = false;
 export const baseURL = production
-  ? "https://wild-lime-prawn.cyclic.app"
+  ? "https://web-production-64bbc.up.railway.app"
   : "http://localhost:7000";
 
 // const dispatch= useDispatch();
@@ -69,7 +69,7 @@ export const queryfn = async ({
       } else if (refreshResult.status === 403) {
         toast.error("session expired Login again!!");
         store.dispatch(setUserLogout());
-        window.location.href = window.location.origin + "/sign-in";
+        window.location.href = window.location.origin + "/";
 
         return;
       }
