@@ -1,0 +1,415 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 13.7
+-- Dumped by pg_dump version 15.1
+
+-- Started on 2023-02-22 09:47:51
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+DROP DATABASE postgres;
+--
+-- TOC entry 3893 (class 1262 OID 14301)
+-- Name: postgres; Type: DATABASE; Schema: -; Owner: postgres
+--
+
+CREATE DATABASE postgres WITH TEMPLATE = template0 ENCODING = 'UTF8' LOCALE_PROVIDER = libc LOCALE = 'en_US.UTF-8';
+
+
+ALTER DATABASE postgres OWNER TO postgres;
+
+\connect postgres
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- TOC entry 3894 (class 0 OID 0)
+-- Dependencies: 3893
+-- Name: DATABASE postgres; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON DATABASE postgres IS 'default administrative connection database';
+
+
+--
+-- TOC entry 6 (class 2615 OID 2200)
+-- Name: public; Type: SCHEMA; Schema: -; Owner: postgres
+--
+
+-- *not* creating schema, since initdb creates it
+
+
+ALTER SCHEMA public OWNER TO postgres;
+
+--
+-- TOC entry 2 (class 3079 OID 16416)
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- TOC entry 3896 (class 0 OID 0)
+-- Dependencies: 2
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- TOC entry 201 (class 1259 OID 16427)
+-- Name: complains; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.complains (
+    complain_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    subject character varying(200) NOT NULL,
+    description character varying(500) NOT NULL,
+    status character varying(20) NOT NULL,
+    address character varying(200) NOT NULL,
+    creator_id uuid NOT NULL,
+    assign_worker_id uuid,
+    close_by uuid,
+    assign_department character varying(50) NOT NULL,
+    create_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    update_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    worker_feedback character varying(200),
+    resolved_by uuid,
+    file_data text[],
+    merged boolean DEFAULT false,
+    merged_id uuid,
+    zone_name character varying(50),
+    ward_name character varying(50),
+    reopen_count integer DEFAULT 0,
+    latitude numeric,
+    longitude numeric
+);
+
+
+ALTER TABLE public.complains OWNER TO postgres;
+
+--
+-- TOC entry 204 (class 1259 OID 16491)
+-- Name: t_e; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.t_e (
+    docs text
+);
+
+
+ALTER TABLE public.t_e OWNER TO postgres;
+
+--
+-- TOC entry 202 (class 1259 OID 16449)
+-- Name: trace_complain; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.trace_complain (
+    complain_id uuid NOT NULL,
+    status character varying(25) NOT NULL,
+    updated_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP
+);
+
+
+ALTER TABLE public.trace_complain OWNER TO postgres;
+
+--
+-- TOC entry 203 (class 1259 OID 16453)
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    user_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    role character varying(10) DEFAULT 'user'::character varying,
+    first_name character varying(50) NOT NULL,
+    last_name character varying(50) NOT NULL,
+    birth_date date NOT NULL,
+    email character varying(50) NOT NULL,
+    mobile_number bigint NOT NULL,
+    district character varying(50) DEFAULT 'Ahemdabad'::character varying NOT NULL,
+    area character varying(30) NOT NULL,
+    address character varying(200) NOT NULL,
+    pincode integer NOT NULL,
+    gender character varying(20) NOT NULL,
+    create_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    update_at timestamp without time zone DEFAULT CURRENT_TIMESTAMP,
+    is_active boolean DEFAULT true,
+    complain_count integer DEFAULT 0,
+    department character varying(50)
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- TOC entry 3884 (class 0 OID 16427)
+-- Dependencies: 201
+-- Data for Name: complains; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('9809d7aa-6fc4-4186-978f-7cb2a57462b5', '( સાફ સફાઈ થયેલ નથી  )  Cleaning-Scraping Not Carried Out', 'hbhbhv', 'open', 'gvgv', 'a70ea229-5a89-41d6-98e6-8ba90b746e97', NULL, NULL, 'Cleaning', '2023-02-09 16:04:46.273569', '2023-02-09 16:04:46.273569', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"a70ea229-5a89-41d6-98e6-8ba90b746e97\",\"url\":\"https://cdn.filestackcontent.com/J2jhmhFQTQqLuJ1Q0aTN\",\"filename\":\"password.png\"}"}', false, NULL, 'East', 'Amraiwadi', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('44e25d46-1375-452d-b872-e5fa909277e2', '( વાલ્વ લીકેજ  )  Valve Leakage', 'Leakage', 'withdraw', 'Near water tank', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Water', '2023-02-09 13:38:00.06891', '2023-02-10 06:41:48.959866', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/789vtoKhRqaBwEXZzMjC\",\"filename\":\"Spew\"}"}', false, NULL, 'Central', 'Dariapur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('18ae4a93-2fd4-44a4-b0df-bacaa6b097f9', '( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly', '<script>alert("Hello")</script>', 'assign', 'D-mart Naroda', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Health', '2023-02-10 10:45:25.900227', '2023-02-10 11:08:38.465128', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/57lygVIkQzy5UumNNGxF\",\"filename\":\"97807a119125205.609ac6f86a6e7.jpg\"}"}', true, 'be452d93-9c75-43fb-a75a-ebb0cdbb2c38', 'Central', 'Shahpur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('15032676-3b27-492b-8b94-9c186933eaed', '( બિલ્ડીંગ મટીરીયલનો નિકાલ  )  Lifting of Building Materials', 'dsadsads', 'withdraw', 'dsadsadsa', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Cleaning', '2023-02-10 15:38:23.240312', '2023-02-10 17:37:54.722619', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/cGHj0PkQgOfN2JjVYF5g\",\"filename\":\"Dojeto.jpg\"}"}', false, NULL, 'Central', 'Shahpur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('8263ca41-9b5f-49b2-b0a1-2b39ecec8848', '( ખોરાક ભેળ સેળ  )  Adulteration of Food', 'Food Problem', 'open', 'Post office ', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Health', '2023-02-11 04:03:50.840255', '2023-02-11 04:03:50.840255', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/nLV3RqbOSfmzFBX3LmRu\",\"filename\":\"Roasted_Chicken\"}"}', false, NULL, 'South_West', 'Maktampura', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('e7c694dd-1961-4920-b050-dfbdd7b7255a', '( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly', 'hhbh', 'open', 'hgvh', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-11 04:05:17.61447', '2023-02-11 04:05:17.61447', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/bsQEe2lKSeiL1IEtRVuE\",\"filename\":\"project-photo1.png\"}"}', false, NULL, 'South_West', 'Vejalpur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('cf56056c-f0bb-4cdc-b4fe-fd5ea64e7b68', '( લાઇસન્સ વગર ધંધો કરે છે  )  Business Without License', 'Without Licence ', 'open', 'Main Location ', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Health', '2023-02-11 04:05:36.722365', '2023-02-11 04:05:36.722365', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/yzzcYTvwQyyrq0HAuruJ\",\"filename\":\"Bibliotheque_Nationale_de_France_(BNF)_-_National_Library_of_France\"}"}', false, NULL, 'North', 'Bapu_Nagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('50bb610a-0572-42b6-a8d4-6cda62d46a25', '( નીચા પાણીનું દબાણ  )  Low Water Pressure', 'water low pressure from the tab', 'open', 'xyz', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Water', '2023-02-11 04:31:17.548901', '2023-02-11 04:31:17.548901', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/LvYuzYoITRabTaC91pFE\",\"filename\":\"Screenshot_20230210_110130.png\"}"}', false, NULL, 'South_West', 'Jodhpur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('9bc65d4e-10fb-413d-8a0a-c701d5b0d788', '( હોટલ, રેસ્ટોરંટનો કચરો અને સફાઈ  )  Garbage And Cleanliness of Hotel-Restaurant', 'Garbage ', 'assign', 'IIM ', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', NULL, 'Health', '2023-02-11 04:07:32.946856', '2023-02-11 04:53:17.012517', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/r2cY1ClSxzXNZVKWTYgi\",\"filename\":\"Beach_Garbage_1\"}"}', false, NULL, 'East', 'Amraiwadi', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('79c29ff3-bb88-41d8-b7ef-a2315b87a137', '( અન્ય  )  Other', 'Loud Sound', 'resolved', 'Gomtipura chock ', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', NULL, 'Health', '2023-02-11 04:09:22.207992', '2023-02-11 07:53:24.210938', 'resolved', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/xcsFDCquT1SscBnwp3HO\",\"filename\":\"Loud_Sounds\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/8x1b5oGR7arlk8r2j2LP\",\"filename\":\"IMG-20230211-WA0000.jpg\"}"}', false, NULL, 'East', 'Vastral', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('7f2651a6-5d5a-4717-9d7d-fc0be0d55bb2', '( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly', 'corona', 'resolved', 'Motera Stadium', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', NULL, 'Health', '2023-02-09 06:16:32.420253', '2023-02-09 11:11:41.987436', 'fake', NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/NehN8QmQ6SZOVGqdASWy\",\"filename\":\"OlympicRaceTrackOlympia.JPG\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/wIjrVCqISNmd0FyhYDNQ\",\"filename\":\"Dojeto.jpg\"}"}', true, 'ef19143b-eea2-43a6-a9b9-82421129251b', 'Central', 'Shahpur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('c5edbacd-b25a-4f3a-9c00-45cde1652619', '( હોટલ, રેસ્ટોરંટનો કચરો અને સફાઈ  )  Garbage And Cleanliness of Hotel-Restaurant', 'Garbage not collected', 'closed', 'Chiloda', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', NULL, 'Health', '2023-02-08 16:01:06.7025', '2023-02-09 04:21:48.1836', 'resolved', NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/fz2RTw6lT3iLaeGI3XSn\",\"filename\":\"images.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/nsTwqd1ZSbMLtZx4eBn7\",\"filename\":\"IMG-20230208-WA0006.jpg\"}"}', true, 'ef19143b-eea2-43a6-a9b9-82421129251b', 'North', 'Naroda', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('1bc2b0f2-491b-4e7c-8174-038e74d33522', '( ગંદા સ્થળોએ જંતુનાશક દવા છાંટવી  )  Sprinkling of Insecticides at Dirty Places', 'this is wrong address', 'assign', '6 rasta , Mani Nagar ', 'a70ea229-5a89-41d6-98e6-8ba90b746e97', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', NULL, 'Health', '2023-02-11 04:11:36.701897', '2023-02-11 04:50:24.675966', NULL, NULL, '{"{}"}', true, '90f60b50-ac4b-47df-a0bb-6960f962a82f', 'East', 'Odhav', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('0b405559-978c-4899-9f5b-aa4cec5cb799', '( દુષિત પાણી વાળા વિસ્તારમાં ક્લોરિનની ગોળીઓનું વિતરણ  )  Distribution of Chlorine Tablets In Areas Where Water Contaminated', 'Test ', 'resolved', 'Test ', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', NULL, 'Health', '2023-02-09 09:39:56.275994', '2023-02-09 17:24:14.700049', 'resolved', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/TzifEE9LRWljEnwyuMkQ\",\"filename\":\"Snapchat-314499104.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/vZHeKsPRQYCeBR1uw0Fg\",\"filename\":\"DALL·E 2023-01-01 21.14.16 - SpaceScape logo.png\"}"}', true, '84c2a91d-a5c4-4e51-a17d-66061f86701f', 'Central', 'Dariapur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('1b55e3d0-346f-4a32-9c14-fde465f53340', '( અન્ય  )  Other', 'The burning of solid wastes are continuously coming to households', 'withdraw', 'FSD', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Cleaning', '2023-02-09 11:49:21.9423', '2023-02-10 18:42:50.953806', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/AWnauN8iTk2ehGGCEfPb\",\"filename\":\"burning-garbage-dump-pollution-footage-008551367_prevstill-1200x675.jpg\"}"}', false, NULL, 'Central', 'Dariapur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('bf225fe5-9f72-4ad1-99d8-dc8f1acb1dce', '( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly', 'hello', 'withdraw', 'D-mart Naroda', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Health', '2023-02-10 10:34:14.380178', '2023-02-10 17:57:04.245092', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/uxPJjO87Rua8vcNR4aXP\",\"filename\":\"08eb8b20708a0cb5ed2a3d27b365de50.jpg\"}"}', true, 'be452d93-9c75-43fb-a75a-ebb0cdbb2c38', 'South_West', 'Jodhpur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', '( ફૂડ પોઈઝનિંગ )  Food Poisoning', 'Description', 'closed', 'SP_Stadium ni saame', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'Health', '2023-02-08 15:48:00.042488', '2023-02-11 08:22:38.958831', 'resolved', NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/xQtTWydzRRulry2ivepj\",\"filename\":\"download.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/CDw75C5RSGGlb7E9fuvv\",\"filename\":\"DALL·E 2023-01-01 21.14.16 - SpaceScape logo.png\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/hbQpAywyS62CZOyek3Mj\",\"filename\":\"second.png\"}"}', true, 'e0a6bb32-bfa3-4f63-a948-fd48a3af200b', 'West', 'SP_Stadium', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('30e59fcb-397a-45a2-aef5-229c7063b214', '( ખોરાક ભેળ સેળ  )  Adulteration of Food', 'sdfgsdfg', 'open', 'ddfdfg', '3bab80d9-8223-4311-8370-138c93439619', NULL, NULL, 'Health', '2023-02-10 05:59:54.43959', '2023-02-10 05:59:54.43959', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"3bab80d9-8223-4311-8370-138c93439619\",\"url\":\"https://cdn.filestackcontent.com/PJHtMp6ZQNKiYAS9vQAa\",\"filename\":\"Picture1.png\"}"}', true, '181eb726-855d-4379-bfa3-2682e039ac8e', 'Central', 'Dariapur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('bf36d1a9-de06-4934-b19b-4dfc032534ba', '( જીવજંતુઓની અટકાયતના કોઈ પગલા લીધા નથી  )  No Insecticide Measures Taken', 'test', 'closed', 'test', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'Health', '2023-02-09 17:26:40.656117', '2023-02-10 10:01:30.863797', 'resolved', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/MgfwQM23QFmeXdxMdMh3\",\"filename\":\"burning-garbage-dump-pollution-footage-008551367_prevstill-1200x675.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/lmdOW3UPSp2PVeamkIyW\",\"filename\":\"burning-garbage-dump-pollution-footage-008551367_prevstill-1200x675.jpg\"}"}', true, '181eb726-855d-4379-bfa3-2682e039ac8e', 'Central', 'Dariapur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('bd72a8b8-8c48-444d-b842-028878e57f20', '( હોટલ, રેસ્ટોરંટનો કચરો અને સફાઈ  )  Garbage And Cleanliness of Hotel-Restaurant', 'wdwdsd', 'assign', 'uwhdujd', 'a70ea229-5a89-41d6-98e6-8ba90b746e97', NULL, NULL, 'Health', '2023-02-09 16:09:45.974615', '2023-02-09 16:10:15.583485', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"a70ea229-5a89-41d6-98e6-8ba90b746e97\",\"url\":\"https://cdn.filestackcontent.com/tYUD3btIS7iMf8yPoxwG\",\"filename\":\"TIC TOC TOE.png\"}"}', true, '578bfe1d-1687-4226-9896-697e13cd44fe', 'North', 'Bapu_Nagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('f8d6f5ba-8d03-49bb-9d93-18fb01092a95', '( સ્ટ્રીટ લાઈટ ના થાંબલા ઉપર સ્પાર્કીંગ   )  Sparking on Street light Pole', 'asdf', 'withdraw', 'test', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Electricity', '2023-02-10 13:11:37.998959', '2023-02-10 17:44:20.875613', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/YissyChqSBWO7MMfNzCb\",\"filename\":\"t1641796779_YIUsdsSmQT.jpg\"}"}', false, NULL, 'East', 'Odhav', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('b65a7de6-2cf8-47a6-9161-56e874580854', '( દુષિત પાણી વાળા વિસ્તારમાં ક્લોરિનની ગોળીઓનું વિતરણ  )  Distribution of Chlorine Tablets In Areas Where Water Contaminated', 'jsdfg', 'withdraw', 'test', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Health', '2023-02-10 10:42:28.580201', '2023-02-10 17:47:36.924029', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/Xex1F7yNS7OpW0qVhINV\",\"filename\":\"08eb8b20708a0cb5ed2a3d27b365de50.jpg\"}"}', true, 'be452d93-9c75-43fb-a75a-ebb0cdbb2c38', 'South', 'Danilimda', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('a19afbdf-31b7-44df-861f-f91e22e41fa0', '( અપૂરતો પ્રકાશ  )  Insufficient Lighting', 'fgjfghj', 'open', 'ghkgh', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Electricity', '2023-02-11 03:08:03.346895', '2023-02-11 03:08:03.346895', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/TKak37aGQWGXkqOS9IKX\",\"filename\":\"Picture1.png\"}"}', false, NULL, 'East', 'Gomtipur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('2d73b74e-d3fd-4afa-bade-d8b8c9ec4984', '( ફૂડ પોઈઝનિંગ )  Food Poisoning', 'osdks', 'open', 'sdkns', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-11 03:42:49.844889', '2023-02-11 03:42:49.844889', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/rWZ1lwTTxeLkLGABu86w\",\"filename\":\"Trashed_vegetables_in_Luxembourg.jpeg\"}"}', false, NULL, 'East', 'Virat_nagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('7c58d1ea-988e-4611-ae3f-68115bb9a683', '( કન્ટેનર, કચરા પેટી ઉપાડી નથી  )  Container-Dustbin Spot Not lifted', 'csdc', 'closed', 'cwcd', 'a70ea229-5a89-41d6-98e6-8ba90b746e97', NULL, '57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'Health', '2023-02-10 19:09:53.809174', '2023-02-11 08:22:38.958831', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"a70ea229-5a89-41d6-98e6-8ba90b746e97\",\"url\":\"https://cdn.filestackcontent.com/j3l5mCBMS8q00tFLPWWN\",\"filename\":\"Dojeto.jpg\"}"}', true, 'e0a6bb32-bfa3-4f63-a948-fd48a3af200b', 'East', 'Odhav', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('f3ab510b-2162-4d1f-9071-5c0f537be5a4', '( જીવજંતુઓની અટકાયતના કોઈ પગલા લીધા નથી  )  No Insecticide Measures Taken', 'test', 'closed', 'test', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'Health', '2023-02-09 17:46:02.087687', '2023-02-09 17:49:43.6342', 'fake', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/wuVu1ZzoQGqA0PNRkUtT\",\"filename\":\"08eb8b20708a0cb5ed2a3d27b365de50.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/RxAWoOZBS8iBCyTNvf35\",\"filename\":\"08eb8b20708a0cb5ed2a3d27b365de50.jpg\"}"}', true, '84c2a91d-a5c4-4e51-a17d-66061f86701f', 'South', 'Khokhra', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('64749dc4-8078-4f58-b800-12beb9f4ebfc', '( ફૂડ પોઈઝનિંગ )  Food Poisoning', 'osdks', 'open', 'sdkns', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-11 03:42:50.281774', '2023-02-11 03:42:50.281774', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/rWZ1lwTTxeLkLGABu86w\",\"filename\":\"Trashed_vegetables_in_Luxembourg.jpeg\"}"}', false, NULL, 'East', 'Virat_nagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('1907cd91-dae1-4054-a4b3-249da20e9d4d', '( ફૂડ પોઈઝનિંગ )  Food Poisoning', 'andaakd', 'open', 'block7', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-11 03:45:45.843977', '2023-02-11 03:45:45.843977', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/KtVwJgLxQLKvmqPLg5k6\",\"filename\":\"dinner_at_dirty_bird\"}"}', false, NULL, 'West', 'SP_Stadium', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('2ff08255-6e87-4f83-82e5-9c57c05901f0', '( લાઇસન્સ વગર ધંધો કરે છે  )  Business Without License', 'vpdvondcp;nd;sdcpd', 'open', '4 rasta , Mani Nagar ', 'a70ea229-5a89-41d6-98e6-8ba90b746e97', NULL, NULL, 'Health', '2023-02-11 03:46:16.384416', '2023-02-11 03:46:16.384416', NULL, NULL, '{"{}"}', false, NULL, 'Central', 'Shahpur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('30de1aeb-4424-403d-8284-d252111dd180', '( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly', 'sdnks', 'open', 'near temple', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-11 03:48:49.919808', '2023-02-11 03:48:49.919808', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/Ze0fPbzLSbqVGTx5GPb0\",\"filename\":\"Heavenly_Architecture_in_a_Dirty_Puddle\"}"}', false, NULL, 'South', 'Maninagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('e1ee4b98-c6a4-4652-96a5-498653fa6e24', '( હોટલ, રેસ્ટોરંટમાં વાસી ખોરાકનું વેચાણ  )  Sale of Stale Food In Hotels and Restaurants', '<script>asf</script>', 'open', 'test', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Health', '2023-02-11 03:51:07.80436', '2023-02-11 03:51:07.80436', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/oLnFfjNWTjCmCHHBTcr7\",\"filename\":\"t1641796779_YIUsdsSmQT.jpg\"}"}', false, NULL, 'East', 'Gomtipur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('c6a2f58f-001f-4628-87d2-feec31e56c90', '( હોટલ, રેસ્ટોરંટની નિરીક્ષણ અંગેની ફરીયાદ )  Complaints Regarding Inspection of Hotels - Restaurants', 'hvjgcvh', 'open', 'near main road', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-11 03:58:11.218928', '2023-02-11 03:58:11.218928', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/Uid6sJMkSYW4DQZatMVm\",\"filename\":\"Hotel\"}"}', false, NULL, 'North', 'Thakkarbapa_Nagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('83aeb3cd-3e8d-4840-afb1-189a526e0682', '( દુષિત પાણી વાળા વિસ્તારમાં ક્લોરિનની ગોળીઓનું વિતરણ  )  Distribution of Chlorine Tablets In Areas Where Water Contaminated', 'Water pollution ', 'open', 'Bus Stand ', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', NULL, NULL, 'Health', '2023-02-11 03:59:23.689068', '2023-02-11 03:59:23.689068', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/jyJTqwMQB2HOt3BYIa8r\",\"filename\":\"Nrborderborderentrythreecolorsmay05-1-.JPG\"}"}', false, NULL, 'North', 'Sardar_nagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('efadfab9-af0d-4d6f-b413-ac8a01bd8da8', '( બિલ્ડીંગ મટીરીયલનો નિકાલ  )  Lifting of Building Materials', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin gravida massa et auctor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum enim tempor metus tempor imperdiet. Integer eu velit metus. Vivamus nec enim ut ex ultrices bibendum sed vel tellus. Praesent iaculis sit amet dolor non rutrum. Etiam lacinia viverra tortor sit amet varius. Suspendisse fringilla libero alique.', 'withdraw', '6 rasta , Mani Nagar ', 'a70ea229-5a89-41d6-98e6-8ba90b746e97', NULL, NULL, 'Cleaning', '2023-02-11 04:14:25.161451', '2023-02-11 04:17:36.841489', NULL, NULL, '{"{}"}', false, NULL, 'North', 'India_Colony', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('fe501225-04ec-439f-a835-be3f8056d60b', '( હેન્ડ પંપ સમારકામ )  Repairing of Hand Pump', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sollicitudin gravida massa et auctor. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vivamus vestibulum enim tempor metus tempor imperdiet. Integer eu velit metus. Vivamus nec enim ut ex ultrices bibendum sed vel tellus. Praesent iaculis sit amet dolor non rutrum. Etiam lacinia viverra tortor sit amet varius. Suspendisse fringilla libero alique.', 'open', '6 rasta , Mani Nagar ', 'a70ea229-5a89-41d6-98e6-8ba90b746e97', NULL, NULL, 'Water', '2023-02-11 04:22:54.475492', '2023-02-11 04:22:54.475492', NULL, NULL, '{"{}"}', false, NULL, 'North', 'Thakkarbapa_Nagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('e5622031-4ae8-45a3-ba53-494e54450e72', '( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly', 'test video', 'open', 'asd', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-11 08:08:47.533427', '2023-02-11 08:08:47.533427', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/hpZJ42mzRfSoDGyxjNUh\",\"filename\":\"Screenshot (3).png\"}"}', false, NULL, 'East', 'Vastral', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('0ddfc876-1203-48c5-842d-0b158bf1d643', '( જીવજંતુઓની અટકાયતના કોઈ પગલા લીધા નથી  )  No Insecticide Measures Taken', 'asdf', 'closed', 'test', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'Health', '2023-02-11 05:31:12.264886', '2023-02-11 08:22:57.038826', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/r6zvS0TRnerq3zLg6tH3\",\"filename\":\"t1641796779_YIUsdsSmQT.jpg\"}"}', true, 'b645d0e2-7895-44dc-ab48-8b667a7d1653', 'North', 'Saraspur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('22c01630-6368-4cb2-8e77-21a099128744', '( અન્ય  )  Other', 'test1', 'resolved', 'dasdasd', '57557b87-f25c-4e2a-9929-93f8e75fe019', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', NULL, 'Health', '2023-02-11 05:55:30.718821', '2023-02-11 06:07:01.523867', 'resolved', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '{"{\"role\":\"user\",\"id\":\"57557b87-f25c-4e2a-9929-93f8e75fe019\",\"url\":\"https://cdn.filestackcontent.com/DQSSzRW6TTmHS5vRyH0d\",\"filename\":\"1cd0d8a76f6a6bfe769ad65303f6f7d5.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/JELpM8CfRmOW44qRvu8k\",\"filename\":\"1cd0d8a76f6a6bfe769ad65303f6f7d5.jpg\"}"}', true, '90f60b50-ac4b-47df-a0bb-6960f962a82f', 'West', 'Ranip', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('6b3b57de-bde0-43c1-9387-8c837b6b3fda', '( જીવજંતુઓની અટકાયતના કોઈ પગલા લીધા નથી  )  No Insecticide Measures Taken', 's dambdshja', 'closed', 'dbhsjabdhs', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'Health', '2023-02-10 18:43:58.28585', '2023-02-11 08:22:38.958831', 'not defined', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/LGItlg4TDSoryGzk2Mwh\",\"filename\":\"NewZealand-Stamp-1933-Health.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/GvTYQeWQ2CI6Yb50GoiQ\",\"filename\":\"Csl.JPG\"}"}', true, 'e0a6bb32-bfa3-4f63-a948-fd48a3af200b', 'North', 'India_Colony', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('a3656411-a4ee-41cc-9302-3ea08565f655', '( હોટલ, રેસ્ટોરંટની નિરીક્ષણ અંગેની ફરીયાદ )  Complaints Regarding Inspection of Hotels - Restaurants', 'test', 'closed', 'test', 'd0251baa-42a1-42c7-9e8d-20caa1e4cf1d', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'Health', '2023-02-11 03:35:38.506525', '2023-02-11 08:22:57.038826', 'resolved', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '{"{\"role\":\"user\",\"id\":\"d0251baa-42a1-42c7-9e8d-20caa1e4cf1d\",\"url\":\"https://cdn.filestackcontent.com/d9V85WnpTAyBAT2GR7hh\",\"filename\":\"t1641796779_YIUsdsSmQT.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/2f7ZpujqQq2bNFcieS1q\",\"filename\":\"t1641796779_YIUsdsSmQT.jpg\"}"}', true, 'b645d0e2-7895-44dc-ab48-8b667a7d1653', 'North', 'Thakkarbapa_Nagar', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('bbb91acf-7e81-47e4-b7ac-4d490b88a6c3', '( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly', 'test1', 'open', 'Jodhpur main', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-11 08:05:51.818782', '2023-02-11 08:05:51.818782', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/EaRenfmTYCO0QbAoMvAl\",\"filename\":\"Screenshot (6).png\"}"}', false, NULL, 'South_West', 'Jodhpur', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('ea8a48c7-16bb-46bb-9512-7f963930ac2c', '( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly', 'dsbhjabd sddbsa', 'closed', 'dsadsa dshbadhjbs', 'a70ea229-5a89-41d6-98e6-8ba90b746e97', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'Health', '2023-02-11 07:48:32.23921', '2023-02-11 08:40:54.467384', 'resolved', '7d8d864b-8552-4633-aa65-9ceb2eff1a0e', '{"{\"role\":\"user\",\"id\":\"a70ea229-5a89-41d6-98e6-8ba90b746e97\",\"url\":\"https://cdn.filestackcontent.com/nD8RDNOQOWEyd2DhPxZW\",\"filename\":\"Pest-budai_vakterkep_(Barothy_Anna_2016)_Szell_Kalman_ter_Budapest.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/VgUAXXjzT7iv587QALN5\",\"filename\":\"IMG-20230211-WA0000.jpg\"}","{\"role\":\"worker\",\"id\":\"7d8d864b-8552-4633-aa65-9ceb2eff1a0e\",\"url\":\"https://cdn.filestackcontent.com/EhsWFX1QoiRfXf8ioHAQ\",\"filename\":\"Screenshot (1).png\"}"}', false, NULL, 'East', 'Vastral', 0, 23.033585, 72.545744);
+INSERT INTO public.complains (complain_id, subject, description, status, address, creator_id, assign_worker_id, close_by, assign_department, create_at, update_at, worker_feedback, resolved_by, file_data, merged, merged_id, zone_name, ward_name, reopen_count, latitude, longitude) VALUES ('dd128f6b-d3f3-43cc-ac06-72b0292ac48e', '( હોટલ, રેસ્ટોરંટનો કચરો અને સફાઈ  )  Garbage And Cleanliness of Hotel-Restaurant', 'hello ', 'open', 'ahsefhabvu', '531aac66-975f-45cd-a789-dff44a3b5e33', NULL, NULL, 'Health', '2023-02-13 09:05:05.212552', '2023-02-13 09:05:05.212552', NULL, NULL, '{"{\"role\":\"user\",\"id\":\"531aac66-975f-45cd-a789-dff44a3b5e33\",\"url\":\"https://cdn.filestackcontent.com/mQOOXK9RY6dDUlNMQoW2\",\"filename\":\"Laptop Mid.jpeg\"}"}', false, NULL, 'East', 'Amraiwadi', 0, NULL, NULL);
+
+
+--
+-- TOC entry 3887 (class 0 OID 16491)
+-- Dependencies: 204
+-- Data for Name: t_e; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+
+
+--
+-- TOC entry 3885 (class 0 OID 16449)
+-- Dependencies: 202
+-- Data for Name: trace_complain; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', 'open', '2023-02-08 15:48:00.352455');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', 'assign', '2023-02-08 15:48:38.259555');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', 'resolved', '2023-02-08 15:58:52.063649');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('c5edbacd-b25a-4f3a-9c00-45cde1652619', 'open', '2023-02-08 16:01:07.002349');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('c5edbacd-b25a-4f3a-9c00-45cde1652619', 'assign', '2023-02-08 16:01:40.917166');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('c5edbacd-b25a-4f3a-9c00-45cde1652619', 'resolved', '2023-02-08 16:02:47.580663');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('c5edbacd-b25a-4f3a-9c00-45cde1652619', 'closed', '2023-02-09 04:21:48.333394');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', 'reassign', '2023-02-09 05:52:09.881549');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('7f2651a6-5d5a-4717-9d7d-fc0be0d55bb2', 'open', '2023-02-09 06:16:32.730156');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('0b405559-978c-4899-9f5b-aa4cec5cb799', 'open', '2023-02-09 09:39:56.576421');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('7f2651a6-5d5a-4717-9d7d-fc0be0d55bb2', 'assign', '2023-02-09 09:40:13.77634');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', 'resolved', '2023-02-09 10:17:17.234247');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('7f2651a6-5d5a-4717-9d7d-fc0be0d55bb2', 'resolved', '2023-02-09 11:11:42.148665');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('1b55e3d0-346f-4a32-9c14-fde465f53340', 'open', '2023-02-09 11:49:22.261958');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('0b405559-978c-4899-9f5b-aa4cec5cb799', 'assign', '2023-02-09 11:54:37.913303');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('44e25d46-1375-452d-b872-e5fa909277e2', 'open', '2023-02-09 13:38:00.607438');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('9809d7aa-6fc4-4186-978f-7cb2a57462b5', 'open', '2023-02-09 16:04:46.574379');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bd72a8b8-8c48-444d-b842-028878e57f20', 'open', '2023-02-09 16:09:46.266061');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bd72a8b8-8c48-444d-b842-028878e57f20', 'assign', '2023-02-09 16:10:15.729892');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('0b405559-978c-4899-9f5b-aa4cec5cb799', 'resolved', '2023-02-09 17:24:14.931094');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bf36d1a9-de06-4934-b19b-4dfc032534ba', 'open', '2023-02-09 17:26:41.131343');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bf36d1a9-de06-4934-b19b-4dfc032534ba', 'assign', '2023-02-09 17:27:03.663129');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bf36d1a9-de06-4934-b19b-4dfc032534ba', 'resolved', '2023-02-09 17:34:52.548254');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('f3ab510b-2162-4d1f-9071-5c0f537be5a4', 'open', '2023-02-09 17:46:02.511592');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('f3ab510b-2162-4d1f-9071-5c0f537be5a4', 'assign', '2023-02-09 17:46:36.723817');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('f3ab510b-2162-4d1f-9071-5c0f537be5a4', 'resolved', '2023-02-09 17:47:45.875806');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('f3ab510b-2162-4d1f-9071-5c0f537be5a4', 'closed', '2023-02-09 17:49:43.858576');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('30e59fcb-397a-45a2-aef5-229c7063b214', 'open', '2023-02-10 05:59:54.754628');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('44e25d46-1375-452d-b872-e5fa909277e2', 'withdraw', '2023-02-10 06:41:49.108476');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bf36d1a9-de06-4934-b19b-4dfc032534ba', 'closed', '2023-02-10 10:01:31.123792');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bf225fe5-9f72-4ad1-99d8-dc8f1acb1dce', 'open', '2023-02-10 10:34:15.084621');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('b65a7de6-2cf8-47a6-9161-56e874580854', 'open', '2023-02-10 10:42:29.160495');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('18ae4a93-2fd4-44a4-b0df-bacaa6b097f9', 'open', '2023-02-10 10:45:26.580197');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('18ae4a93-2fd4-44a4-b0df-bacaa6b097f9', 'assign', '2023-02-10 11:08:38.755153');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('f8d6f5ba-8d03-49bb-9d93-18fb01092a95', 'open', '2023-02-10 13:11:38.299387');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('15032676-3b27-492b-8b94-9c186933eaed', 'open', '2023-02-10 15:38:23.401803');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('15032676-3b27-492b-8b94-9c186933eaed', 'withdraw', '2023-02-10 17:37:55.13385');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('f8d6f5ba-8d03-49bb-9d93-18fb01092a95', 'withdraw', '2023-02-10 17:44:21.246634');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('b65a7de6-2cf8-47a6-9161-56e874580854', 'withdraw', '2023-02-10 17:47:37.34382');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bf225fe5-9f72-4ad1-99d8-dc8f1acb1dce', 'withdraw', '2023-02-10 17:57:04.645198');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', 'closed', '2023-02-10 18:04:03.975038');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('1b55e3d0-346f-4a32-9c14-fde465f53340', 'withdraw', '2023-02-10 18:42:51.313726');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('6b3b57de-bde0-43c1-9387-8c837b6b3fda', 'open', '2023-02-10 18:43:59.034077');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('6b3b57de-bde0-43c1-9387-8c837b6b3fda', 'assign', '2023-02-10 18:44:46.184664');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('7c58d1ea-988e-4611-ae3f-68115bb9a683', 'open', '2023-02-10 19:09:53.937504');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('a19afbdf-31b7-44df-861f-f91e22e41fa0', 'open', '2023-02-11 03:08:04.366943');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('a3656411-a4ee-41cc-9302-3ea08565f655', 'open', '2023-02-11 03:35:38.636417');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('2d73b74e-d3fd-4afa-bade-d8b8c9ec4984', 'open', '2023-02-11 03:42:49.971927');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('64749dc4-8078-4f58-b800-12beb9f4ebfc', 'open', '2023-02-11 03:42:50.408602');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('1907cd91-dae1-4054-a4b3-249da20e9d4d', 'open', '2023-02-11 03:45:45.970779');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('2ff08255-6e87-4f83-82e5-9c57c05901f0', 'open', '2023-02-11 03:46:16.844339');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('30de1aeb-4424-403d-8284-d252111dd180', 'open', '2023-02-11 03:48:50.048111');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('a3656411-a4ee-41cc-9302-3ea08565f655', 'assign', '2023-02-11 03:48:58.465111');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('e1ee4b98-c6a4-4652-96a5-498653fa6e24', 'open', '2023-02-11 03:51:07.931097');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('c6a2f58f-001f-4628-87d2-feec31e56c90', 'open', '2023-02-11 03:58:11.34571');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('83aeb3cd-3e8d-4840-afb1-189a526e0682', 'open', '2023-02-11 03:59:23.815954');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8263ca41-9b5f-49b2-b0a1-2b39ecec8848', 'open', '2023-02-11 04:03:50.968562');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('e7c694dd-1961-4920-b050-dfbdd7b7255a', 'open', '2023-02-11 04:05:17.741454');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('cf56056c-f0bb-4cdc-b4fe-fd5ea64e7b68', 'open', '2023-02-11 04:05:36.850835');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('9bc65d4e-10fb-413d-8a0a-c701d5b0d788', 'open', '2023-02-11 04:07:33.074837');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('79c29ff3-bb88-41d8-b7ef-a2315b87a137', 'open', '2023-02-11 04:09:22.342015');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('1bc2b0f2-491b-4e7c-8174-038e74d33522', 'open', '2023-02-11 04:11:37.461194');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('efadfab9-af0d-4d6f-b413-ac8a01bd8da8', 'open', '2023-02-11 04:14:25.821594');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('efadfab9-af0d-4d6f-b413-ac8a01bd8da8', 'withdraw', '2023-02-11 04:17:37.101427');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('fe501225-04ec-439f-a835-be3f8056d60b', 'open', '2023-02-11 04:22:55.242683');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('50bb610a-0572-42b6-a8d4-6cda62d46a25', 'open', '2023-02-11 04:31:17.675734');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('6b3b57de-bde0-43c1-9387-8c837b6b3fda', 'resolved', '2023-02-11 04:31:31.709403');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('1bc2b0f2-491b-4e7c-8174-038e74d33522', 'assign', '2023-02-11 04:50:24.612444');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('1bc2b0f2-491b-4e7c-8174-038e74d33522', 'assign', '2023-02-11 04:50:24.802175');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('79c29ff3-bb88-41d8-b7ef-a2315b87a137', 'assign', '2023-02-11 04:53:12.15225');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('9bc65d4e-10fb-413d-8a0a-c701d5b0d788', 'assign', '2023-02-11 04:53:17.252801');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('0ddfc876-1203-48c5-842d-0b158bf1d643', 'open', '2023-02-11 05:31:12.408459');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('0ddfc876-1203-48c5-842d-0b158bf1d643', 'assign', '2023-02-11 05:33:25.603784');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('a3656411-a4ee-41cc-9302-3ea08565f655', 'resolved', '2023-02-11 05:35:49.271067');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('22c01630-6368-4cb2-8e77-21a099128744', 'open', '2023-02-11 05:55:30.846201');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('22c01630-6368-4cb2-8e77-21a099128744', 'assign', '2023-02-11 05:58:45.135187');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('22c01630-6368-4cb2-8e77-21a099128744', 'resolved', '2023-02-11 06:07:01.588259');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('ea8a48c7-16bb-46bb-9512-7f963930ac2c', 'open', '2023-02-11 07:48:32.371332');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('ea8a48c7-16bb-46bb-9512-7f963930ac2c', 'assign', '2023-02-11 07:48:55.475653');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('79c29ff3-bb88-41d8-b7ef-a2315b87a137', 'resolved', '2023-02-11 07:53:24.338024');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('ea8a48c7-16bb-46bb-9512-7f963930ac2c', 'resolved', '2023-02-11 07:54:40.080922');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('bbb91acf-7e81-47e4-b7ac-4d490b88a6c3', 'open', '2023-02-11 08:05:51.94743');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('e5622031-4ae8-45a3-ba53-494e54450e72', 'open', '2023-02-11 08:08:47.660965');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('ea8a48c7-16bb-46bb-9512-7f963930ac2c', 'reopen', '2023-02-11 08:15:47.704666');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', 'closed', '2023-02-11 08:18:32.794239');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('7c58d1ea-988e-4611-ae3f-68115bb9a683', 'closed', '2023-02-11 08:18:33.149315');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('6b3b57de-bde0-43c1-9387-8c837b6b3fda', 'closed', '2023-02-11 08:18:33.505269');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('8943eb22-d12f-48fc-939a-c05d51477e96', 'closed', '2023-02-11 08:22:39.43881');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('7c58d1ea-988e-4611-ae3f-68115bb9a683', 'closed', '2023-02-11 08:22:39.929065');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('6b3b57de-bde0-43c1-9387-8c837b6b3fda', 'closed', '2023-02-11 08:22:40.408922');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('0ddfc876-1203-48c5-842d-0b158bf1d643', 'closed', '2023-02-11 08:22:57.549176');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('a3656411-a4ee-41cc-9302-3ea08565f655', 'closed', '2023-02-11 08:22:58.029328');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('ea8a48c7-16bb-46bb-9512-7f963930ac2c', 'assign', '2023-02-11 08:25:10.307169');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('ea8a48c7-16bb-46bb-9512-7f963930ac2c', 'resolved', '2023-02-11 08:27:32.549129');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('ea8a48c7-16bb-46bb-9512-7f963930ac2c', 'closed', '2023-02-11 08:40:54.531462');
+INSERT INTO public.trace_complain (complain_id, status, updated_at) VALUES ('dd128f6b-d3f3-43cc-ac06-72b0292ac48e', 'open', '2023-02-13 09:05:05.389092');
+
+
+--
+-- TOC entry 3886 (class 0 OID 16453)
+-- Dependencies: 203
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('40e2215b-2374-45a6-a917-3ca938d88935', 'user', 'Nishant ', 'Yadav', '2003-10-02', 'nishant@gmail.com', 9157280819, 'Ahmedabad', 'random 1234', 'near blah blah ', 110293, 'Male', '2022-10-06 17:38:20.202485', '2022-10-06 17:38:20.202485', true, 2, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('40503121-b835-426f-ae7c-56d7e5082391', 'user', 'Hardikbhai', 'Prajapati', '2022-10-27', '19it.hardikprajapati@adit.ac.in', 5, 'Ahmedabad', '5', '45', 4, 'Male', '2022-10-06 10:41:44.093235', '2022-10-06 10:41:44.093235', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('84c7516c-124c-4f85-90d9-1ab01868e35a', 'user', 'Hardikbhai', 'Prajapati', '2022-10-25', '19it.hardikprajapati@adit.ac', 6, 'Ahmedabad', '6', '6', 6, 'Male', '2022-10-06 10:55:10.902809', '2022-10-06 10:55:10.902809', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('bba0c140-151e-46e7-931d-c0e92f29cdc6', 'user', 'Harsh', 'Gandhi', '2000-10-15', 'gandhiharsh799@gmail.com', 9724158781, 'Ahmedabad', 'Suart', '5 kdjrjnm
+', 395010, 'Male', '2022-10-14 18:37:46.344865', '2022-10-14 18:37:46.344865', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('1c5fae2c-4c39-4b76-8b45-f9a8f85c8fdd', 'user', 'Hardikbhai', 'Prajapati', '2022-10-11', '19it.hardikprajapati@adit.ac.com', 9, 'Ahmedabad', '9', '9', 9, 'Male', '2022-10-06 12:20:35.176829', '2022-10-06 12:20:35.176829', true, 5, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('3cd8346c-532a-4a2c-bb87-e41e3571ec26', 'user', 'Mihika', 'Mistry', '2003-11-18', 'mistrymihika@gmail.com', 9429922229, 'Bharuch', 'Gujarat', 'B24 Rachna Nagar 4 bh GEB office maktampur road', 392001, 'Female', '2022-11-27 17:53:42.971858', '2022-11-27 17:53:42.971858', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('935d65b3-e6e1-4106-8c50-cebd505e94c6', 'admin', 'Vishal', 'vx', '2000-12-20', 'vishalp000111@gmail.com', 7383086192, 'Ahemdabad', 'Maninagar', '404,Error nagar,unauthorized,near not found', 300458, 'Male', '2022-10-06 11:03:38.818373', '2022-10-06 11:03:38.818373', true, 3, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('d63af1b7-fe51-4792-8451-24df7ea68ce7', 'user', 'Raj', 'Patel', '2004-03-11', 'rajvp1103@gmail.com', 9510854847, 'Ahmedabad', 'ank.', 'ankleshwer
+', 393030, 'Male', '2023-01-20 05:05:12.317646', '2023-01-20 05:05:12.317646', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('0d31b1f5-c565-4a27-b389-4c04ed32d5f4', 'user', 'Hardik', 'Prajapati', '2001-11-10', 'dev.hardik200@gmail.com', 7572864857, 'Ahemdabad', 'Maninagar', '404,Error nagar,unauthorized,near not found', 300458, 'Male', '2022-10-06 06:39:25.915428', '2022-10-06 06:39:25.915428', true, 16, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('ef2cfce5-adb1-44ae-b8b7-0b9fec818c39', 'user', 'Ayush', 'Raman', '2003-08-09', 'nhibataunha@gmail.com', 9574531441, 'Ahmedabad ', 'Anand', 'White House London ', 388121, 'Male', '2022-10-08 09:25:37.854851', '2022-10-08 09:25:37.854851', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('5256f76f-262b-40ae-bbad-57766fe1b5ca', 'user', 'Om', 'Limdiwala', '2022-10-24', 'test@gmail.com', 8153829359, 'Ahmedabad', 'Ajrbwn', 'Gsjaba abajakab', 10002, 'Male', '2022-10-09 08:23:29.325733', '2022-10-09 08:23:29.325733', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('d277dfe4-31de-453c-9206-f1398771b1f1', 'user', 'Abhay ', 'Yadav', '2000-10-11', 'abhayyadav1096@gmail.com', 9313301539, 'Ahmedabad', 'Anand', 'Bahagansvsjns', 233315, 'Male', '2022-10-11 17:08:37.361997', '2022-10-11 17:08:37.361997', true, 2, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('9a61b5a3-ac30-4ef3-82a6-65f4f1f6b661', 'user', 'Vishw', 'Joshi', '2003-06-27', 'vishw2734@gmail.com', 8511821767, 'Ahmedabad', 'Kalupur', 'Sdcfbbsadf', 743567, 'Male', '2023-02-09 06:54:44.812258', '2023-02-09 06:54:44.812258', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('531aac66-975f-45cd-a789-dff44a3b5e33', 'user', 'vishal', 'prajapati', '2023-02-13', 'krips.javiya@gmail.com', 9409021350, '', 'efwfewet', 'krips.javiya@gmail.com', 212233, 'Male', '2023-02-10 13:47:57.955101', '2023-02-10 13:47:57.955101', true, 10, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('a566da4f-5767-4cb1-bc53-f48d83f0cae4', 'user', 'Krish', 'Chauhan', '2003-05-06', 'krishchauhan09@gmail.com', 9327993358, '', 'Salelite', 'krishchauhan09@gmail.com', 4446449, 'Male', '2023-02-13 09:19:13.29416', '2023-02-13 09:19:13.29416', true, 0, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('57b39b7e-7ee7-4ab1-97d2-c9746a1f037b', 'officer', 'Vishal', 'Prajapati', '2000-01-24', 'dev.vishalprajapati.24@gmail.com', 8469918193, 'Ahemdabad', 'Manek Chok', '404,Error nagar,unauthorized,near not found', 300452, 'Male', '2022-10-06 10:32:58.412551', '2022-10-06 10:32:58.412551', true, 1, 'Health');
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('7d8d864b-8552-4633-aa65-9ceb2eff1a0e', 'worker', 'Priyanshu', 'Patel', '2003-10-24', 'priyanshupatel24@gmail.copm', 8128135732, 'dnsajkdnska', 'ndsjakd', 'dnsajdjsa', 392015, 'male', '2023-02-07 18:05:45.944945', '2023-02-07 18:05:45.944945', true, 1, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('d0251baa-42a1-42c7-9e8d-20caa1e4cf1d', 'user', 'Mann', 'Patel', '2003-08-01', 'mannpatel3118@gmail.com', 9664570637, 'Ahmedabad', 'naroda', 'asdf', 392015, 'Male', '2022-10-06 13:55:40.087242', '2022-10-06 13:55:40.087242', true, 38, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('57557b87-f25c-4e2a-9929-93f8e75fe019', 'user', 'qweqw', 'qaweq', '2020-02-11', 'jignesh.vaniya@vgecg.ac.in', 9925257277, '', 'test', 'jignesh.vaniya@vgecg.ac.in', 232223, 'Male', '2023-02-11 05:52:34.445293', '2023-02-11 05:52:34.445293', true, 1, NULL);
+INSERT INTO public.users (user_id, role, first_name, last_name, birth_date, email, mobile_number, district, area, address, pincode, gender, create_at, update_at, is_active, complain_count, department) VALUES ('a70ea229-5a89-41d6-98e6-8ba90b746e97', 'user', 'Om', 'Limdiwala', '2003-06-25', 'omlimdiwala25@gmail.com', 7383429359, 'Ahmedabad', 'Test', 'random address ', 395010, 'Male', '2022-10-06 16:05:19.058637', '2022-10-06 16:05:19.058637', true, 46, NULL);
+
+
+--
+-- TOC entry 3747 (class 2606 OID 16464)
+-- Name: complains complains_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.complains
+    ADD CONSTRAINT complains_pkey PRIMARY KEY (complain_id);
+
+
+--
+-- TOC entry 3749 (class 2606 OID 16468)
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- TOC entry 3751 (class 2606 OID 16470)
+-- Name: users users_mobile_number_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_mobile_number_key UNIQUE (mobile_number);
+
+
+--
+-- TOC entry 3753 (class 2606 OID 16472)
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (user_id);
+
+
+--
+-- TOC entry 3895 (class 0 OID 0)
+-- Dependencies: 6
+-- Name: SCHEMA public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE USAGE ON SCHEMA public FROM PUBLIC;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2023-02-22 09:48:23
+
+--
+-- PostgreSQL database dump complete
+--
+
