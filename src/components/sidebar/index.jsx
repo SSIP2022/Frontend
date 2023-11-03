@@ -49,10 +49,10 @@ function Sidebar({ sidebarData, title }) {
           >
           <FaBars />
         </div>
-        <div className="amc" style={{cursor:"pointer"}} onClick={() =>  window.open("https://ahmedabadcity.gov.in", "_blank")}>
-          <img src="/logo.png" className="logo" alt="" />
-          <span className="amc-full">Ahmedabad Municipal Corporation</span>
-          <span className="amc-short">AMC</span>
+        <div className="amc" style={{cursor:"pointer"}} onClick={() =>  window.open("https://www.guvnl.com/", "_blank")}>
+          <img src="/Logo_GUVNL.png" className="logo" alt="" />
+          <span className="amc-full">Gujarat Urja Vikas Nigam</span>
+          <span className="amc-short">GUVNL</span>
           </div>
         </div>
         <div className="nav-center">

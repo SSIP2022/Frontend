@@ -221,7 +221,7 @@ const RegisterComplaint = () => {
           <form>
             <h3 className="title">Register Complaint</h3>
             <label>
-              <h4>Zone :</h4>
+              <h4>DISCOMS  :</h4>
               <select
                 // className={form.select}
                 name="Zone"
@@ -236,16 +236,15 @@ const RegisterComplaint = () => {
                   {" "}
                   ( પસંદ કરો )
                 </option>
-                <option value="Central">Central</option>
-                <option value="East">East</option>
-                <option value="North">North</option>
-                <option value="South">South</option>
-                <option value="South_West">South-West</option>
-                <option value="West">West</option>
+                <option  value="Central">DGVCL</option>
+                <option value="East">MGVCL</option>
+                <option value="North">PGVCL</option>
+                <option value="South">UGVCL</option>
+                
               </select>
             </label>
             <label>
-              <h4>Ward :</h4>
+              <h4>District :</h4>
               <select
                 name="Ward"
                 id="ctl00_ContentPlaceHolder1_ddlWard"
@@ -503,7 +502,7 @@ const RegisterComplaint = () => {
           <div style={{ margin: "4px", position: "relative" }}>
             {isPicker && (
               <PickerOverlay
-                apikey={"AUX9s9dBoTHKQqwFdHnmJz"}
+                apikey={"APwB1TgES0KwafVa8EnJsz"}
                 action="pick"
                 pickerOptions={{
                   accept: "image/*",

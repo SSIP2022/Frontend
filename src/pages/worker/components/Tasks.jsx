@@ -256,7 +256,7 @@ const Home = () => {
                 <div style={{ margin: "4px", position: "relative" }}>
                   {isPicker && (
                     <PickerOverlay
-                      apikey={"AUX9s9dBoTHKQqwFdHnmJz"}
+                      apikey={"APwB1TgES0KwafVa8EnJsz"}
                       action="pick"
                       pickerOptions={{
                         accept: "image/*",

@@ -7,10 +7,10 @@ function Root() {
   return (
     <div className={styles.rootWrapper}>
       <div className={styles.logoWrapper}>
-        <img src="logo.jpg" alt="Logo" />
+        <img src="Logo_GUVNL.png" alt="Logo" />
       </div>
       <div className={styles.titleWrapper}>
-        <h3>Welcome To Ahmedabad Municipal Corporation</h3>
+        <h3>Welcome To Gujarat Urja Vikas Nigam</h3>
       </div>
       <div className={styles.buttonWrapper}>
         <button onClick={()=>navigate("/login")}>Login</button>

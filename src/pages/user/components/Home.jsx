@@ -39,7 +39,7 @@ const Home = () => {
               <div className={home.greetings_name}>
                 Hi, {userData.first_name}
               </div>
-              <div className={home.greetings_welcome}>Welcome to AMC</div>
+              <div className={home.greetings_welcome}>Welcome to GUVNL</div>
               <div className={home.greetings_welcome}>
                 Register your complain
               </div>
@@ -49,7 +49,7 @@ const Home = () => {
               onClick={() => navigate("/user/registercomplaint")}
             >
               <AiFillFileAdd className={home.icon1} />
-              <div className={home.register_title}>Register</div>
+              <div className={home.register_title}>Register complain</div>
             </div>
           </div>
           <div className={home.title}>Select Category :</div>
