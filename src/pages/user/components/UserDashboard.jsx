@@ -26,6 +26,8 @@ const UserDashboard = () => {
   const [withdraw, setWithdraw] = useState(false);
   const [trace, setTrace] = useState([]);
   const [feedback, setFeedback] = useState(false);
+
+  const [workerDtails, setWorkerId] = useState({});
   const buttonText = {
     open: {
       text: "Assign",
@@ -83,7 +85,17 @@ const UserDashboard = () => {
       toast.error("Fail To Update Status");
     }
   };
-
+  const getWorkerDetails = async (id) => {
+    const data = await queryfn({
+      endpoint: baseURL + `/user/get-user`,
+      reqMethod: "POST",
+      body: JSON.stringify({
+        user_id: id,
+      }),
+    });
+    setWorkerId(data.user);
+    console.log("worker details:", data);
+  };
   const withdrawComplaint = async () => {
     const data = await queryfn({
       endpoint: baseURL + `/complain/withdraw`,
@@ -199,6 +211,7 @@ const UserDashboard = () => {
                   onClick={() => {
                     setDetails(complaint);
                     setOpenModel(true);
+                    getWorkerDetails(complaint.assign_worker_id);
                   }}
                 >
                   Details
@@ -389,6 +402,42 @@ const UserDashboard = () => {
                 <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
                 {details.assign_department}
               </h4>
+              {details.assign_worker_id && (
+                <>
+                  <h4>
+                    <Span text="Worker" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                    {details.assign_worker_id}
+                  </h4>
+                  <h4>
+                    <Span
+                      text="Worker name"
+                      bgcolor="rgba(167, 164, 165, 0.4)"
+                    />{" "}
+                    : {workerDtails.first_name} {workerDtails.last_name}
+                  </h4>
+                  <h4>
+                    <Span
+                      text="Worker mobile no"
+                      bgcolor="rgba(167, 164, 165, 0.4)"
+                    />{" "}
+                    : {workerDtails.mobile_number}
+                  </h4>
+                  <h4>
+                    <Span
+                      text="Worker email"
+                      bgcolor="rgba(167, 164, 165, 0.4)"
+                    />{" "}
+                    : {workerDtails.email}
+                  </h4>
+                  <h4>
+                    <Span
+                      text="Worker email"
+                      bgcolor="rgba(167, 164, 165, 0.4)"
+                    />{" "}
+                    : {workerDtails.email}
+                  </h4>
+                </>
+              )}
             </div>
             {trace.length !== 0 ? (
               <div

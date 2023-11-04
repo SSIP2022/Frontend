@@ -212,7 +212,7 @@ const RegisterComplaint = () => {
         tags: [],
         creator_id: userData.user_id,
         file_data: file_data,
-        department: department,
+        department: ward,
       }),
       failMsg: "Error During Register Complaint",
     });
@@ -238,6 +238,16 @@ const RegisterComplaint = () => {
         <div className="formWrapper" style={{ height: "100%" }}>
           <form>
             <h3 className="title">Register Complaint</h3>
+            <label>
+              <h4>Consumer No:</h4>
+              <input
+                name="consumer_id"
+                type="text"
+                required
+                placeholder="Enter your consumer id"
+                // value={userData.user_id}
+              />
+            </label>
             <label>
               <h4>DISCOMS :</h4>
               <select
@@ -300,6 +310,7 @@ const RegisterComplaint = () => {
                 title="Please Select Ward"
                 onChange={(e) => {
                   setWard(e.target.value);
+                  // setDepartment(e.target.value);
                 }}
               >
                 <option defaultValue value="NONE">

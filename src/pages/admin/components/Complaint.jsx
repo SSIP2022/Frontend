@@ -194,10 +194,10 @@ const Complain = () => {
                   <Span text="Status" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
                   {details.status}
                 </h4>
-                <h4>
+                {/* <h4>
                   <Span text="Department" bgcolor="rgba(167, 164, 165, 0.4)" />{" "}
                   : {details.assign_department}
-                </h4>
+                </h4> */}
               </div>
               {trace.length !== 0 ? (
                 <div
