@@ -1,55 +1,54 @@
 import React, { Component, useState, useEffect } from "react";
 import Chart from "react-apexcharts";
-import { baseURL,queryfn } from "../../../config/config";
+import { baseURL, queryfn } from "../../../config/config";
 
 let data;
 const PieChart = () => {
-  const [totaln,setTotal]=useState();
+  const [totaln, setTotal] = useState();
   const [options, setOptions] = useState({
     chart: {
       height: 350,
-      type: 'radialBar',
+      type: "radialBar",
     },
     plotOptions: {
       radialBar: {
         dataLabels: {
           name: {
             show: true,
-                  fontSize: '16px',
-                  fontFamily: undefined,
-                  fontWeight: 600,
-                  color: undefined,
-                  offsetY: -10
+            fontSize: "16px",
+            fontFamily: undefined,
+            fontWeight: 600,
+            color: undefined,
+            offsetY: -10,
           },
           value: {
-            fontSize: '16px',
-           
+            fontSize: "16px",
           },
           total: {
             show: true,
-            label: 'Total',
-            formatter: function (w,val) {
+            label: "Total",
+            formatter: function (w, val) {
               // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
               return totaln;
-            }
-          }
-        }
-      }
+            },
+          },
+        },
+      },
     },
-    labels: ['Apples', 'Oranges', 'Bananas', 'Berries'],
+    labels: ["Apples", "Oranges", "Bananas", "Berries"],
 
     stroke: {
-      lineCap: 'round'
+      lineCap: "round",
     },
     legend: {
       show: true,
       floating: true,
-      position: 'bottom',
+      position: "bottom",
       // offsetX: -70,
       // offsetY: 240
     },
   });
-  const [series, setSeries] = useState([0,0,0,0,0]);
+  const [series, setSeries] = useState([0, 0, 0, 0, 0]);
   // const [lables,setLable] = useState(['A', 'B', 'C', 'D', 'E']);
 
   const screenWidth = window.screen.width;
@@ -66,22 +65,27 @@ const PieChart = () => {
     console.log(data.forCharts);
     setOptions({
       labels: data.forCharts.status,
-      plotOptions:{
-        radialBar:{
-          dataLabels:{
-            total:{
-              formatter:function(w,val){
+      plotOptions: {
+        radialBar: {
+          dataLabels: {
+            total: {
+              formatter: function (w, val) {
                 return data.complains[0].total;
-              }
-              
-            }
-          }
-        }
-      }
-    }); 
+              },
+            },
+          },
+        },
+      },
+    });
     let sum = data.complains[0].total;
-    setSeries([(data.forCharts.count[0]/sum*100).toFixed(0),(data.forCharts.count[1]/sum*100).toFixed(0),(data.forCharts.count[2]/sum*100).toFixed(0),(data.forCharts.count[3]/sum*100).toFixed(0),(data.forCharts.count[4]/sum*100).toFixed(0)]);
-    setTotal(sum)
+    setSeries([
+      ((data.forCharts.count[0] / sum) * 100).toFixed(0),
+      ((data.forCharts.count[1] / sum) * 100).toFixed(0),
+      ((data.forCharts.count[2] / sum) * 100).toFixed(0),
+      ((data.forCharts.count[3] / sum) * 100).toFixed(0),
+      ((data.forCharts.count[4] / sum) * 100).toFixed(0),
+    ]);
+    setTotal(sum);
   };
 
   useEffect(() => {
@@ -93,7 +97,7 @@ const PieChart = () => {
       options={options}
       series={series}
       type="radialBar"
-      width={screenWidth == "412" ? "300px" : "400px"}  
+      width={screenWidth == "412" ? "300px" : "400px"}
     />
   );
 };

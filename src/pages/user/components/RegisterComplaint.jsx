@@ -58,6 +58,7 @@ const Complaindata = {
     "Metering",
     "Billing",
     "Disconnection / Reconnection",
+    "Miscellaneous",
   ],
   Others: ["( પાર્કિંગ )  Parking", "( ટાઉન પ્લાનીંગ )  Town Planning"],
 };
