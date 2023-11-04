@@ -27,7 +27,10 @@ const UserDashboard = () => {
   const [trace, setTrace] = useState([]);
   const [feedback, setFeedback] = useState(false);
 
-  const [workerDtails, setWorkerId] = useState({});
+  const [workerDtails, setWorkerId] = useState({
+    first_name: "Priyanshu",
+    last_name: "Patel",
+  });
   const buttonText = {
     open: {
       text: "Assign",
