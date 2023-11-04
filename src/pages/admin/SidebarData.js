@@ -17,5 +17,11 @@ export const sidebarData = [
     icon: "📈",
     cName: "nav-text",
   },
+  {
+    title: "Add new Officer",
+    path: "/admin/addOfficer",
+    icon: "👮🏻‍♂️",
+    cName: "nav-text",
+  },
   
 ];

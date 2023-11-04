@@ -14,6 +14,7 @@ import Admin from "./pages/admin/index";
 import Adminanalytics from "./pages/admin/components/Adminanalytics";
 import Profile from "./pages/admin/components/Profile";
 import Complaints from "./pages/admin/components/Complaint";
+import Addofficer from "./pages/admin/components/Addofficer";
 
 import User from "./pages/user/index";
 import UserProfile from "./pages/user/components/Profile";
@@ -91,6 +92,7 @@ function App() {
           <Route path="analytics" element={<Adminanalytics />} />
           <Route path="home" element={<Complaints />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="addOfficer" element={<Addofficer />} />
         </Route>
         <Route path="/worker" element={<Worker />}>
           <Route path="profile" element={<WorkerProfile />} />
