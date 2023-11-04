@@ -32,7 +32,7 @@ const Complain = () => {
       text: "Resolved",
       color: "rgb(255 146 13)",
     },
-    reassign: {
+    reopen: {
       text: "No Action",
       color: "#11BF7F",
     },
