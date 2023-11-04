@@ -12,6 +12,7 @@ import toast from "react-hot-toast";
 import Span from "../../../components/span";
 import track from "../../../styles/Complain.module.scss";
 import { BsFillCircleFill } from "react-icons/bs";
+import { Chrono } from "react-chrono";
 const UserDashboard = () => {
   const { userData } = useSelector(user);
   console.log("userData:", userData);
@@ -133,7 +134,7 @@ const UserDashboard = () => {
   useEffect(() => {
     getUserComplaints();
   }, []);
-
+  useEffect(() => {}, [trace]);
   return (
     <div className={styles.allcomplaints}>
       {complaints.length !== 0 ? (
@@ -172,7 +173,7 @@ const UserDashboard = () => {
                 src={
                   JSON.parse(complaint.file_data[0]).url
                     ? JSON.parse(complaint.file_data[0]).url
-                    : "/istockphoto-1074493878-612x612.png"
+                    : "/default_complain.png"
                 }
                 className={styles.cImage}
                 alt=""
@@ -257,6 +258,7 @@ const UserDashboard = () => {
                       setFeedback(true);
                       setComplaint(complaint);
                       setDetails(complaint);
+                      // console.log("details:", details);
                     }}
                   >
                     Feedback
@@ -305,9 +307,21 @@ const UserDashboard = () => {
               style={{ width: "100px", height: "100px", marginLeft: "10px" }}
               alt=""
               src={
-                JSON.parse(details.file_data[1]).url
-                  ? JSON.parse(details.file_data[1]).url
-                  : "/istockphoto-1074493878-612x612.png"
+                JSON.parse(
+                  details.file_data[
+                    details.status == "resolved"
+                      ? details.reopen_count + 1
+                      : details.reopen_count
+                  ]
+                ).url
+                  ? JSON.parse(
+                      details.file_data[
+                        details.status == "resolved"
+                          ? details.reopen_count + 1
+                          : details.reopen_count
+                      ]
+                    ).url
+                  : "/default_complain.png"
               }
             ></img>
           </div>
@@ -336,7 +350,11 @@ const UserDashboard = () => {
             </div>
             <div
               className={track.details}
-              style={{ display: "flex", flexDirection: "column" }}
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+              }}
             >
               <h4>
                 <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
@@ -377,19 +395,46 @@ const UserDashboard = () => {
                 style={{
                   display: "flex",
                   margin: "5px",
-                  padding: "0px 0px 0px 30px",
+                  width: "100%",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  flexDirection: "column",
+                  padding: "0px 0px",
                 }}
               >
-                <Span text="Status Flow" bgcolor="#fed049" />
+                <Chrono
+                  items={trace.map((data) => {
+                    return {
+                      title: data.status,
+                      cardTitle: data.updated_at.slice(0, 10),
+                      cardSubtitle: data.updated_at.slice(11, 19),
+                      cardDetailedText: data.status,
+                    };
+                  })}
+                  mode="VERTICAL_ALTERNATING"
+                  // itemWidth={150}
+                  cardWidth={400} // sets the height of the timeline card to 200px
+                  cardHeight={100}
+                  theme={{
+                    primary: "#E1AA74",
+                    secondary: "rgba(167, 164, 165, 0.4)",
+                    cardBgColor: "#F3F0CA",
+                    cardForeColor: "violet",
+                    titleColor: "black",
+                    titleColorActive: "black",
+                  }}
+                  // showSingle
+                />
+                {/* <Span text="Status Flow" bgcolor="#fed049" /> */}
 
                 {trace.map((data) => {
                   return (
                     <div style={{ margin: "5px" }}>
-                      <Span
+                      {/* <Span
                         bgcolor="#6a5c80"
                         color="white"
                         text={data.status}
-                      />{" "}
+                      />{" "} */}
                     </div>
                   );
                 })}

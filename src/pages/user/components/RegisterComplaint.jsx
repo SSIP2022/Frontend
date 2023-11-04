@@ -10,65 +10,64 @@ import { useSearchParams } from "react-router-dom";
 
 const Complaindata = {
   NONE: [],
-  Electricity: [
-    "( વિસ્તારમાં સ્ટ્રીટ લાઈટ ચાલતી નથી  )  Area Street Light Not Working",
-    "( થાંબલા પર ઈલેક્ટ્રીક શોક / હાલના થાંબલા પર લિકેજ )  Electric Shock_Current Leakage on Pole",
-    "( અપૂરતો પ્રકાશ  )  Insufficient Lighting",
-    "( LED લાઈટ ચાલતી નથી  )  LED Light Not Working",
-    "( ઓવરહેડ લાઈન સમસ્યા  )  Overhead Line Problem",
-    "( થાંબલો જોખમકારક પરિસ્થિતિમાં છે  )  Pole is in dangerous Condition",
-    "( નકામી સ્ટ્રીટ લાઈટ દુર કરવા બાબત  )  Removable of Unserviceable Street Light",
-    "( સોડીયમ લાઈટ ચાલતી નથી  )  Sodium Light Not Working",
-    "( સ્ટ્રીટ લાઈટ ના થાંબલા ઉપર સ્પાર્કીંગ   )  Sparking on Street light Pole",
-    "( લાઈટ ચાલુ / બંધ ના સમયની સમસ્યા  )  Switching ON_OFF Time Problem",
-    "( ટ્યુબ લાઈટ ચાલતી નથી  )  Tube light Not Working",
-    "( અન્ય  )  Other",
-  ],
-  Water: [
-    "( અશુદ્ધ, ક્ન્ટામિનેટેડ પાણી  )  Contaminated Water(Impure)",
-    "( ડાયરેક્ટ મોટર ચલાવવી )  Direct Motor Running",
-    "( ગેરકાયદેસર જોડાણ )  Illegal Connection",
-    "( અપૂરતો પાણી વિતરણનો સમય ગાળો   )  Insufficient Water Supply Duration",
-    "( જાહેર સ્ટેન્ડ પોસ્ટની દુરસ્તી  )  Leakage of Public Stand Post",
-    "( નીચા પાણીનું દબાણ  )  Low Water Pressure",
-    "( મુખ્ય નળીકા / ફીડલ નળીકા લીકેજ  )  Main_Feeder Line Leakage",
-    "( પાઇપલાઈન લીકેજ  )  Pipeline Leakage",
-    "( પીવાના પાણી પુરવઠામાં કલોરીનીકરણની તીવ્રતા સ્તર ઘટાડો  )  Reduction of intensity level of Chlorination in Potable Water Supply",
-    "( વાલ્વ રિપેરિંગની  ફરિયાદો )  Related To Repairing Of Valves",
-    "( હેન્ડ પંપ સમારકામ )  Repairing of Hand Pump",
-    "( વાલ્વ લીકેજ  )  Valve Leakage",
-    "( અન્ય )  Other",
-  ],
-  Cleaning: [
-    "( ફૂટપાથનું સાફ સફાઈ કરવા બાબત  )  Cleaning Of Footpath (Walk Ways)",
-    "( તૂટેલા રોડ ડીવાઈડર અને ફૂટપાથ સમારકામ  )  Cleaning Related To Railing and Curb Stones",
-    "( ડીવાઈડર ની આસપાસ સફાઈ કરવી  )  Cleaning Vicinity of Deviders",
-    "( સાફ સફાઈ થયેલ નથી  )  Cleaning-Scraping Not Carried Out",
-    "( સાફ સફાઈ અયોગ્ય થયેલ છે  )  Cleaning-Scraping Not Proper",
-    "( કન્ટેનર, કચરા પેટી મુકવાની જગ્યા યોગ્ય સાફ નથી )  Container-Dustbin Spot Not Cleaned Properly",
-    "( કન્ટેનર, કચરા પેટી ઉપાડી નથી  )  Container-Dustbin Spot Not lifted",
-    "( બિલ્ડીંગ મટીરીયલનો નિકાલ  )  Lifting of Building Materials",
-    "( બાંધકામ અને તોડફોડના કાટમાળનો નિકાલ )  Lifting of Construction and Demolition",
-    "( અન્ય  )  Other",
-  ],
+  // Electricity: [
+  //   "( વિસ્તારમાં સ્ટ્રીટ લાઈટ ચાલતી નથી  )  Area Street Light Not Working",
+  //   "( થાંબલા પર ઈલેક્ટ્રીક શોક / હાલના થાંબલા પર લિકેજ )  Electric Shock_Current Leakage on Pole",
+  //   "( અપૂરતો પ્રકાશ  )  Insufficient Lighting",
+  //   "( LED લાઈટ ચાલતી નથી  )  LED Light Not Working",
+  //   "( ઓવરહેડ લાઈન સમસ્યા  )  Overhead Line Problem",
+  //   "( થાંબલો જોખમકારક પરિસ્થિતિમાં છે  )  Pole is in dangerous Condition",
+  //   "( નકામી સ્ટ્રીટ લાઈટ દુર કરવા બાબત  )  Removable of Unserviceable Street Light",
+  //   "( સોડીયમ લાઈટ ચાલતી નથી  )  Sodium Light Not Working",
+  //   "( સ્ટ્રીટ લાઈટ ના થાંબલા ઉપર સ્પાર્કીંગ   )  Sparking on Street light Pole",
+  //   "( લાઈટ ચાલુ / બંધ ના સમયની સમસ્યા  )  Switching ON_OFF Time Problem",
+  //   "( ટ્યુબ લાઈટ ચાલતી નથી  )  Tube light Not Working",
+  //   "( અન્ય  )  Other",
+  // ],
+  // Water: [
+  //   "( અશુદ્ધ, ક્ન્ટામિનેટેડ પાણી  )  Contaminated Water(Impure)",
+  //   "( ડાયરેક્ટ મોટર ચલાવવી )  Direct Motor Running",
+  //   "( ગેરકાયદેસર જોડાણ )  Illegal Connection",
+  //   "( અપૂરતો પાણી વિતરણનો સમય ગાળો   )  Insufficient Water Supply Duration",
+  //   "( જાહેર સ્ટેન્ડ પોસ્ટની દુરસ્તી  )  Leakage of Public Stand Post",
+  //   "( નીચા પાણીનું દબાણ  )  Low Water Pressure",
+  //   "( મુખ્ય નળીકા / ફીડલ નળીકા લીકેજ  )  Main_Feeder Line Leakage",
+  //   "( પાઇપલાઈન લીકેજ  )  Pipeline Leakage",
+  //   "( પીવાના પાણી પુરવઠામાં કલોરીનીકરણની તીવ્રતા સ્તર ઘટાડો  )  Reduction of intensity level of Chlorination in Potable Water Supply",
+  //   "( વાલ્વ રિપેરિંગની  ફરિયાદો )  Related To Repairing Of Valves",
+  //   "( હેન્ડ પંપ સમારકામ )  Repairing of Hand Pump",
+  //   "( વાલ્વ લીકેજ  )  Valve Leakage",
+  //   "( અન્ય )  Other",
+  // ],
+  // Cleaning: [
+  //   "( ફૂટપાથનું સાફ સફાઈ કરવા બાબત  )  Cleaning Of Footpath (Walk Ways)",
+  //   "( તૂટેલા રોડ ડીવાઈડર અને ફૂટપાથ સમારકામ  )  Cleaning Related To Railing and Curb Stones",
+  //   "( ડીવાઈડર ની આસપાસ સફાઈ કરવી  )  Cleaning Vicinity of Deviders",
+  //   "( સાફ સફાઈ થયેલ નથી  )  Cleaning-Scraping Not Carried Out",
+  //   "( સાફ સફાઈ અયોગ્ય થયેલ છે  )  Cleaning-Scraping Not Proper",
+  //   "( કન્ટેનર, કચરા પેટી મુકવાની જગ્યા યોગ્ય સાફ નથી )  Container-Dustbin Spot Not Cleaned Properly",
+  //   "( કન્ટેનર, કચરા પેટી ઉપાડી નથી  )  Container-Dustbin Spot Not lifted",
+  //   "( બિલ્ડીંગ મટીરીયલનો નિકાલ  )  Lifting of Building Materials",
+  //   "( બાંધકામ અને તોડફોડના કાટમાળનો નિકાલ )  Lifting of Construction and Demolition",
+  //   "( અન્ય  )  Other",
+  // ],
   Health: [
-    "( ખોરાક ભેળ સેળ  )  Adulteration of Food",
-    "( લાઇસન્સ વગર ધંધો કરે છે  )  Business Without License",
-    "( હોટલ, રેસ્ટોરંટની નિરીક્ષણ અંગેની ફરીયાદ )  Complaints Regarding Inspection of Hotels - Restaurants",
-    "( દુષિત પાણી વાળા વિસ્તારમાં ક્લોરિનની ગોળીઓનું વિતરણ  )  Distribution of Chlorine Tablets In Areas Where Water Contaminated",
-    "( ફૂડ પોઈઝનિંગ )  Food Poisoning",
-    "( હોટલ, રેસ્ટોરંટનો કચરો અને સફાઈ  )  Garbage And Cleanliness of Hotel-Restaurant",
-    "( હોસ્પિટલ અને દવાખાનાનો અયોગ્ય નિકાલ  )  Improper Disposal of Hospital-Dispensary Wastes",
-    "( હોટલ, રેસ્ટોરંટના કચરાનો અયોગ્ય નિકાલ  )  Improper Disposal of Hotel-Restaurant Wastes",
-    "( જીવજંતુઓની અટકાયતના કોઈ પગલા લીધા નથી  )  No Insecticide Measures Taken",
-    "( હોટલ, રેસ્ટોરંટમાં વાસી ખોરાકનું વેચાણ  )  Sale of Stale Food In Hotels and Restaurants",
-    "( છંટકાવ અયોગ્ય થયેલ છે  )  Spraying Not Done Properly",
-    "( ગંદા સ્થળોએ જંતુનાશક દવા છાંટવી  )  Sprinkling of Insecticides at Dirty Places",
-    "( અન્ય  )  Other",
+    "Interruption/failure of power supply",
+    "Voltage variation",
+    "Scheduled Outage / Load shedding",
+    "Metering",
+    "Billing",
+    "Disconnection / Reconnection",
   ],
   Others: ["( પાર્કિંગ )  Parking", "( ટાઉન પ્લાનીંગ )  Town Planning"],
 };
-
+const disomcsData = {
+  NONE: [],
+  DGVCL: ["Surat", "Bharuch", "Valsad", "Navsari"],
+  MGVCL: ["Vadodara", "Anand", "Kheda", "Panchmahal", "Dahod"],
+  PGVCL: ["Rajkot", "Jamnagar", "Junagadh", "Porbandar", "Bhuj"],
+  UGVCL: ["Mehsana", "Patan", "Banaskantha", "Sabarkantha", "Gandhinagar"],
+};
 const data = {
   NONE: [],
   Central: ["Shahpur", "Dariapur", "Jamalpur", "Khadia", "Asarva", "Shahibaug"],
@@ -128,54 +127,73 @@ const RegisterComplaint = () => {
   const [file_data, setFileData] = useState({});
   const [zone, setZone] = useState("NONE");
   const [ward, setWard] = useState("");
-  const [department, setDepartment] = useState("NONE");
+  const [department, setDepartment] = useState("Health");
   const navigate = useNavigate();
 
-  const restrictedWords = ["+", "-", "&&", "||", "!", "(", ")", "{", "}", "[", "]", "^",
-  "~", "*", "?", ":","<",">","</"];
+  const restrictedWords = [
+    "+",
+    "-",
+    "&&",
+    "||",
+    "!",
+    "(",
+    ")",
+    "{",
+    "}",
+    "[",
+    "]",
+    "^",
+    "~",
+    "*",
+    "?",
+    ":",
+    "<",
+    ">",
+    "</",
+  ];
 
   const handleChange = (event) => {
-   let description = event.target.value;
-    const wordArray = description.split(' ');
+    let description = event.target.value;
+    const wordArray = description.split(" ");
     let valid = true;
-  
+
     for (let i = 0; i < wordArray.length; i++) {
       if (restrictedWords.includes(wordArray[i])) {
-        toast.error("Invalid characters")
+        toast.error("Invalid characters");
         valid = false;
         break;
       }
     }
-  
+
     if (valid && description.length <= 512) {
       setDecription(description);
     } else {
       // Filter out the restricted words from the description
       restrictedWords.forEach((restrictedWord) => {
-        description = description.replace(restrictedWord, '');
+        description = description.replace(restrictedWord, "");
       });
-  
+
       // Update the description state with the filtered description
       setDecription(description);
     }
   };
   const handlePaste = (event) => {
     event.preventDefault();
-    const pastedText = event.clipboardData.getData('text');
+    const pastedText = event.clipboardData.getData("text");
     let filteredText = pastedText;
-    
+
     // Filter out the restricted words from the pasted text
     restrictedWords.forEach((restrictedWord) => {
-      filteredText = filteredText.replace(restrictedWord, '');
+      filteredText = filteredText.replace(restrictedWord, "");
     });
-  
+
     // Check if the pasted text is too long
     if (filteredText.length > 512) {
       // Truncate the pasted text to 500 characters
-      
+
       filteredText = filteredText.substring(0, 512);
     }
-    toast.error("Invalid characters")
+    toast.error("Invalid characters");
     // Update the input field with the filtered and truncated text
     event.target.value = filteredText;
   };
@@ -204,13 +222,12 @@ const RegisterComplaint = () => {
     } else {
       toast.error("Fail To Register");
     }
-    
   };
   useEffect(() => {
-    if (searchParams.get("department") !== null) {
-      setDepartment(
-        searchParams.get("department")[0].toUpperCase() +
-          searchParams.get("department").slice(1)
+    if (searchParams.get("discoms") !== null) {
+      setZone(
+        searchParams.get("discoms")[0].toUpperCase() +
+          searchParams.get("discoms").slice(1)
       );
     }
   }, [searchParams]);
@@ -221,7 +238,7 @@ const RegisterComplaint = () => {
           <form>
             <h3 className="title">Register Complaint</h3>
             <label>
-              <h4>DISCOMS  :</h4>
+              <h4>DISCOMS :</h4>
               <select
                 // className={form.select}
                 name="Zone"
@@ -236,11 +253,42 @@ const RegisterComplaint = () => {
                   {" "}
                   ( પસંદ કરો )
                 </option>
-                <option  value="Central">DGVCL</option>
-                <option value="East">MGVCL</option>
-                <option value="North">PGVCL</option>
-                <option value="South">UGVCL</option>
-                
+                <option
+                  selected={
+                    searchParams.get("discoms") &&
+                    searchParams.get("discoms") === "DGVCL"
+                  }
+                  value="DGVCL"
+                >
+                  DGVCL
+                </option>
+                <option
+                  selected={
+                    searchParams.get("discoms") &&
+                    searchParams.get("discoms") === "MGVCL"
+                  }
+                  value="MGVCL"
+                >
+                  MGVCL
+                </option>
+                <option
+                  selected={
+                    searchParams.get("discoms") &&
+                    searchParams.get("discoms") === "PGVCL"
+                  }
+                  value="PGVCL"
+                >
+                  PGVCL
+                </option>
+                <option
+                  selected={
+                    searchParams.get("discoms") &&
+                    searchParams.get("discoms") === "UGVCL"
+                  }
+                  value="UGVCL"
+                >
+                  UGVCL
+                </option>
               </select>
             </label>
             <label>
@@ -257,7 +305,7 @@ const RegisterComplaint = () => {
                   {" "}
                   ( પસંદ કરો )
                 </option>
-                {data[zone].map((ele, ind) => {
+                {disomcsData[zone].map((ele, ind) => {
                   return (
                     <>
                       <option key={ind} value={ele}>
@@ -279,10 +327,10 @@ const RegisterComplaint = () => {
                 onChange={(e) => {
                   setAddress(e.target.value);
                 }}
-               onPaste={handlePaste}
+                onPaste={handlePaste}
               />
             </label>
-            <label>
+            {/* <label>
               <h4>Department :</h4>
               <select
                 name="Department"
@@ -296,8 +344,7 @@ const RegisterComplaint = () => {
                 <option
                   selected={
                     searchParams.get("department") &&
-                    searchParams.get("department").toLowerCase() ===
-                      "electricity"
+                    searchParams.get("department") === "electricity"
                   }
                   value="Electricity"
                 >
@@ -340,7 +387,7 @@ const RegisterComplaint = () => {
                   Others
                 </option>
               </select>
-            </label>
+            </label> */}
             <label>
               {/* <h4>Enter Title Of Your Complaint:</h4>
             <input
@@ -372,16 +419,16 @@ const RegisterComplaint = () => {
                 })}
               </select>
               <h4>Description {`( <=512 character)`}</h4>
-              
-            <input
-              type="text"
-              name="problem"
-              required
-              placeholder="Enter your problem description"
-              value={description}
-              onChange={handleChange}
-              onPaste={handlePaste}
-            />
+
+              <input
+                type="text"
+                name="problem"
+                required
+                placeholder="Enter your problem description"
+                value={description}
+                onChange={handleChange}
+                onPaste={handlePaste}
+              />
             </label>
             {/* <label>
               <h4>Pincode</h4>
