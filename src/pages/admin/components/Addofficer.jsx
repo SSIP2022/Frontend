@@ -1,6 +1,7 @@
 import React from "react";
 import regpage from "../../../styles/Registerpage.module.scss";
 import { baseURL, queryfn } from "../../../config/config";
+
 let first_name = "";
 let last_name = "";
 let birth_date = "";
@@ -11,7 +12,22 @@ let area = "";
 let district = "";
 let mobile_number = "";
 let gender = "";
+let department = "";
 async function setUserData(e) {
+
+  e.preventDefault();
+  let phone_number = "+91" + e.target.phone.value;
+  first_name = e.target.firstname.value;
+  last_name = e.target.lastname.value;
+  birth_date = e.target.dob.value;
+  email = e.target.email.value;
+  pincode = e.target.pincode.value;
+  address = e.target.email.value;
+  area = e.target.area.value;
+  mobile_number = e.target.phone.value;
+  gender = e.target.gender.value;
+  department = e.target.department.value
+  console.log(phone_number)
   const data = await queryfn({
     endpoint: baseURL + "/user/register",
     reqMethod: "POST",
@@ -26,8 +42,8 @@ async function setUserData(e) {
       district: district,
       mobile_number: mobile_number,
       gender: gender,
-      role: "user",
-      department: null,
+      role: "officer",
+      department: department,
     }),
     failMsg: "User can not created",
   });
@@ -39,7 +55,7 @@ export default function Register() {
   return (
     <>
       <div className="formWrapper">
-        <form>
+        <form onSubmit={setUserData}>
           <h3 className={regpage.title}>Register Now</h3>
           <label htmlFor="username">First Name</label>
           <input type="text" name="firstname" id="firstname" required />
@@ -51,8 +67,16 @@ export default function Register() {
             type="number"
             name="phone"
           />
+          <label htmlFor="username">Department</label>
+          <select name="department">
+            <option value="Bharuch">Bharuch</option>
+            <option value="Surat">Surat</option>
+            <option value="Rajkot">Rajkot</option>
+          </select>
+
           <label htmlFor="username">Email</label>
           <input type="email" id="email" name="email" required />
+
           <label htmlFor="username">Date of Birth</label>
           <input name="dob" type="date" id="dob" required />
           <label htmlFor="username">Gender</label>
