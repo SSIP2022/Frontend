@@ -32,7 +32,7 @@ const Complain = () => {
       text: "Resolved",
       color: "rgb(255 146 13)",
     },
-    reassign: {
+    reopen: {
       text: "No Action",
       color: "#11BF7F",
     },
@@ -298,12 +298,10 @@ const Complain = () => {
               Submit
             </button>
           </div>
-        </Modal>  
+        </Modal>
       ) : (
         <>
-          <div
-            className={track.container}
-          >
+          <div className={track.container}>
             <button
               onClick={(e) => {
                 getUserComplaints("");
@@ -416,7 +414,6 @@ const Complain = () => {
                               alignItems: "end",
                               fontWeight: "500",
                               justifyContent: "center",
-
                             }}
                           >
                             <BsFillCircleFill
@@ -428,7 +425,7 @@ const Complain = () => {
                                     "color"
                                   ],
 
-                                marginRight: "10px",  
+                                marginRight: "10px",
                               }}
                             />
                             <div

@@ -25,7 +25,7 @@ export const queryfn = async ({
   // loading.id = "loadingSection";
   // loading.innerHTML = `<h3 class="loadingModelStyle"> <img alt="loading gif" class="loadingImgStyle" src="/other/loading.gif" /> Loading...</h3>`;
   // root.appendChild(loading);
-  console.log(`${store.getState().user.token}`);
+  // console.log(`${store.getState().user.token}`);
   let response = await fetch(endpoint, {
     method: reqMethod,
     credentials: "include",
@@ -158,7 +158,7 @@ export const fileQueryfn = async ({
       }
 
       //finally again send req
-      console.log(store.getState().user.token);
+      // console.log(store.getState().user.token);
       // root.appendChild(loading);
       response = await fetch(endpoint, {
         method: reqMethod,
