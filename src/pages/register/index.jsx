@@ -89,6 +89,8 @@ function Register() {
         district: district,
         mobile_number: mobile_number,
         gender: gender,
+        role: "user",
+        department: null
       }),
       failMsg: "User can not created",
     });

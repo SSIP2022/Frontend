@@ -128,7 +128,7 @@ const RegisterComplaint = () => {
   const [file_data, setFileData] = useState({});
   const [zone, setZone] = useState("NONE");
   const [ward, setWard] = useState("");
-  const [department, setDepartment] = useState("NONE");
+  const [department, setDepartment] = useState("Health");
   const navigate = useNavigate();
 
   const restrictedWords = ["+", "-", "&&", "||", "!", "(", ")", "{", "}", "[", "]", "^",
