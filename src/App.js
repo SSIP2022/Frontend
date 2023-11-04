@@ -32,6 +32,7 @@ import Tasks from "./pages/worker/components/Tasks";
 import MergeComplain from "./pages/department/components/MergeComplain";
 import Faqs from "./pages/faq/FAQ";
 import HowItWorks from "./pages/howItWorks";
+import Useranalytics from "./pages/user/components/Useranalytics";
 function App() {
   // const [isAuthenticated, setIsAuthenticated] = useState(false);
 
@@ -77,6 +78,8 @@ function App() {
           <Route path="home" element={<Home />} />
           <Route path="faq" element={<Faqs />} />
           <Route path="how-it-works" element={<HowItWorks />} />
+          <Route path="analytics" element={<Useranalytics />} />
+
         </Route>
         <Route path="/officer" element={<Department />}>
           <Route path="home" element={<OfficerComplain />} />
