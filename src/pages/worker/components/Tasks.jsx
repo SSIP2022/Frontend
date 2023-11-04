@@ -48,7 +48,7 @@ const Home = () => {
       text: "Closed",
       color: "rgb(255 146 13)",
     },
-    reassign: {
+    reopen: {
       text: "No Action",
       color: "#11BF7F",
     },
@@ -320,23 +320,23 @@ const Home = () => {
             <h3>{details.subject}</h3>
           </Modal> */}
           <Drawer isActive={openDetails} close={() => setOpenDetails(false)}>
-          <div style={{ display: "flex", flexDirection: "column" }}>
-            <div style={{ margin: "auto"  }}>
-              <img
-                className={track.modalimg}
-                src={
-                  JSON.parse(details.file_data[0]).url
-                    ? JSON.parse(details.file_data[0]).url
-                    : "/istockphoto-1074493878-612x612.png"
-                }
-                alt=""
-              />
-            </div>
-            <div className={track.details}>
-              <h4>
-                <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
-                {details.creator_id.slice(-6)}
-              </h4>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <div style={{ margin: "auto" }}>
+                <img
+                  className={track.modalimg}
+                  src={
+                    JSON.parse(details.file_data[0]).url
+                      ? JSON.parse(details.file_data[0]).url
+                      : "/istockphoto-1074493878-612x612.png"
+                  }
+                  alt=""
+                />
+              </div>
+              <div className={track.details}>
+                <h4>
+                  <Span text="User ID" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
+                  {details.creator_id.slice(-6)}
+                </h4>
 
                 <h4>
                   <Span text="Subject" bgcolor="rgba(167, 164, 165, 0.4)" /> :{" "}
