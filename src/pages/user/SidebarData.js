@@ -33,5 +33,11 @@ export const sidebarData = [
     icon: "🧔🏻",
     cName: "nav-text",
   },
+  {
+    title: "Analytics",
+    path: "/user/analytics",
+    icon: "📈",
+    cName: "nav-text",
+  },
 
 ];
